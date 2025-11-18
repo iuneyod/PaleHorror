@@ -13,6 +13,7 @@ public class Comon_Mutant : MonoBehaviour
     public Transform player;
     public ParticleSystem ParticleSystem;
     public GameObject AttackTrigger;
+    public int EnemigosMuertos = 0;
 
     public bool HasAxe = false;
     public bool attacking = false;
@@ -130,6 +131,7 @@ public class Comon_Mutant : MonoBehaviour
     void Die()
     {
         isDead = true;
+        EnemigosMuertos += 1;
         if (attackRoutine != null)
         {
             StopCoroutine(attackRoutine);
