@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class Quests : MonoBehaviour
 {
-    public GameObject questButton;
+    public GameObject GoToQuest;
     public GameObject questPanel;
-    public GameObject LogrosButton;
+    public GameObject GoToLogros;
     public GameObject LogrosPanel;
 
 
@@ -22,7 +22,7 @@ public class Quests : MonoBehaviour
     public TMP_Text Quest9;
     public TMP_Text Quest10;
 
-    public bool Quest1Completed = false;
+    private bool Quest1Completed = false;
     private bool Quest2Completed = false;
     private bool Quest3Completed = false;
     private bool Quest4Completed = false;
@@ -33,7 +33,15 @@ public class Quests : MonoBehaviour
     private bool Quest9Completed = false;
     private bool Quest10Completed = false;
 
+    [SerializeField]
     Bonfire bonfire;
+
+    Bandera_Monumento bandera_Monumento;
+    BanderaMonumento2 banderaMonumento2;
+    BanderaMonumentoHielo banderaMonumentoHielo;
+    BanderaMonumentoCuracion banderaMonumentoCuracion;
+    Campamento_Script campamento_Script;
+    Map_Script map_Script;
 
 
 
@@ -41,9 +49,16 @@ public class Quests : MonoBehaviour
     {
         questPanel.SetActive(false);
         LogrosPanel.SetActive(false);
-        LogrosButton.SetActive(false);
+        GoToLogros.SetActive(false);
         LogrosPanel.SetActive(false);
-        bonfire = FindObjectOfType<Bonfire>();
+
+        //bonfire = FindObjectOfType<Bonfire>();
+        bandera_Monumento = FindObjectOfType<Bandera_Monumento>();
+        banderaMonumento2 = FindObjectOfType<BanderaMonumento2>();
+        banderaMonumentoHielo = FindObjectOfType<BanderaMonumentoHielo>();
+        banderaMonumentoCuracion = FindObjectOfType<BanderaMonumentoCuracion>();
+        campamento_Script = FindObjectOfType<Campamento_Script>();
+        map_Script = FindObjectOfType<Map_Script>();
     }
 
     private void Update()
@@ -52,7 +67,23 @@ public class Quests : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
         {
             questPanel.SetActive(true);
-            questButton.SetActive(true);
+            GoToLogros.SetActive(true);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape) && questPanel.gameObject.activeSelf)
+        {
+            questPanel.SetActive(false);
+            LogrosPanel.SetActive(false);
+            GoToLogros.SetActive(false);
+            GoToQuest.SetActive(false);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape) && LogrosPanel.gameObject.activeSelf)
+        {
+            questPanel.SetActive(false);
+            LogrosPanel.SetActive(false);
+            GoToLogros.SetActive(false);
+            GoToQuest.SetActive(false);
         }
 
         // Si cualquiera de los dos paneles está abierto + cursor libre
@@ -112,16 +143,16 @@ public class Quests : MonoBehaviour
     {
         questPanel.SetActive(false);
         LogrosPanel.SetActive(true);
-        LogrosButton.SetActive(false);
-        questButton.SetActive(true);
+        GoToLogros.SetActive(false);
+        GoToQuest.SetActive(true);
     }
 
     public void LogrosToQuest()
     {
         questPanel.SetActive(true);
         LogrosPanel.SetActive(false);
-        LogrosButton.SetActive(true);
-        questButton.SetActive(false);
+        GoToLogros.SetActive(true);
+        GoToQuest.SetActive(false);
     }
 
 
@@ -138,7 +169,7 @@ public class Quests : MonoBehaviour
     public void Mision2()
     {
         //encuentra el campamento de supervivientes
-        if (Quest1Completed == true)
+        if (campamento_Script.Campamento_Desbloqueado == true)
         {
             Quest2Completed = true;
             Quest2.text = "Mision 2 Completada";
@@ -148,7 +179,7 @@ public class Quests : MonoBehaviour
     public void Mision3()
     {
         //busca el mapa
-        if (Quest2Completed == true)
+        if (map_Script.Mapa_Desbloqueado == true)
         {
             Quest3Completed = true;
             Quest3.text = "Mision 3 Completada";
@@ -178,7 +209,7 @@ public class Quests : MonoBehaviour
     public void Mision6()
     {
         //activa los 4 pilares
-        if (Quest5Completed == true)
+        if (bandera_Monumento.Monumento1_Desbloqueado == true && banderaMonumento2.Monumento2_Desbloqueado == true && banderaMonumentoHielo.Monumento3_Desbloqueado == true && banderaMonumentoCuracion.Monumento4_Desbloqueado == true)
         {
             Quest6Completed = true;
             Quest6.text = "Mision 6 Completada";

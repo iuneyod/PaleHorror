@@ -92,6 +92,14 @@ public class Bonfire : MonoBehaviour
             rocksMesh.SetActive(false);
             outlineMesh.SetActive(false);
         }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Debug.Log($"1:{placed1}  2:{placed2}  3:{placed3}  4:{placed4}  5:{placed5}  6:{placed6}");
+            Debug.Log($"7:{placed7}  8:{placed8}  9:{placed9} 10:{placed10} 11:{placed11} 12:{placed12}");
+            Debug.Log("BonfireFinished1 = " + BonfireFinished1);
+        }
+
     }
 
     void ColocarPiedra()
