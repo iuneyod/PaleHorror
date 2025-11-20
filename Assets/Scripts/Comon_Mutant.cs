@@ -141,8 +141,15 @@ public class Comon_Mutant : MonoBehaviour
         AttackTrigger.SetActive(false);
         animator.SetTrigger("IsDead");
 
-        if (ParticleSystem) ParticleSystem.Play();
+        StartCoroutine(DestroyAfterDelay());
         tag = "Untagged";
         Destroy(gameObject, 4f);
+    }
+
+    public IEnumerator DestroyAfterDelay()
+    {
+        ParticleSystem.Play();
+        yield return new WaitForSeconds(1.2f);
+        ParticleSystem.Stop();
     }
 }
