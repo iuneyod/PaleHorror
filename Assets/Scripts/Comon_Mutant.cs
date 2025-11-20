@@ -24,6 +24,19 @@ public class Comon_Mutant : MonoBehaviour
     private void Start()
     {
         if (ParticleSystem) ParticleSystem.Stop();
+
+        if (player == null)
+        {
+            GameObject p = GameObject.FindGameObjectWithTag("Player");
+            if (p != null)
+            {
+                player = p.transform;
+            }
+            else
+            {
+                Debug.LogError("No se encontró al jugador. Asegúrate de que el Player tenga el tag 'Player'.");
+            }
+        }
     }
 
     void Update()

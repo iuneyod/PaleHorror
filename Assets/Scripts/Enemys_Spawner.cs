@@ -7,62 +7,48 @@ public class Enemys_Spawner : MonoBehaviour
     public GameObject Efectos;
     public GameObject Enemy;
     public Transform[] SpawnPoints;
-    public bool enArea = false;
-    public bool puedenSpawnear = false;
-    public bool Victoria = false;
 
+    public bool enArea = false;
+    public bool yaSpawnearon = false;  // <--- NUEVO
+    public int enemigosMaximos = 6;    // <--- NUEVO
+    private int enemigosActuales = 0;  // <--- NUEVO
 
     private void Start()
     {
         Efectos.SetActive(false);
     }
-    public void OnTriggerEnter(Collider other)
+
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             enArea = true;
+
+            if (!yaSpawnearon)   // evita que respawnee infinitamente
+            {
+                StartCoroutine(SpawnRoutine());
+                yaSpawnearon = true;
+            }
         }
     }
 
-    public void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-
-        }
-    }
-
-    private void Update()
-    {
-        if (enArea)
-        {
-            SpawnEnemy();
-        }
-    }
-
-    void SpawnEnemy()
-    {
-        StartCoroutine(EfectosDeEntrada());
-        if(puedenSpawnear)
-        {
-            int spawnIndex = Random.Range(0, SpawnPoints.Length);
-            Instantiate(Enemy, SpawnPoints[spawnIndex].position, SpawnPoints[spawnIndex].rotation);
-            puedenSpawnear = false;
-        }
-
-        //si no quedan enemigos vivos en el area, desactivar efectos
-        //if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
-        //{
-        //    Efectos.SetActive(false);
-        //    enArea = false;
-        //    Victoria = true;
-        //}
-    }
-
-    public IEnumerator EfectosDeEntrada()
+    private IEnumerator SpawnRoutine()
     {
         Efectos.SetActive(true);
         yield return new WaitForSeconds(2f);
-        puedenSpawnear = true;
+
+        for (int i = 0; i < enemigosMaximos; i++)
+        {
+            int spawnIndex = Random.Range(0, SpawnPoints.Length);
+
+            Instantiate(Enemy,
+                SpawnPoints[spawnIndex].position,
+                SpawnPoints[spawnIndex].rotation);
+
+            enemigosActuales++;
+            yield return new WaitForSeconds(0.2f); // spawn más limpio
+        }
+
+        Efectos.SetActive(false);
     }
 }

@@ -80,6 +80,7 @@ GameObject:
   - component: {fileID: 6589440287070451230}
   - component: {fileID: 4872489169424077207}
   - component: {fileID: 3212464621241758825}
+  - component: {fileID: 1894944758319199795}
   m_Layer: 8
   m_Name: PlayerArmature
   m_TagString: Player
@@ -343,7 +344,31 @@ MonoBehaviour:
   PunchHitBox: {fileID: 8486250478812132025}
   animator: {fileID: 7930490122344824380}
   isPunching: 0
-  HasCoconut: 0
+  canPunch: 1
+  vidaText: {fileID: 0}
+--- !u!136 &1894944758319199795
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 463236617251174108}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.28
+  m_Height: 1.8
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.93, z: 0}
 --- !u!1 &891526004255555362
 GameObject:
   m_ObjectHideFlags: 0
@@ -1387,7 +1412,7 @@ Transform:
   m_GameObject: {fileID: 4424142878747702257}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.23, y: 1.449, z: 0.578}
+  m_LocalPosition: {x: 0.23, y: 1.449, z: 0.643}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2435,7 +2460,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2521767323114304491
 Transform:
   m_ObjectHideFlags: 0
@@ -2470,8 +2495,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.6, y: 0.9, z: 0.9}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.7, y: 0.9, z: 1.1}
+  m_Center: {x: -0.006265253, y: 0, z: 0.10770261}
 --- !u!1 &8775885267450187508
 GameObject:
   m_ObjectHideFlags: 0
@@ -2791,9 +2816,21 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4303634763429738971, guid: 0e55d5c42cc96404f872b45455603f8b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9.3
+      objectReference: {fileID: 0}
+    - target: {fileID: -4303634763429738971, guid: 0e55d5c42cc96404f872b45455603f8b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 34.6
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0e55d5c42cc96404f872b45455603f8b, type: 3}
       propertyPath: m_Name
       value: SK_Military_Survivalist
+      objectReference: {fileID: 0}
+    - target: {fileID: 1294338093222745864, guid: 0e55d5c42cc96404f872b45455603f8b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -69.7
       objectReference: {fileID: 0}
     - target: {fileID: 5808880123208962777, guid: 0e55d5c42cc96404f872b45455603f8b, type: 3}
       propertyPath: m_IsActive
