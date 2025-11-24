@@ -12,6 +12,9 @@ public class Player_Stats : MonoBehaviour
     public Animator animator;
     public bool isPunching = false;
     public bool canPunch = true;
+    public LayerMask Water;
+    public Rigidbody rb;
+    ThirdPersonController controller;
 
     public TMP_Text vidaText;
 
@@ -19,6 +22,9 @@ public class Player_Stats : MonoBehaviour
     private void Start()
     {
         canPunch = true;
+        animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody>();
+        controller = GetComponent<ThirdPersonController>();
     }
     private void OnGUI()
     {
@@ -52,8 +58,6 @@ public class Player_Stats : MonoBehaviour
     public IEnumerator Punch()
     {
         canPunch = false; // bloquea ataque
-
-        yield return new WaitForSeconds(0.6f);
         PunchHitBox.SetActive(true);
         isPunching = true;
 
@@ -62,7 +66,7 @@ public class Player_Stats : MonoBehaviour
         PunchHitBox.SetActive(false);
         isPunching = false;
 
-        yield return new WaitForSeconds(1.5f); // cooldown
+        yield return new WaitForSeconds(1f); // cooldown
         canPunch = true;
     }
 
@@ -71,6 +75,16 @@ public class Player_Stats : MonoBehaviour
         if (other.gameObject.CompareTag("EnemyPunch"))
         {
             TakeDamage(10);
+        }
+        if (other.gameObject.CompareTag("Water"))
+        {
+            canPunch = false;
+            controller.Grounded = false;
+        }
+        else
+        {
+            canPunch = true;
+            controller.Grounded = true;
         }
     }
 
