@@ -49,6 +49,8 @@ public class Enemys_Spawner : MonoBehaviour
             yield return new WaitForSeconds(0.2f); // spawn más limpio
         }
 
+        yield return new WaitForSeconds(1f);
+
         Efectos.SetActive(false);
     }
 }
