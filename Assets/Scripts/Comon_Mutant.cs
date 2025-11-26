@@ -1,10 +1,12 @@
+using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class Comon_Mutant : MonoBehaviour
 {
-    public int health = 100;
-    public int maxHealth = 100;
+    public int health = 60;
+    public int maxHealth = 60;
     public int damage = 10;
     public Animator animator;
     public int Speed = 3;
@@ -13,13 +15,18 @@ public class Comon_Mutant : MonoBehaviour
     public Transform player;
     public ParticleSystem ParticleSystem;
     public GameObject AttackTrigger;
-    public int EnemigosMuertos = 0;
+    public int MutanteComunMuertos = 0;
+
+    public bool puedeDropear = true;          // Controlado por Inventario
 
     public bool HasAxe = false;
     public bool attacking = false;
     private bool isDead = false;
     private bool canAttack = true;
     private Coroutine attackRoutine;
+
+    Inventario inventario;
+    Level_Experience levelExperience;
 
     private void Start()
     {
@@ -28,20 +35,17 @@ public class Comon_Mutant : MonoBehaviour
         if (player == null)
         {
             GameObject p = GameObject.FindGameObjectWithTag("Player");
-            if (p != null)
-            {
-                player = p.transform;
-            }
-            else
-            {
-                Debug.LogError("No se encontró al jugador. Asegúrate de que el Player tenga el tag 'Player'.");
-            }
+            if (p != null) player = p.transform;
         }
+
+        inventario = FindObjectOfType<Inventario>();
+        levelExperience = FindObjectOfType<Level_Experience>();
     }
 
     void Update()
     {
         if (isDead) return;
+        if (player == null) return;
 
         float distance = Vector3.Distance(transform.position, player.position);
 
@@ -51,8 +55,10 @@ public class Comon_Mutant : MonoBehaviour
             {
                 Vector3 dir = (player.position - transform.position).normalized;
                 transform.position += dir * Speed * Time.deltaTime;
+
                 Quaternion rot = Quaternion.LookRotation(dir);
                 transform.rotation = Quaternion.Slerp(transform.rotation, rot, Time.deltaTime * 5f);
+
                 animator.SetBool("IsRun", true);
                 animator.SetBool("Idle", false);
             }
@@ -81,7 +87,6 @@ public class Comon_Mutant : MonoBehaviour
         animator.SetBool("Idle", false);
         animator.SetTrigger("Attack");
 
-
         yield return new WaitForSeconds(0.4f);
         AttackTrigger.SetActive(true);
         yield return new WaitForSeconds(0.05f);
@@ -90,7 +95,6 @@ public class Comon_Mutant : MonoBehaviour
         yield return new WaitForSeconds(1.2f);
         attacking = false;
 
-        // cooldown de 1.5 s antes del siguiente ataque
         yield return new WaitForSeconds(1.5f);
         canAttack = true;
         attackRoutine = null;
@@ -117,6 +121,31 @@ public class Comon_Mutant : MonoBehaviour
 
             if (HasAxe) TakeDamage(10);
         }
+        if (other.CompareTag("SpecialEffect1") && !isDead)
+        {
+            StartCoroutine(SpeedVariant());
+            if (attackRoutine != null)
+            {
+                StopCoroutine(attackRoutine);
+                attackRoutine = null;
+                AttackTrigger.SetActive(false);
+                attacking = false;
+                canAttack = false;
+                StartCoroutine(ResetAttackCooldown());
+            }
+
+            TakeDamage(40);
+            animator.ResetTrigger("Attack");
+            animator.SetTrigger("Hit1");
+            StartCoroutine(GoIdle());
+        }
+    }
+
+    public IEnumerator SpeedVariant()
+    {
+        Speed /= 2;
+        yield return new WaitForSeconds(2f);
+        Speed *= 2;
     }
 
     IEnumerator ResetAttackCooldown()
@@ -136,6 +165,7 @@ public class Comon_Mutant : MonoBehaviour
     public void TakeDamage(int amount)
     {
         if (isDead) return;
+
         health -= amount;
         if (health <= 0)
             Die();
@@ -144,7 +174,9 @@ public class Comon_Mutant : MonoBehaviour
     void Die()
     {
         isDead = true;
-        EnemigosMuertos += 1;
+        MutanteComunMuertos++;
+        levelExperience.AddExperience(140);
+
         if (attackRoutine != null)
         {
             StopCoroutine(attackRoutine);
@@ -156,7 +188,20 @@ public class Comon_Mutant : MonoBehaviour
 
         StartCoroutine(DestroyAfterDelay());
         tag = "Untagged";
+        gameObject.layer = LayerMask.NameToLayer("NoColision");
         Destroy(gameObject, 4f);
+
+        // --- DROP DE DIENTE ---
+        if (puedeDropear && inventario.DienteComun < 5)
+        {
+            int dropChance = UnityEngine.Random.Range(0, 100);
+
+            if (dropChance < 99) // 99% chance
+            {
+                inventario.DienteComun += 1;
+                Debug.Log("DROP DIENTE");
+            }
+        }
     }
 
     public IEnumerator DestroyAfterDelay()

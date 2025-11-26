@@ -41,8 +41,7 @@ public class Quests : MonoBehaviour
     BanderaMonumentoHielo banderaMonumentoHielo;
     BanderaMonumentoCuracion banderaMonumentoCuracion;
     Campamento_Script campamento_Script;
-    Map_Script map_Script;
-
+    IceCrystal iceCrystal;
 
 
     void Start()
@@ -58,7 +57,7 @@ public class Quests : MonoBehaviour
         banderaMonumentoHielo = FindObjectOfType<BanderaMonumentoHielo>();
         banderaMonumentoCuracion = FindObjectOfType<BanderaMonumentoCuracion>();
         campamento_Script = FindObjectOfType<Campamento_Script>();
-        map_Script = FindObjectOfType<Map_Script>();
+        iceCrystal = FindObjectOfType<IceCrystal>();
     }
 
     private void Update()
@@ -179,7 +178,7 @@ public class Quests : MonoBehaviour
     public void Mision3()
     {
         //busca el mapa
-        if (map_Script.Mapa_Desbloqueado == true)
+        if (iceCrystal.IceCrystal_Desbloqueado == true)
         {
             Quest3Completed = true;
             Quest3.text = "Mision 3 Completada";

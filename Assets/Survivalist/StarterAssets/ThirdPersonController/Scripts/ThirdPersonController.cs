@@ -15,17 +15,19 @@ namespace StarterAssets
 #endif
 	public class ThirdPersonController : MonoBehaviour
 	{
-		[Header("Player")]
+        Level_Experience levelExperience;
+
+
+        [Header("Player")]
 		[Tooltip("Move speed of the character in m/s")]
-		public float MoveSpeed = 2.0f;
+		public float MoveSpeed = 3f;
 		[Tooltip("Sprint speed of the character in m/s")]
-		public float SprintSpeed = 5.335f;
+		public float SprintSpeed = 6f;
 		[Tooltip("How fast the character turns to face movement direction")]
 		[Range(0.0f, 0.3f)]
 		public float RotationSmoothTime = 0.12f;
 		[Tooltip("Acceleration and deceleration")]
 		public float SpeedChangeRate = 10.0f;
-		public bool isCojeando = false;
 
 
         [Header("Energy System")]
@@ -116,8 +118,9 @@ namespace StarterAssets
 			_hasAnimator = TryGetComponent(out _animator);
 			_controller = GetComponent<CharacterController>();
 			_input = GetComponent<StarterAssetsInputs>();
+            levelExperience = FindObjectOfType<Level_Experience>();
 
-			AssignAnimationIDs();
+            AssignAnimationIDs();
 
 			// reset our timeouts on start
 			_jumpTimeoutDelta = JumpTimeout;
@@ -127,27 +130,64 @@ namespace StarterAssets
 		private void Update()
 		{
 			_hasAnimator = TryGetComponent(out _animator);
-			
+
 			JumpAndGravity();
 			GroundedCheck();
 			Move();
-            HandleEnergy();
+			HandleEnergy();
 
-			if (isCojeando == true)
+			if (levelExperience.isLevel2 == true)
 			{
-				MoveSpeed = 1.5f;
-                SprintSpeed = 2f;
-				currentEnergy = 5f;
-                maxEnergy = 5f;
-                JumpHeight = 1f;
+				maxEnergy = 12f;
+				energyRegenRate = 1.2f;
+			}
+			if (levelExperience.isLevel3 == true)
+			{
+				maxEnergy = 14f;
+				energyRegenRate = 2f;
+				MoveSpeed = 3.5f;
+				SprintSpeed = 6.5f;
+			}
+			if (levelExperience.isLevel4 == true)
+			{
+				maxEnergy = 16f;
+				energyRegenRate = 4f;
+				MoveSpeed = 4f;
+				SprintSpeed = 7f;
+			}
+			if (levelExperience.isLevel5 == true)
+			{
+				maxEnergy = 18f;
+				energyRegenRate = 5f;
+				MoveSpeed = 4.5f;
+				SprintSpeed = 7.5f;
+			}
+			if (levelExperience.isLevel6 == true)
+			{
+				maxEnergy = 20f;
+				energyRegenRate = 6f;
+			}
+            if (levelExperience.isLevel7 == true)
+            {
+                maxEnergy = 22f;
+                energyRegenRate = 7f;
             }
-			else
+			if(levelExperience.isLevel8 == true)
 			{
-                MoveSpeed = 2.0f;
-                SprintSpeed = 5.335f;
-                currentEnergy = 10f;
-                maxEnergy = 10f;
-                JumpHeight = 1.2f;
+                maxEnergy = 24f;
+                energyRegenRate = 8f;
+                MoveSpeed = 5f;
+                SprintSpeed = 8f;
+            }
+			if (levelExperience.isLevel9 == true)
+			{
+                maxEnergy = 26f;
+                energyRegenRate = 9f;
+            }
+            if (levelExperience.isLevel10 == true)
+			{
+				maxEnergy = 30f;
+                energyRegenRate = 10f;
             }
         }
 

@@ -9,6 +9,9 @@ TagManager:
   - Enemy
   - EnemyPunch
   - Water
+  - DientesText
+  - NoColision
+  - SpecialEffect1
   layers:
   - Default
   - TransparentFX
@@ -16,8 +19,8 @@ TagManager:
   - Ground
   - Water
   - UI
-  - 
-  - 
+  - NoColision
+  - Player
   - 
   - 
   - 

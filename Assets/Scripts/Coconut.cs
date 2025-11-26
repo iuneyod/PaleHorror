@@ -22,6 +22,7 @@ public class Coconut : MonoBehaviour
 
     private void Start()
     {
+
         if (outlineMesh != null)
             outlineMesh.SetActive(false);
 

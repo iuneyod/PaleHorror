@@ -2,15 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Map_Script : MonoBehaviour
+public class IceCrystal : MonoBehaviour
 {
     public bool enArea = false;
     public GameObject Particulas;
-    public bool Mapa_Desbloqueado = false;
+    public bool IceCrystal_Desbloqueado = false;
+
+    Player_Stats playerStats;
 
     private void Start()
     {
         Particulas.SetActive(false);
+        playerStats = FindObjectOfType<Player_Stats>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -48,7 +51,8 @@ public class Map_Script : MonoBehaviour
         Particulas.SetActive(true);
         yield return new WaitForSeconds(2f);
         Particulas.SetActive(false);
-        Mapa_Desbloqueado = true;
+        IceCrystal_Desbloqueado = true;
+        playerStats.canSpecialAttack1 = true;
         Destroy(gameObject);
     }
 }
