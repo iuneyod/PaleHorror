@@ -138,6 +138,13 @@ public class Rare_Mutant : MonoBehaviour
             animator.SetTrigger("Hit1");
             StartCoroutine(GoIdle());
         }
+
+        if (other.CompareTag("BalaAttack"))
+        {
+            TakeDamage(5);
+            animator.SetTrigger("Hit1");
+
+        }
     }
 
     public IEnumerator SpeedVariant()

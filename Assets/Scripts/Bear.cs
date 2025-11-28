@@ -8,9 +8,9 @@ public class Bear : MonoBehaviour
     public int maxHealth = 120;
     public int damage = 15;
     public Animator animator;
-    public int Speed = 4;
+    public float Speed = 4.5f;
     public float chaseRange = 15f;
-    public float attackRange = 2.2f;
+    public float attackRange = 2.6f;
     public Transform player;
     public ParticleSystem ParticleSystem;
     public GameObject AttackTrigger;
@@ -226,6 +226,13 @@ public class Bear : MonoBehaviour
 
             animator.SetTrigger("Get Hit Front");
             StartCoroutine(GoIdle());
+        }
+
+        if (other.CompareTag("BalaAttack"))
+        {
+            TakeDamage(5);
+            animator.SetTrigger("Get Hit Front");
+
         }
     }
 

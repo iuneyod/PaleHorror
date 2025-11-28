@@ -139,6 +139,13 @@ public class Comon_Mutant : MonoBehaviour
             animator.SetTrigger("Hit1");
             StartCoroutine(GoIdle());
         }
+
+        if (other.CompareTag("BalaAttack"))
+        {
+            TakeDamage(5);
+            animator.SetTrigger("Hit1");
+
+        }
     }
 
     public IEnumerator SpeedVariant()
@@ -175,7 +182,7 @@ public class Comon_Mutant : MonoBehaviour
     {
         isDead = true;
         MutanteComunMuertos++;
-        levelExperience.AddExperience(140);
+        levelExperience.AddExperience(4500);
 
         if (attackRoutine != null)
         {

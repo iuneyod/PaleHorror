@@ -34,11 +34,11 @@ public class IceCrystal : MonoBehaviour
 
     private void Update()
     {
-        Mapa();
+        Coger();
     }
 
 
-    public void Mapa()
+    public void Coger()
     {
         if (enArea == true && Input.GetKeyDown(KeyCode.E))
         {

@@ -12,9 +12,13 @@ public class Player_Stats : MonoBehaviour
     public Animator animator;
     public bool isPunching = false;
     public bool canPunch = true;
+    public bool isDead = false;
     public LayerMask Water;
     public Rigidbody rb;
 
+    //[Special Attacks]
+
+    //ATACK 1
     public Transform SpecialAttackPosition1;
 
     //efectos
@@ -23,9 +27,17 @@ public class Player_Stats : MonoBehaviour
     public GameObject triggerArea1;
     public bool canSpecialAttack1 = false;
 
+    //ATACK 2
+    public bool canSpecialAttack2 = false;
+    public int damageBalaAttack2 = 5;
+    public float delayBalaAttack2 = 1.5f;
+    public GameObject balaPrefab;
+    public Transform balaSpawnPoint;
+
     ThirdPersonController controller;
     Level_Experience levelExperience;
     IceCrystal iceCrystal;
+    RedCrystal redCrystal;
 
     public TMP_Text vidaText;
 
@@ -38,12 +50,15 @@ public class Player_Stats : MonoBehaviour
         controller = GetComponent<ThirdPersonController>();
         levelExperience = FindObjectOfType<Level_Experience>();
         iceCrystal = FindObjectOfType<IceCrystal>();
+        redCrystal = FindObjectOfType<RedCrystal>();
+
         attackEffect1.SetActive(false);
         IntroAttack1.SetActive(false);
         triggerArea1.SetActive(false);
         IntroAttack1.transform.position = SpecialAttackPosition1.position;
         attackEffect1.transform.position = SpecialAttackPosition1.position;
         triggerArea1.transform.position = SpecialAttackPosition1.position;
+        isDead = false;
     }
     private void OnGUI()
     {
@@ -68,9 +83,14 @@ public class Player_Stats : MonoBehaviour
             StartCoroutine(Punch());
         }
 
-        if (Input.GetKeyDown(KeyCode.P) && isPunching == false && canPunch && iceCrystal.IceCrystal_Desbloqueado == true && canSpecialAttack1 == true)
+        if (Input.GetKeyDown(KeyCode.Alpha1) && isPunching == false && canPunch && iceCrystal.IceCrystal_Desbloqueado == true && canSpecialAttack1 == true)
         {
             StartCoroutine(AttackEffect1());
+        }
+
+        if (Input.GetMouseButtonDown(1) && isPunching == false && canPunch && redCrystal.RedCrystal_Desbloqueado == true && canSpecialAttack2 == true)
+        {
+            StartCoroutine(BalaAttack2());
         }
 
         vidaText.text = "Vida: " + Vida.ToString();
@@ -94,6 +114,11 @@ public class Player_Stats : MonoBehaviour
         if (levelExperience.isLevel10 == true)
         {
             MaxVida = 100;
+        }
+
+        if(Vida <= 0 && isDead == false)
+        {
+            Die();
         }
     }
 
@@ -131,6 +156,22 @@ public class Player_Stats : MonoBehaviour
         yield return new WaitForSeconds(20f);
         canSpecialAttack1 = true;
     }
+
+    public IEnumerator BalaAttack2()
+    {
+        canSpecialAttack2 = false;
+
+        // Instancias directamente el prefab
+        GameObject bala = Instantiate(balaPrefab, balaSpawnPoint.position, balaSpawnPoint.rotation);
+
+        Rigidbody rbBala = bala.GetComponent<Rigidbody>();
+        rbBala.AddForce(balaSpawnPoint.forward * 30f, ForceMode.Impulse);
+
+        yield return new WaitForSeconds(delayBalaAttack2);
+
+        canSpecialAttack2 = true;
+    }
+
     public IEnumerator Punch()
     {
         canPunch = false; // bloquea ataque
@@ -158,6 +199,21 @@ public class Player_Stats : MonoBehaviour
             canPunch = false;
             controller.Grounded = false;
         }
+
+        if (other.gameObject.CompareTag("PrimerAttack1"))
+        {
+            TakeDamage(20);
+        }
+
+        if (other.gameObject.CompareTag("SegundoAttack1"))
+        {
+            TakeDamage(25);
+        }
+
+        if (other.gameObject.CompareTag("FreezeArea"))
+        {
+            StartCoroutine(FreezeEffect());
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -167,6 +223,16 @@ public class Player_Stats : MonoBehaviour
             canPunch = true;
             controller.Grounded = true;
         }
+        
+    }
+
+    IEnumerator FreezeEffect()
+    {
+        controller.MoveSpeed /= 2;
+        controller.SprintSpeed /= 2;
+        yield return new WaitForSeconds(3f);
+        controller.MoveSpeed *= 2;
+        controller.SprintSpeed *= 2;
     }
 
 
@@ -194,11 +260,13 @@ public class Player_Stats : MonoBehaviour
     {
         animator.SetTrigger("Dead");
         Vida = 0;
+        isDead = true;
     }
 
     void Revivir()
     {
         Vida = MaxVida;
         animator.SetBool("Grounded", true);
+        isDead = false;
     }
 }

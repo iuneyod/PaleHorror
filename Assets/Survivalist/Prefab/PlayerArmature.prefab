@@ -75,11 +75,11 @@ GameObject:
   - component: {fileID: 583091413269648081}
   - component: {fileID: 7930490122344824380}
   - component: {fileID: 5058610423253894750}
+  - component: {fileID: 3212464621241758825}
   - component: {fileID: 5762160803773358998}
   - component: {fileID: 2265569307814666108}
   - component: {fileID: 6589440287070451230}
   - component: {fileID: 4872489169424077207}
-  - component: {fileID: 3212464621241758825}
   - component: {fileID: 1894944758319199795}
   m_Layer: 7
   m_Name: PlayerArmature
@@ -155,6 +155,35 @@ CharacterController:
   m_SkinWidth: 0.02
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0.93, z: 0}
+--- !u!114 &3212464621241758825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 463236617251174108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea494fcf8bd388f499eadb9fe0748784, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Vida: 100
+  MaxVida: 100
+  PunchHitBox: {fileID: 8486250478812132025}
+  animator: {fileID: 7930490122344824380}
+  isPunching: 0
+  canPunch: 1
+  isDead: 0
+  Water:
+    serializedVersion: 2
+    m_Bits: 0
+  rb: {fileID: 0}
+  SpecialAttackPosition1: {fileID: 0}
+  IntroAttack1: {fileID: 0}
+  attackEffect1: {fileID: 0}
+  triggerArea1: {fileID: 0}
+  canSpecialAttack1: 0
+  vidaText: {fileID: 0}
 --- !u!114 &5762160803773358998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,7 +200,6 @@ MonoBehaviour:
   SprintSpeed: 5.335
   RotationSmoothTime: 0.12
   SpeedChangeRate: 10
-  isCojeando: 0
   maxEnergy: 10
   currentEnergy: 10
   energyDrainRate: 1
@@ -327,29 +355,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &3212464621241758825
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 463236617251174108}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea494fcf8bd388f499eadb9fe0748784, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Vida: 100
-  MaxVida: 100
-  PunchHitBox: {fileID: 8486250478812132025}
-  animator: {fileID: 7930490122344824380}
-  isPunching: 0
-  canPunch: 1
-  Water:
-    serializedVersion: 2
-    m_Bits: 0
-  rb: {fileID: 0}
-  vidaText: {fileID: 0}
 --- !u!136 &1894944758319199795
 CapsuleCollider:
   m_ObjectHideFlags: 0
