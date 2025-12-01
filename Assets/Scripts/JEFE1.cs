@@ -12,6 +12,12 @@ public class JEFE1 : MonoBehaviour
 
     public Transform player;
 
+    public GameObject Antena;
+
+    public BoxCollider myCollider;
+
+    public Transform apararicionAntena;
+
 
     public GameObject SpawnEffect;
     public GameObject EnemyPrefab;
@@ -36,6 +42,7 @@ public class JEFE1 : MonoBehaviour
 
     private void Start()
     {
+        myCollider = GetComponent<BoxCollider>();
         jefeEffects = FindObjectOfType<JEFE1_Effects>();
 
         if (player == null)
@@ -338,6 +345,7 @@ public class JEFE1 : MonoBehaviour
 
     void Die()
     {
+        Antena.transform.position = apararicionAntena.position;
         animator.SetBool("Idle", false);
         animator.ResetTrigger("Attack");
         animator.SetTrigger("IsDead");
