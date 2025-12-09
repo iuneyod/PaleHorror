@@ -10,7 +10,7 @@ public class Enemys_Spawner : MonoBehaviour
 
     public bool enArea = false;
     public bool yaSpawnearon = false;  // <--- NUEVO
-    public int enemigosMaximos = 6;    // <--- NUEVO
+    public int enemigosMaximos = 10;    // <--- NUEVO
     private int enemigosActuales = 0;  // <--- NUEVO
 
     private void Start()
