@@ -60,11 +60,7 @@ public class Player_Stats : MonoBehaviour
         triggerArea1.transform.position = SpecialAttackPosition1.position;
         isDead = false;
     }
-    private void OnGUI()
-    {
-        GUI.Box(new Rect(10, 80, 100, 20), "Vida");
-        GUI.Box(new Rect(10, 10, Vida / MaxVida * 100, 20), "");
-    }
+    
     private void Update()
     {
         if (Vida <= 0)

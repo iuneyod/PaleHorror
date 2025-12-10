@@ -180,7 +180,7 @@ public class JEFE1 : MonoBehaviour
         CanFreezeAtack = false;
 
         animator.SetBool("Idle", false);
-        animator.SetTrigger("Attack");
+        animator.SetTrigger("Rage");
 
         // Copiamos la lista para no modificar la original
         List<Transform> pointsCopy = new List<Transform>(SpawnPoints);
@@ -348,7 +348,8 @@ public class JEFE1 : MonoBehaviour
         Antena.transform.position = apararicionAntena.position;
         animator.SetBool("Idle", false);
         animator.ResetTrigger("Attack");
-        animator.SetTrigger("IsDead");
+        animator.ResetTrigger("AttackSpike");
+        animator.SetTrigger("DeadJefe");
         Destroy(gameObject, 4f);
     }
 

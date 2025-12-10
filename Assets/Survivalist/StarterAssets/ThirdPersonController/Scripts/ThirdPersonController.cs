@@ -20,9 +20,9 @@ namespace StarterAssets
 
         [Header("Player")]
 		[Tooltip("Move speed of the character in m/s")]
-		public float MoveSpeed = 3f;
+		public float MoveSpeed = 5f;
 		[Tooltip("Sprint speed of the character in m/s")]
-		public float SprintSpeed = 6f;
+		public float SprintSpeed = 8f;
 		[Tooltip("How fast the character turns to face movement direction")]
 		[Range(0.0f, 0.3f)]
 		public float RotationSmoothTime = 0.12f;
@@ -31,10 +31,10 @@ namespace StarterAssets
 
 
         [Header("Energy System")]
-        public float maxEnergy = 10f;      // energía máxima
-        public float currentEnergy = 10f;  // energía actual
+        public float maxEnergy = 30f;      // energía máxima
+        public float currentEnergy = 30f;  // energía actual
         public float energyDrainRate = 1f; // energía que se gasta por segundo corriendo
-        public float energyRegenRate = 2f; // energía que se regenera por segundo sin correr
+        public float energyRegenRate = 10f; // energía que se regenera por segundo sin correr
         private bool isDraining = false;
 
 
@@ -135,60 +135,6 @@ namespace StarterAssets
 			GroundedCheck();
 			Move();
 			HandleEnergy();
-
-			if (levelExperience.isLevel2 == true)
-			{
-				maxEnergy = 12f;
-				energyRegenRate = 1.2f;
-			}
-			if (levelExperience.isLevel3 == true)
-			{
-				maxEnergy = 14f;
-				energyRegenRate = 2f;
-				MoveSpeed = 3.5f;
-				SprintSpeed = 6.5f;
-			}
-			if (levelExperience.isLevel4 == true)
-			{
-				maxEnergy = 16f;
-				energyRegenRate = 4f;
-				MoveSpeed = 4f;
-				SprintSpeed = 7f;
-			}
-			if (levelExperience.isLevel5 == true)
-			{
-				maxEnergy = 18f;
-				energyRegenRate = 5f;
-				MoveSpeed = 4.5f;
-				SprintSpeed = 7.5f;
-			}
-			if (levelExperience.isLevel6 == true)
-			{
-				maxEnergy = 20f;
-				energyRegenRate = 6f;
-			}
-            if (levelExperience.isLevel7 == true)
-            {
-                maxEnergy = 22f;
-                energyRegenRate = 7f;
-            }
-			if(levelExperience.isLevel8 == true)
-			{
-                maxEnergy = 24f;
-                energyRegenRate = 8f;
-                MoveSpeed = 5f;
-                SprintSpeed = 8f;
-            }
-			if (levelExperience.isLevel9 == true)
-			{
-                maxEnergy = 26f;
-                energyRegenRate = 9f;
-            }
-            if (levelExperience.isLevel10 == true)
-			{
-				maxEnergy = 30f;
-                energyRegenRate = 10f;
-            }
         }
 
         private void HandleEnergy()
@@ -218,13 +164,6 @@ namespace StarterAssets
                 }
             }
         }
-
-        private void OnGUI()
-        {
-            GUI.Box(new Rect(10, 10, 100, 20), "Energy");
-            GUI.Box(new Rect(10, 10, currentEnergy / maxEnergy * 100, 20), "");
-        }
-
 
 
         private void LateUpdate()
