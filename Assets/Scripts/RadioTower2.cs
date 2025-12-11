@@ -12,17 +12,19 @@ public class RadioTower2 : MonoBehaviour
 
     public BoxCollider areaCollider;
 
-    SegundaTorreObjeto torre2Objeto;
+    PalancaCasaVillage palancaVillage;
+
+
 
     void Start()
     {
-        torre2Objeto = FindObjectOfType<SegundaTorreObjeto>();
+        palancaVillage = FindObjectOfType<PalancaCasaVillage>();
     }
 
 
     private void Update()
     {
-        if (enArea && Input.GetKeyDown(KeyCode.E) && torre2Objeto.tieneObjetoTorre2 == true)
+        if (enArea && Input.GetKeyDown(KeyCode.E) && palancaVillage.palancaCasaVillageActive == true)
         {
             Radio2Active = true;
             areaCollider.enabled = false;

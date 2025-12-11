@@ -208,11 +208,11 @@ public class Quests : MonoBehaviour
     public void Mision6()
     {
         //activa los 4 pilares
-        if (bandera_Monumento.Monumento1_Desbloqueado == true && banderaMonumento2.Monumento2_Desbloqueado == true && banderaMonumentoHielo.Monumento3_Desbloqueado == true && banderaMonumentoCuracion.Monumento4_Desbloqueado == true)
-        {
-            Quest6Completed = true;
-            Quest6.text = "Mision 6 Completada";
-        }
+        //if ()
+        //{
+        //    Quest6Completed = true;
+        //    Quest6.text = "Mision 6 Completada";
+        //}
     }
 
     public void Mision7()

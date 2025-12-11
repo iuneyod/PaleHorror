@@ -12,17 +12,18 @@ public class RadioTower4 : MonoBehaviour
 
     public BoxCollider areaCollider;
 
-    CuartaTorreObjeto torre4Objeto;
+    PalancaIglesia palancaIglesia;
+
 
     void Start()
     {
-        torre4Objeto = FindObjectOfType<CuartaTorreObjeto>();
+        palancaIglesia = FindObjectOfType<PalancaIglesia>();
     }
 
 
     private void Update()
     {
-        if (enArea && Input.GetKeyDown(KeyCode.E) && torre4Objeto.tieneObjetoTorre4 == true)
+        if (enArea && Input.GetKeyDown(KeyCode.E) && palancaIglesia.palancaIglesiaActive == true)
         {
             Radio4Active = true;
             areaCollider.enabled = false;

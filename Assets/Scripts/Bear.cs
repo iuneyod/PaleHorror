@@ -9,8 +9,8 @@ public class Bear : MonoBehaviour
     public int damage = 15;
     public Animator animator;
     public float Speed = 4.5f;
-    public float chaseRange = 15f;
-    public float attackRange = 2.6f;
+    public float chaseRange = 16f;
+    public float attackRange = 3f;
     public Transform player;
     public ParticleSystem ParticleSystem;
     public GameObject AttackTrigger;

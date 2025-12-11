@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class Player_Stats : MonoBehaviour
 {
-    public int Vida = 50;
-    public int MaxVida = 50;
+    public int Vida = 100;
+    public int MaxVida = 100;
     public GameObject PunchHitBox;
     public Animator animator;
     public bool isPunching = false;
@@ -15,6 +15,10 @@ public class Player_Stats : MonoBehaviour
     public bool isDead = false;
     public LayerMask Water;
     public Rigidbody rb;
+
+    public GameObject HealingEffect;
+    bool isHealing = false;
+
 
     //[Special Attacks]
 
@@ -53,6 +57,7 @@ public class Player_Stats : MonoBehaviour
         redCrystal = FindObjectOfType<RedCrystal>();
 
         attackEffect1.SetActive(false);
+        HealingEffect.SetActive(false);
         IntroAttack1.SetActive(false);
         triggerArea1.SetActive(false);
         IntroAttack1.transform.position = SpecialAttackPosition1.position;
@@ -72,6 +77,20 @@ public class Player_Stats : MonoBehaviour
         {
             Vida = MaxVida;
         }
+        //mantener pulsado H para curar
+        if (Input.GetKey(KeyCode.H) && Vida < MaxVida && isDead == false)
+        {
+            HealingEffect.SetActive(true);
+
+            if (!isHealing)
+                StartCoroutine(CurarLento());
+        }
+        else
+        {
+            HealingEffect.SetActive(false);
+            isHealing = false; // Para cortar la curación si suelta la tecla
+        }
+
 
         if (Input.GetMouseButtonDown(0) && !isPunching && canPunch)
         {
@@ -91,32 +110,26 @@ public class Player_Stats : MonoBehaviour
 
         vidaText.text = "Vida: " + Vida.ToString();
 
-        if(levelExperience.isLevel2 == true)
-        {
-            MaxVida = 60;
-        }
-        if (levelExperience.isLevel4 == true)
-        {
-            MaxVida = 70;
-        }
-        if (levelExperience.isLevel6 == true)
-        {
-            MaxVida = 80;
-        }
-        if (levelExperience.isLevel8 == true)
-        {
-            MaxVida = 90;
-        }
-        if (levelExperience.isLevel10 == true)
-        {
-            MaxVida = 100;
-        }
 
         if(Vida <= 0 && isDead == false)
         {
             Die();
         }
     }
+
+    IEnumerator CurarLento()
+    {
+        isHealing = true;
+
+        while (Input.GetKey(KeyCode.H) && Vida < MaxVida && !isDead)
+        {
+            Curar(1);                 // cura 1 punto
+            yield return new WaitForSeconds(0.3f); // ajusta la velocidad aquí
+        }
+
+        isHealing = false;
+    }
+
 
     public IEnumerator AttackEffect1()
     {
