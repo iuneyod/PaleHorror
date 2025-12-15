@@ -17,12 +17,17 @@ public class FnafHouseManager : MonoBehaviour
     Coroutine subirProgresoCoroutine;
     Coroutine bajarProgresoCoroutine;
 
+    public GameObject Player;
+    public GameObject cameraRoot;
+    public Transform PlayerSpawnInvernadero;
+    Animator playerAnimator;
 
     Teddy teddy;
     StarterAssetsInputs inputs;
     ThirdPersonController controller;
 
     bool Derrota = false;
+    bool victoria = false;
     bool juegoBloqueado = false;
 
 
@@ -127,14 +132,19 @@ public class FnafHouseManager : MonoBehaviour
 
     void Start()
     {
+        playerAnimator = player.GetComponent<Animator>();
         teddy = FindObjectOfType<Teddy>();
         inputs = player.GetComponent<StarterAssetsInputs>();
         controller = player.GetComponent<ThirdPersonController>();
         puedeUsarLinterna = true;
+        mirandoAlFrente = true;
     }
 
     void Update()
     {
+        if (juegoBloqueado)
+            return;
+
         progressText.text = Mathf.RoundToInt(Progress) + "%";
 
         if (teddy.activatedTeddyTrap && !yaAparecio)
@@ -281,11 +291,51 @@ public class FnafHouseManager : MonoBehaviour
         if (Progress >= MaxProgress)
         {
             Progress = MaxProgress;
-            StopCoroutine(BajarProgreso());
+            DegressSpeed = 0;
         }
 
+        if (Progress >= MaxProgress && !victoria)
+        {
+            victoria = true;
+            juegoBloqueado = true;
+
+            StopAllCoroutines(); //PARA TODO FNAF
+            StartCoroutine(VictoriaCorutina());
+        }
 
     }
+
+    IEnumerator VictoriaCorutina()
+    {
+        yield return new WaitForSeconds(1.5f);
+
+        teddy.activatedTeddyTrap = false;
+
+        player.transform.position = PlayerSpawnInvernadero.position;
+
+        controller.inputBloqueado = false;
+
+        // reset inputs manualmente
+        inputs.move = Vector2.zero;
+        inputs.look = Vector2.zero;
+        inputs.jump = false;
+        inputs.sprint = false;
+
+        cameraPlayer.transform.parent = cameraRoot.transform;
+        cameraPlayer.transform.localPosition = new Vector3(0f, 0.315f, 0f);
+        cameraPlayer.transform.localRotation = Quaternion.identity;
+
+        geometry.GetComponentInChildren<SkinnedMeshRenderer>().enabled = true;
+        Animator anim = geometry.GetComponentInChildren<Animator>();
+        anim.Rebind();
+        anim.Update(0f);
+
+        skyBoxFnaf.SetActive(false);
+        skyBoxOriginal.SetActive(true);
+    }
+
+
+
 
     IEnumerator SubirProgreso()
     {
@@ -523,18 +573,17 @@ public class FnafHouseManager : MonoBehaviour
     }
 
 
-
-
     void FreezeTrap()
     {
         cameraPlayer.transform.parent = null;
         cameraPlayer.transform.position = cameraTransform.position;
         cameraPlayer.transform.rotation = Quaternion.Euler(0, 180, 0);
-        geometry.SetActive(false);
-        inputs.enabled = false;
-        controller.enabled = false;
 
+        geometry.GetComponentInChildren<SkinnedMeshRenderer>().enabled = false;
+
+        controller.inputBloqueado = true;
     }
+
 
     public void MonsterIzquierda()
     {

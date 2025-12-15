@@ -21,7 +21,9 @@ namespace StarterAssets
         [Header("Player")]
 		[Tooltip("Move speed of the character in m/s")]
 		public float MoveSpeed = 5f;
-		[Tooltip("Sprint speed of the character in m/s")]
+        public bool inputBloqueado = false;
+
+        [Tooltip("Sprint speed of the character in m/s")]
 		public float SprintSpeed = 8f;
 		[Tooltip("How fast the character turns to face movement direction")]
 		[Range(0.0f, 0.3f)]
@@ -212,6 +214,19 @@ namespace StarterAssets
 
         private void Move()
         {
+            if (inputBloqueado)
+            {
+                _speed = 0f;
+
+                if (_hasAnimator)
+                {
+                    _animator.SetFloat(_animIDSpeed, 0f);
+                    _animator.SetFloat(_animIDMotionSpeed, 0f);
+                }
+
+                return;
+            }
+
             float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
 
             if (_input.move == Vector2.zero) targetSpeed = 0.0f;

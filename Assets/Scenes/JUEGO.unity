@@ -24976,15 +24976,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 583091413269648081, guid: 76b9d8179905d454e9bf6dcc847231ce, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 892.88
+      value: 893.298
       objectReference: {fileID: 0}
     - target: {fileID: 583091413269648081, guid: 76b9d8179905d454e9bf6dcc847231ce, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -49.175
+      value: -49.258
       objectReference: {fileID: 0}
     - target: {fileID: 583091413269648081, guid: 76b9d8179905d454e9bf6dcc847231ce, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 473.701
+      value: 474.097
       objectReference: {fileID: 0}
     - target: {fileID: 583091413269648081, guid: 76b9d8179905d454e9bf6dcc847231ce, type: 3}
       propertyPath: m_LocalRotation.w
@@ -50567,6 +50567,9 @@ MonoBehaviour:
   ProgressSpeed: 1
   DegressSpeed: 0.02
   estaSubiendo: 0
+  Player: {fileID: 1249484842}
+  cameraRoot: {fileID: 1411915344}
+  PlayerSpawnInvernadero: {fileID: 1981483902}
   skyBoxOriginal: {fileID: 1881430203}
   skyBoxFnaf: {fileID: 1032517080}
   player: {fileID: 1249484842}
@@ -51374,6 +51377,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 485384, guid: fe816015a58e629439b27ecca9cdb110, type: 3}
   m_PrefabInstance: {fileID: 1411358810}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1411915344 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5418029520995742120, guid: 76b9d8179905d454e9bf6dcc847231ce, type: 3}
+  m_PrefabInstance: {fileID: 656354489}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1414694866
 PrefabInstance:
@@ -70686,6 +70694,37 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 16212977}
   m_SourcePrefab: {fileID: 100100000, guid: 6815ce69713b0ce49be1e366557fc2ce, type: 3}
+--- !u!1 &1981483901
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1981483902}
+  m_Layer: 0
+  m_Name: TeletransportarPlayerNoche1Invernadero
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1981483902
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1981483901}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1025.587, y: 57.194, z: 354.766}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1985835778
 GameObject:
   m_ObjectHideFlags: 0
@@ -75748,8 +75787,8 @@ SceneRoots:
   - {fileID: 545820511}
   - {fileID: 1392412341}
   - {fileID: 660528843}
-  - {fileID: 1478216769}
   - {fileID: 656354489}
+  - {fileID: 1478216769}
   - {fileID: 1991877015}
   - {fileID: 1012324075}
   - {fileID: 220958030}
@@ -75817,3 +75856,4 @@ SceneRoots:
   - {fileID: 488011530}
   - {fileID: 2008000093}
   - {fileID: 1566778958}
+  - {fileID: 1981483902}
