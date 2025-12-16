@@ -20224,7 +20224,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 92b8ad815e85aa64ba728ed5c9e84696, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -47.64
+      value: -53.01
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 92b8ad815e85aa64ba728ed5c9e84696, type: 3}
       propertyPath: m_LocalPosition.z
@@ -50562,7 +50562,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   progressText: {fileID: 2028464798}
-  Progress: 0
+  Progress: 90
   MaxProgress: 100
   ProgressSpeed: 1
   DegressSpeed: 0.02
@@ -50570,6 +50570,8 @@ MonoBehaviour:
   Player: {fileID: 1249484842}
   cameraRoot: {fileID: 1411915344}
   PlayerSpawnInvernadero: {fileID: 1981483902}
+  Derrota: 0
+  victoria: 0
   skyBoxOriginal: {fileID: 1881430203}
   skyBoxFnaf: {fileID: 1032517080}
   player: {fileID: 1249484842}
@@ -50603,7 +50605,6 @@ MonoBehaviour:
   monsterDerecha_Pose2: {fileID: 1346500890}
   monsterDerecha_Pose3: {fileID: 603359579}
   monsterDerecha_PoseUltima: {fileID: 1907346095}
-  ALERTA: 0
 --- !u!1 &1392894364 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7901366144787319798, guid: 735c4b200d38a6c479f3eb3b81a21102, type: 3}

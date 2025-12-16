@@ -26,8 +26,8 @@ public class FnafHouseManager : MonoBehaviour
     StarterAssetsInputs inputs;
     ThirdPersonController controller;
 
-    bool Derrota = false;
-    bool victoria = false;
+    public bool Derrota = false;
+    public bool victoria = false;
     bool juegoBloqueado = false;
 
 
@@ -121,8 +121,7 @@ public class FnafHouseManager : MonoBehaviour
 
     bool monsterDerechaBloqueado = false;
 
-    public bool ALERTA = false;
-
+    bool ALERTA = false;
 
 
 
@@ -303,9 +302,45 @@ public class FnafHouseManager : MonoBehaviour
             StartCoroutine(VictoriaCorutina());
         }
 
+        //if(Derrota)
+        //{
+        //    victoria = false;
+        //    juegoBloqueado = true;
+        //    StopAllCoroutines(); //PARA TODO FNAF
+        //    StartCoroutine(DerrotaCorutina());
+        //}
+
     }
 
     IEnumerator VictoriaCorutina()
+    {
+        yield return new WaitForSeconds(1.5f);
+
+        teddy.activatedTeddyTrap = false;
+
+        player.transform.position = PlayerSpawnInvernadero.position;
+
+        controller.inputBloqueado = false;
+
+        // reset inputs manualmente
+        inputs.move = Vector2.zero;
+        inputs.look = Vector2.zero;
+        inputs.jump = false;
+        inputs.sprint = false;
+
+        cameraPlayer.transform.parent = cameraRoot.transform;
+        cameraPlayer.transform.localPosition = new Vector3(0f, 0.315f, 0f);
+        cameraPlayer.transform.localRotation = Quaternion.identity;
+
+        geometry.GetComponentInChildren<SkinnedMeshRenderer>().enabled = true;
+        Animator anim = geometry.GetComponentInChildren<Animator>();
+        anim.Rebind();
+        anim.Update(0f);
+
+        skyBoxFnaf.SetActive(false);
+        skyBoxOriginal.SetActive(true);
+    }
+    IEnumerator DerrotaCorutina()
     {
         yield return new WaitForSeconds(1.5f);
 
@@ -463,7 +498,7 @@ public class FnafHouseManager : MonoBehaviour
             if (monsterDerechaBloqueado)
                 yield break;
 
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(1f);
 
             int chance = Random.Range(0, 3);
 
