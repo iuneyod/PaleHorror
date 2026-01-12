@@ -5,6 +5,8 @@ using TMPro;
 
 public class Teddy : MonoBehaviour
 {
+
+
     public bool enArea = false;
     //public GameObject throwEffect;
     public TMP_Text interactText;
@@ -12,13 +14,11 @@ public class Teddy : MonoBehaviour
 
     public bool activatedTeddyTrap = false;
 
-
     void Update()
     {
         if (enArea && Input.GetKeyDown(KeyCode.E))
         {
             interactText.gameObject.SetActive(false);
-            trigger.enabled = false;
             //StartCoroutine(StartEffect());
             activatedTeddyTrap = true;
         }

@@ -2,7 +2,9 @@ using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FnafHouseManager : MonoBehaviour
 {
@@ -10,7 +12,7 @@ public class FnafHouseManager : MonoBehaviour
     public float Progress = 0;
     public float MaxProgress = 100;
     public float ProgressSpeed = 1f;
-    public float DegressSpeed = 0.1f;
+    public float DegressSpeed = 0.15f;
     public bool estaSubiendo = false;
 
     Coroutine progresoCoroutine;
@@ -22,16 +24,14 @@ public class FnafHouseManager : MonoBehaviour
     public Transform PlayerSpawnInvernadero;
     Animator playerAnimator;
 
-    Teddy teddy;
     StarterAssetsInputs inputs;
     ThirdPersonController controller;
 
     public bool Derrota = false;
     public bool victoria = false;
-    bool juegoBloqueado = false;
+    public bool juegoBloqueado = false;
 
 
-    public GameObject skyBoxOriginal;
     public GameObject skyBoxFnaf;
 
     public GameObject player;
@@ -43,7 +43,7 @@ public class FnafHouseManager : MonoBehaviour
     Coroutine rotateCoroutine;
     public float rotateDuration = 0.08f;
 
-    bool yaAparecio = false;
+    public bool yaAparecio = false;
 
     public bool mirandoAlFrente = false;
     public bool mirandoALaIzquierda = false;
@@ -122,6 +122,11 @@ public class FnafHouseManager : MonoBehaviour
     bool monsterDerechaBloqueado = false;
 
     bool ALERTA = false;
+    public GameObject LuzAlerta;
+
+    Coroutine esperarSustoDerechaCoroutine;
+    bool esperandoSustoDerecha = false;
+
 
 
 
@@ -132,11 +137,18 @@ public class FnafHouseManager : MonoBehaviour
     void Start()
     {
         playerAnimator = player.GetComponent<Animator>();
-        teddy = FindObjectOfType<Teddy>();
         inputs = player.GetComponent<StarterAssetsInputs>();
         controller = player.GetComponent<ThirdPersonController>();
         puedeUsarLinterna = true;
         mirandoAlFrente = true;
+
+        progressText.gameObject.SetActive(true);
+        yaAparecio = true;
+        FreezeTrap();
+        StartCoroutine(AparecerPoster());
+        skyBoxFnaf.SetActive(true);
+        MonsterIzquierda();
+        MonsterDerecha();
     }
 
     void Update()
@@ -145,19 +157,6 @@ public class FnafHouseManager : MonoBehaviour
             return;
 
         progressText.text = Mathf.RoundToInt(Progress) + "%";
-
-        if (teddy.activatedTeddyTrap && !yaAparecio)
-        {
-            progressText.gameObject.SetActive(true);
-            yaAparecio = true;
-            FreezeTrap();
-            StartCoroutine(AparecerPoster());
-            skyBoxOriginal.SetActive(false);
-            skyBoxFnaf.SetActive(true);
-            MonsterIzquierda();
-            MonsterDerecha();
-
-        }
 
         if (!yaAparecio) return;
 
@@ -241,15 +240,25 @@ public class FnafHouseManager : MonoBehaviour
             }
         }
 
-        if (poseActualDER == MonsterPoseDer.CuartaDER && Input.GetKeyDown(KeyCode.E) && mirandoAlFrente == true)
+        if (poseActualDER == MonsterPoseDer.CuartaDER && Input.GetKeyDown(KeyCode.E) && mirandoAlFrente)
         {
+            CancelarSustoDerecha();
             StartCoroutine(ALERTA_SIMULACRO());
         }
 
-        if (poseActualDER == MonsterPoseDer.CuartaDER && mirandoAlFrente == true && linternaEncendida == true)
+        if (poseActualDER == MonsterPoseDer.CuartaDER && mirandoAlFrente && linternaEncendida)
         {
+            CancelarSustoDerecha();
             StartCoroutine(AparecerMonsterDerechaSusto());
         }
+
+
+        if (poseActualDER == MonsterPoseDer.CuartaDER && !esperandoSustoDerecha)
+        {
+            esperandoSustoDerecha = true;
+            esperarSustoDerechaCoroutine = StartCoroutine(EsperarSustoDerecha());
+        }
+
 
 
         bool puedeSubir = mirandoAlFrente && Input.GetKey(KeyCode.R);
@@ -302,13 +311,13 @@ public class FnafHouseManager : MonoBehaviour
             StartCoroutine(VictoriaCorutina());
         }
 
-        //if(Derrota)
-        //{
-        //    victoria = false;
-        //    juegoBloqueado = true;
-        //    StopAllCoroutines(); //PARA TODO FNAF
-        //    StartCoroutine(DerrotaCorutina());
-        //}
+        if (Derrota == true)
+        {
+            victoria = false;
+            juegoBloqueado = true;
+            StopAllCoroutines(); //PARA TODO FNAF
+            StartCoroutine(DerrotaCorutina());
+        }
 
     }
 
@@ -316,57 +325,15 @@ public class FnafHouseManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1.5f);
 
-        teddy.activatedTeddyTrap = false;
+        SceneManager.LoadScene("MainScene");
 
-        player.transform.position = PlayerSpawnInvernadero.position;
-
-        controller.inputBloqueado = false;
-
-        // reset inputs manualmente
-        inputs.move = Vector2.zero;
-        inputs.look = Vector2.zero;
-        inputs.jump = false;
-        inputs.sprint = false;
-
-        cameraPlayer.transform.parent = cameraRoot.transform;
-        cameraPlayer.transform.localPosition = new Vector3(0f, 0.315f, 0f);
-        cameraPlayer.transform.localRotation = Quaternion.identity;
-
-        geometry.GetComponentInChildren<SkinnedMeshRenderer>().enabled = true;
-        Animator anim = geometry.GetComponentInChildren<Animator>();
-        anim.Rebind();
-        anim.Update(0f);
-
-        skyBoxFnaf.SetActive(false);
-        skyBoxOriginal.SetActive(true);
     }
     IEnumerator DerrotaCorutina()
     {
         yield return new WaitForSeconds(1.5f);
 
-        teddy.activatedTeddyTrap = false;
+        SceneManager.LoadScene("MainScene");
 
-        player.transform.position = PlayerSpawnInvernadero.position;
-
-        controller.inputBloqueado = false;
-
-        // reset inputs manualmente
-        inputs.move = Vector2.zero;
-        inputs.look = Vector2.zero;
-        inputs.jump = false;
-        inputs.sprint = false;
-
-        cameraPlayer.transform.parent = cameraRoot.transform;
-        cameraPlayer.transform.localPosition = new Vector3(0f, 0.315f, 0f);
-        cameraPlayer.transform.localRotation = Quaternion.identity;
-
-        geometry.GetComponentInChildren<SkinnedMeshRenderer>().enabled = true;
-        Animator anim = geometry.GetComponentInChildren<Animator>();
-        anim.Rebind();
-        anim.Update(0f);
-
-        skyBoxFnaf.SetActive(false);
-        skyBoxOriginal.SetActive(true);
     }
 
 
@@ -388,7 +355,7 @@ public class FnafHouseManager : MonoBehaviour
     {
         while (Progress > 0 && !Derrota)
         {
-            Progress -= 0.1f;
+            Progress -= 0.15f;
             yield return new WaitForSeconds(0.3f);
         }
 
@@ -415,7 +382,6 @@ public class FnafHouseManager : MonoBehaviour
     {
         if (Derrota) yield break;
 
-        Derrota = true;
         monsterIzquierdaBloqueado = true;
 
         yield return new WaitForSeconds(4f);
@@ -433,13 +399,13 @@ public class FnafHouseManager : MonoBehaviour
 
         // FORZAR que se quede en la pose 1
         ActivarPose(MonsterPoseIzq.PrimeraIZQ);
+        Derrota = true;
     }
 
     IEnumerator AparecerMonsterDerechaSusto()
     {
         if (Derrota) yield break;
 
-        Derrota = true;
 
         monsterDerechaSusto.SetActive(true);
         monsterDerecha_PoseUltima.SetActive(false);
@@ -454,6 +420,7 @@ public class FnafHouseManager : MonoBehaviour
 
         // FORZAR que se quede en la pose 1
         ActivarPoseDER(MonsterPoseDer.PrimeraDER);
+        Derrota = true;
     }
 
     IEnumerator AparecerMonsterAtrasSusto()
@@ -461,7 +428,6 @@ public class FnafHouseManager : MonoBehaviour
         if (Derrota || sustoAtrasEnCurso) yield break;
 
         sustoAtrasEnCurso = true;
-        Derrota = true;
 
         monsterDetrasSusto.SetActive(true);
         monsterDerecha_PoseUltima.SetActive(false);
@@ -472,17 +438,51 @@ public class FnafHouseManager : MonoBehaviour
         yield return new WaitForSeconds(1.2f);
 
         monsterDetrasSusto.SetActive(false);
+        Derrota = true;
     }
 
 
     IEnumerator ALERTA_SIMULACRO()
     {
+        LuzAlerta.SetActive(true);
         Progress -= 5f;
         ActivarPoseDER(MonsterPoseDer.PrimeraDER);
         ALERTA = true;
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
+        LuzAlerta.SetActive(false);
+        yield return new WaitForSeconds(1f);
+        LuzAlerta.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        LuzAlerta.SetActive(false);
         ALERTA = false;
     }
+
+    IEnumerator EsperarSustoDerecha()
+    {
+        StartCoroutine(MonsterDERPoseShake(4.2f, 0.01f));
+
+        yield return new WaitForSeconds(4.2f);
+
+        esperandoSustoDerecha = false;
+
+        if (poseActualDER == MonsterPoseDer.CuartaDER && !ALERTA && !Derrota)
+        {
+            StartCoroutine(AparecerMonsterDerechaSusto());
+        }
+    }
+
+    void CancelarSustoDerecha()
+    {
+        if (esperarSustoDerechaCoroutine != null)
+        {
+            StopCoroutine(esperarSustoDerechaCoroutine);
+            esperarSustoDerechaCoroutine = null;
+        }
+
+        esperandoSustoDerecha = false;
+    }
+
+
 
     public void MonsterDerecha()
     {
@@ -498,7 +498,7 @@ public class FnafHouseManager : MonoBehaviour
             if (monsterDerechaBloqueado)
                 yield break;
 
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(4f);
 
             int chance = Random.Range(0, 3);
 
@@ -875,6 +875,26 @@ public class FnafHouseManager : MonoBehaviour
         }
 
         monsterDerechaSusto.transform.localPosition = originalPos;  // restaurar posición
+    }
+
+    private IEnumerator MonsterDERPoseShake(float duration, float magnitude)
+    {
+        Vector3 originalPos = monsterDerecha_PoseUltima.transform.localPosition;
+
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            float x = Random.Range(-1f, 1f) * magnitude;
+            float y = Random.Range(-1f, 1f) * magnitude;
+
+            monsterDerecha_PoseUltima.transform.localPosition = originalPos + new Vector3(x, y, 0);
+
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        monsterDerecha_PoseUltima.transform.localPosition = originalPos;  // restaurar posición
     }
 
     private IEnumerator MonsterAtrasShake(float duration, float magnitude)

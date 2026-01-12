@@ -16,6 +16,7 @@ TagManager:
   - SegundoAttack1
   - FreezeArea
   - BalaAttack
+  - ObjetoInteractivo
   layers:
   - Default
   - TransparentFX
@@ -25,7 +26,7 @@ TagManager:
   - UI
   - NoColision
   - Player
-  - 
+  - RaycastDetect
   - 
   - 
   - 

@@ -43,7 +43,7 @@ public class Player_Stats : MonoBehaviour
     IceCrystal iceCrystal;
     RedCrystal redCrystal;
 
-    public TMP_Text vidaText;
+    //public TMP_Text vidaText;
 
 
     private void Start()
@@ -68,6 +68,7 @@ public class Player_Stats : MonoBehaviour
     
     private void Update()
     {
+
         if (Vida <= 0)
         {
             Vida = 0;
@@ -98,17 +99,17 @@ public class Player_Stats : MonoBehaviour
             StartCoroutine(Punch());
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha1) && isPunching == false && canPunch && iceCrystal.IceCrystal_Desbloqueado == true && canSpecialAttack1 == true)
-        {
-            StartCoroutine(AttackEffect1());
-        }
+        //if (Input.GetKeyDown(KeyCode.Alpha1) && isPunching == false && canPunch && iceCrystal.IceCrystal_Desbloqueado == true && canSpecialAttack1 == true)
+        //{
+        //    StartCoroutine(AttackEffect1());
+        //}
 
-        if (Input.GetMouseButtonDown(1) && isPunching == false && canPunch && redCrystal.RedCrystal_Desbloqueado == true && canSpecialAttack2 == true)
-        {
-            StartCoroutine(BalaAttack2());
-        }
+        //if (Input.GetMouseButtonDown(1) && isPunching == false && canPunch && redCrystal.RedCrystal_Desbloqueado == true && canSpecialAttack2 == true)
+        //{
+        //    StartCoroutine(BalaAttack2());
+        //}
 
-        vidaText.text = "Vida: " + Vida.ToString();
+        //vidaText.text = "Vida: " + Vida.ToString();
 
 
         if(Vida <= 0 && isDead == false)

@@ -105,7 +105,6 @@ Transform:
   - {fileID: 2281548691721754860}
   - {fileID: 7548927663747832236}
   - {fileID: 2521767323114304491}
-  - {fileID: 6460254750611363375}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &7930490122344824380
@@ -178,12 +177,17 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   rb: {fileID: 0}
+  HealingEffect: {fileID: 0}
   SpecialAttackPosition1: {fileID: 0}
   IntroAttack1: {fileID: 0}
   attackEffect1: {fileID: 0}
   triggerArea1: {fileID: 0}
   canSpecialAttack1: 0
-  vidaText: {fileID: 0}
+  canSpecialAttack2: 0
+  damageBalaAttack2: 5
+  delayBalaAttack2: 1.5
+  balaPrefab: {fileID: 0}
+  balaSpawnPoint: {fileID: 0}
 --- !u!114 &5762160803773358998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,6 +201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveSpeed: 2
+  inputBloqueado: 0
   SprintSpeed: 5.335
   RotationSmoothTime: 0.12
   SpeedChangeRate: 10
@@ -599,7 +604,8 @@ Transform:
   m_LocalPosition: {x: -0.009, y: 0.321, z: -0.073}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6460254750611363375}
   m_Father: {fileID: 5596361440337408311}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &5720457722032680454
@@ -1420,12 +1426,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4424142878747702257}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.23, y: 1.449, z: 0.792}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.2389998, y: -0.24700001, z: 0.865}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 583091413269648081}
+  m_Father: {fileID: 5516889828709787477}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4505971496123548963
 GameObject:
