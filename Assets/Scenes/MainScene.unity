@@ -7444,7 +7444,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57eceae89d60cf04d98ed62dbbc7eaba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  escenaHub: MainHub
+  escenaHub: MainScene
   rango: 0
   puntuacionTotal: 0
   comidaTotalComida: 0
