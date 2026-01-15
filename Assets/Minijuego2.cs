@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Minijuego2 : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class Minijuego2 : MonoBehaviour
     public Transform rightHandEnd;
     public GameObject monster;
     private bool isAttacking = false;
+    private bool puedeAtacar = true;
 
     [Header("Camera Look")]
     public float sensibilidad = 120f;
@@ -29,6 +31,43 @@ public class Minijuego2 : MonoBehaviour
     public float limiteAbajo = -60f;
 
     float rotacionVertical = 0f;
+
+    public GameObject TeclaW;
+    public GameObject TeclaS;
+    public GameObject TeclaF;
+    public GameObject TeclaA;
+    public GameObject TeclaD;
+
+    [Header("QTE")]
+    public float tiempoPorTecla = 3f;
+    public int teclasNecesarias = 4;
+
+    private bool QTEActivo = false;
+
+
+    KeyCode GetRandomKey()
+    {
+        KeyCode[] teclas = { KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D, KeyCode.F, KeyCode.R };
+        return teclas[Random.Range(0, teclas.Length)];
+    }
+    void MostrarTecla(KeyCode key)
+    {
+        TeclaW.SetActive(key == KeyCode.W);
+        TeclaA.SetActive(key == KeyCode.A);
+        TeclaS.SetActive(key == KeyCode.S);
+        TeclaD.SetActive(key == KeyCode.D);
+        TeclaF.SetActive(key == KeyCode.F);
+    }
+
+    void OcultarTeclas()
+    {
+        TeclaW.SetActive(false);
+        TeclaA.SetActive(false);
+        TeclaS.SetActive(false);
+        TeclaD.SetActive(false);
+        TeclaF.SetActive(false);
+    }
+
 
 
 
@@ -70,7 +109,7 @@ public class Minijuego2 : MonoBehaviour
         rotacionVertical = Mathf.Clamp(rotacionVertical, limiteAbajo, limiteArriba);
 
         // Aplicamos SOLO al eje X (mirar arriba/abajo)
-        cameraTransform.localRotation = Quaternion.Euler(rotacionVertical, 0F, 0f);
+        cameraTransform.localRotation = Quaternion.Euler(rotacionVertical, 0f, 0f);
 
         if (puedeAparecerTornillo)
         {
@@ -83,12 +122,39 @@ public class Minijuego2 : MonoBehaviour
 
     IEnumerator Monster()
     {
-        if (Random.Range(0, 4) == 0)
-            yield break;
+        while(puedeAtacar == true)
+        {
+            if (Random.Range(0, 4) == 0)
+                yield break;
 
-        yield return new WaitForSeconds(2f); // Delay antes de atacar
-        isAttacking = true;
+            yield return new WaitForSeconds(2f); // Delay antes de atacar
+            isAttacking = true;
 
+            float tiempo = 0f;
+            float duracion = 0.4f;
+
+            Vector3 leftStart = leftHandStart.position;
+            Vector3 rightStart = rightHandStart.position;
+
+            while (tiempo < duracion)
+            {
+                tiempo += Time.deltaTime;
+                float t = tiempo / duracion;
+
+                leftHandStart.position = Vector3.Lerp(leftStart, leftHandEnd.position, t);
+                rightHandStart.position = Vector3.Lerp(rightStart, rightHandEnd.position, t);
+                yield return StartCoroutine(QTESystem());
+
+                yield return null;
+            }
+
+            // Asegurar posición final
+            leftHandStart.position = leftHandEnd.position;
+            rightHandStart.position = rightHandEnd.position;
+        }
+    }
+    IEnumerator RetirarManos()
+    {
         float tiempo = 0f;
         float duracion = 0.4f;
 
@@ -100,15 +166,53 @@ public class Minijuego2 : MonoBehaviour
             tiempo += Time.deltaTime;
             float t = tiempo / duracion;
 
-            leftHandStart.position = Vector3.Lerp(leftStart, leftHandEnd.position, t);
-            rightHandStart.position = Vector3.Lerp(rightStart, rightHandEnd.position, t);
-
+            leftHandStart.position = Vector3.Lerp(leftStart, leftHandStart.position, t);
+            rightHandStart.position = Vector3.Lerp(rightStart, rightHandStart.position, t);
             yield return null;
         }
 
-        // Asegurar posición final
-        leftHandStart.position = leftHandEnd.position;
-        rightHandStart.position = rightHandEnd.position;
+        isAttacking = false;
+    }
+
+    IEnumerator QTESystem()
+    {
+        QTEActivo = true;
+        int aciertos = 0;
+
+        while (aciertos < teclasNecesarias)
+        {
+            KeyCode teclaActual = GetRandomKey();
+            MostrarTecla(teclaActual);
+
+            float tiempo = 0f;
+            bool pulsada = false;
+
+            while (tiempo < tiempoPorTecla)
+            {
+                if (Input.GetKeyDown(teclaActual))
+                {
+                    pulsada = true;
+                    break;
+                }
+
+                tiempo += Time.deltaTime;
+                yield return null;
+            }
+
+            if (!pulsada)
+            {
+                QTEActivo = false;
+                OcultarTeclas();
+                yield break;
+            }
+
+            aciertos++;
+            OcultarTeclas();
+            yield return new WaitForSeconds(0.15f); // pequeño respiro visual
+        }
+
+        QTEActivo = false;
+        StartCoroutine(RetirarManos());
     }
 
 
