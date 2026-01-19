@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Minigame2.unity
     guid: 59525565d211af8459c569d7587eae2a
   - enabled: 1
-    path: Assets/Scenes/JUEGO.unity
+    path: Assets/Scenes/Minigame1.unity
     guid: 71d8ab01ba1810143bc5196b90c9dc80
   - enabled: 1
     path: Assets/Scenes/ArcadeMinigame.unity

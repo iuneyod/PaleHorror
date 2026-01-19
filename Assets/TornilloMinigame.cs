@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class TornilloMinigame : ObjetoInteractivo
@@ -34,8 +35,28 @@ public class TornilloMinigame : ObjetoInteractivo
 
     IEnumerator DestruirTornillo()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         Destroy(gameObject);
         Destroy(transform.parent.gameObject);
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            StartCoroutine(EsperarYAtacar());
+        }
+    }
+
+    IEnumerator EsperarYAtacar()
+    {
+        yield return new WaitForSeconds(1f);
+
+        if (minijuego2 == null) yield break;
+        if (minijuego2.haTocadoTornillo) yield break;
+        if (minijuego2.estaMuriendo) yield break;
+
+        minijuego2.haTocadoTornillo = true;
+    }
+
 }
