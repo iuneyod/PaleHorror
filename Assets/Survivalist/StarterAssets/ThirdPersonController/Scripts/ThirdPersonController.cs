@@ -25,19 +25,20 @@ namespace StarterAssets
 
         [Tooltip("Sprint speed of the character in m/s")]
 		public float SprintSpeed = 8f;
-		[Tooltip("How fast the character turns to face movement direction")]
+		public bool isSprinting;
+        [Tooltip("How fast the character turns to face movement direction")]
 		[Range(0.0f, 0.3f)]
 		public float RotationSmoothTime = 0.12f;
 		[Tooltip("Acceleration and deceleration")]
 		public float SpeedChangeRate = 10.0f;
 
 
-        [Header("Energy System")]
-        public float maxEnergy = 30f;      // energía máxima
-        public float currentEnergy = 30f;  // energía actual
-        public float energyDrainRate = 1f; // energía que se gasta por segundo corriendo
-        public float energyRegenRate = 10f; // energía que se regenera por segundo sin correr
-        private bool isDraining = false;
+        //[Header("Energy System")]
+        //public float maxEnergy = 30f;      // energía máxima
+        //public float currentEnergy = 30f;  // energía actual
+        //public float energyDrainRate = 1f; // energía que se gasta por segundo corriendo
+        //public float energyRegenRate = 10f; // energía que se regenera por segundo sin correr
+        //private bool isDraining = false;
 
 
         [Space(10)]
@@ -136,36 +137,36 @@ namespace StarterAssets
 			JumpAndGravity();
 			GroundedCheck();
 			Move();
-			HandleEnergy();
+			//HandleEnergy();
         }
 
-        private void HandleEnergy()
-        {
-            bool isMoving = _speed > 0.1f;
+        //private void HandleEnergy()
+        //{
+        //    bool isMoving = _speed > 0.1f;
 
-            // Si estamos corriendo y nos movemos
-            if (_input.sprint && isMoving && currentEnergy > 0f)
-            {
-                currentEnergy -= energyDrainRate * Time.deltaTime;
+        //     Si estamos corriendo y nos movemos
+        //    if (_input.sprint && isMoving && currentEnergy > 0f)
+        //    {
+        //        currentEnergy -= energyDrainRate * Time.deltaTime;
 
-                // Evita que baje de 0
-                if (currentEnergy <= 0f)
-                {
-                    currentEnergy = 0f;
-                    _input.sprint = false; // desactiva el sprint cuando se acaba
-                }
-            }
-            else
-            {
-                // Regenerar energía cuando no corremos
-                if (currentEnergy < maxEnergy)
-                {
-                    currentEnergy += energyRegenRate * Time.deltaTime;
-                    if (currentEnergy > maxEnergy)
-                        currentEnergy = maxEnergy;
-                }
-            }
-        }
+        //         Evita que baje de 0
+        //        if (currentEnergy <= 0f)
+        //        {
+        //            currentEnergy = 0f;
+        //            _input.sprint = false; // desactiva el sprint cuando se acaba
+        //        }
+        //    }
+        //    else
+        //    {
+        //         Regenerar energía cuando no corremos
+        //        if (currentEnergy < maxEnergy)
+        //        {
+        //            currentEnergy += energyRegenRate * Time.deltaTime;
+        //            if (currentEnergy > maxEnergy)
+        //                currentEnergy = maxEnergy;
+        //        }
+        //    }
+        //}
 
 
         private void LateUpdate()
@@ -217,55 +218,38 @@ namespace StarterAssets
             if (inputBloqueado)
             {
                 _speed = 0f;
-
                 if (_hasAnimator)
                 {
                     _animator.SetFloat(_animIDSpeed, 0f);
                     _animator.SetFloat(_animIDMotionSpeed, 0f);
                 }
-
                 return;
             }
 
             float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+            if (_input.move == Vector2.zero) targetSpeed = 0f;
 
-            if (_input.move == Vector2.zero) targetSpeed = 0.0f;
-
-            float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
-            float speedOffset = 0.1f;
             float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
+            isSprinting = _input.sprint && inputMagnitude > 0;
 
-            if (currentHorizontalSpeed < targetSpeed - speedOffset || currentHorizontalSpeed > targetSpeed + speedOffset)
-            {
-                _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude, Time.deltaTime * SpeedChangeRate);
-                _speed = Mathf.Round(_speed * 1000f) / 1000f;
-            }
-            else
-            {
-                _speed = targetSpeed;
-            }
-
-            _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
+            _speed = Mathf.Lerp(_speed, targetSpeed * inputMagnitude, Time.deltaTime * SpeedChangeRate);
 
             Vector3 inputDirection = new Vector3(_input.move.x, 0f, _input.move.y).normalized;
 
-            // IMPORTANTE — NO ROTAR HACIA LA DIRECCIÓN DEL MOVIMIENTO
-            // (Se elimina el código original que hacía esto)
-
-            // Forzar que el personaje mire hacia donde mira la cámara
             float cameraYaw = _mainCamera.transform.eulerAngles.y;
             transform.rotation = Quaternion.Euler(0f, cameraYaw, 0f);
 
-            // dirección respecto a la cámara
-            Vector3 targetDirection = Quaternion.Euler(0.0f, cameraYaw, 0.0f) * inputDirection;
+            Vector3 moveDir = Quaternion.Euler(0f, cameraYaw, 0f) * inputDirection;
 
-            // mover
-            _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime)
-                             + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+            Vector3 finalMove =
+                moveDir * _speed +
+                Vector3.up * _verticalVelocity;
+
+            _controller.Move(finalMove * Time.deltaTime);
 
             if (_hasAnimator)
             {
-                _animator.SetFloat(_animIDSpeed, _animationBlend);
+                _animator.SetFloat(_animIDSpeed, _speed);
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
             }
         }

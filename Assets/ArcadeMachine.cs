@@ -5,8 +5,20 @@ using UnityEngine.SceneManagement;
 
 public class ArcadeMachine : ObjetoInteractivo
 {
+    public GameObject ArcadeUI;
+    public bool pantallaAbierta = false;
     public override void ActivarObjeto()
     {
-        SceneManager.LoadScene("ArcadeMinigame");
+        ArcadeUI.SetActive(true);
+        pantallaAbierta = true;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            ArcadeUI.SetActive(false);
+            pantallaAbierta = false;
+        }
     }
 }

@@ -6543,6 +6543,7 @@ MonoBehaviour:
   leftHandEnd: {fileID: 851783648}
   rightHandEnd: {fileID: 1425141582}
   monster: {fileID: 792862873}
+  puedeAtacar: 1
   sensibilidad: 120
   limiteArriba: 40
   limiteAbajo: -20
