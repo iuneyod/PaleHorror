@@ -5,8 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class ArcadeMachine : ObjetoInteractivo
 {
+    Selected selected;
     public GameObject ArcadeUI;
     public bool pantallaAbierta = false;
+
+    private void Start()
+    {
+        selected = FindObjectOfType<Selected>();
+        ArcadeUI.SetActive(false);
+    }
+
     public override void ActivarObjeto()
     {
         ArcadeUI.SetActive(true);
@@ -19,6 +27,15 @@ public class ArcadeMachine : ObjetoInteractivo
         {
             ArcadeUI.SetActive(false);
             pantallaAbierta = false;
+        }
+
+        if(ArcadeUI.activeSelf == true)
+        {
+            selected.sistemaActivo = false;
+        }
+        else
+        {
+            selected.sistemaActivo = true;
         }
     }
 }

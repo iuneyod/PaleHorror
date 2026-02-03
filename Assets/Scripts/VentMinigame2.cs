@@ -8,11 +8,30 @@ public class VentMinigame2 : ObjetoInteractivo
 {
     public GameObject PantallaNegra;
     Minijuego2 minijuego2;
+    public bool minijuego2Completado = false;
+    public bool minigame2DificilCompletado = false;
 
+
+
+    private void Start()
+    {
+        minijuego2 = FindObjectOfType<Minijuego2>();
+    }
     public override void ActivarObjeto()
     {
+        GameManager.Instance.CompletarMinijuego("MINIJUEGO2");
+        GameManager.Instance.Minigame2Completado = true;
+        minijuego2Completado = true;
         minijuego2.puedeAtacar = false;
         StartCoroutine(FadeYcargar());
+
+        if(GameManager.Instance.CompletoTodosLosMinijuegos ==  true)
+        {
+            minigame2DificilCompletado = true;
+            GameManager.Instance.Minigame2Dificil = true;
+            GameManager.Instance.DesbloquearLogro(GameManager.LogrosID.Minijuego2_Dificil);
+        }
+        GameManager.Instance.Guardar();
     }
 
     IEnumerator FadeYcargar()

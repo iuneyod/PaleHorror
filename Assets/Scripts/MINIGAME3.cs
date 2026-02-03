@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class MINIGAME3 : MonoBehaviour
 {
+    public GameObject pantallaNegro;
     MonsterMinigame3 monster;
     ThirdPersonController controller;
     public GameObject lintern;
@@ -70,6 +71,7 @@ public class MINIGAME3 : MonoBehaviour
 
     void Start()
     {
+        StartCoroutine(FadeOutPantallaNegra(1.5f));
         lintern.SetActive(false);
         CrearPalancas();
         CrearGeneradores();
@@ -81,6 +83,26 @@ public class MINIGAME3 : MonoBehaviour
         pantallaNegra.SetActive(false);
         textoFinal.gameObject.SetActive(false);
         finalLight.SetActive(false);
+    }
+
+    private IEnumerator FadeOutPantallaNegra(float duration)
+    {
+        pantallaNegro.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        CanvasGroup canvasGroup = pantallaNegro.GetComponent<CanvasGroup>();
+        if (canvasGroup == null)
+        {
+            canvasGroup = pantallaNegro.AddComponent<CanvasGroup>();
+        }
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            canvasGroup.alpha = 1f - Mathf.Clamp01(elapsed / duration);
+            yield return null;
+        }
+        canvasGroup.alpha = 0f;
+        pantallaNegro.SetActive(false);
     }
 
     void Update()

@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class GameManagerMainScene : MonoBehaviour
 {
     ArcadeMachine arcadeMachine;
+    Selected selected;
     StarterAssetsInputs starterAssetsInputs;
     ThirdPersonController controller;
     public GameObject arcadeUI;
@@ -16,15 +17,19 @@ public class GameManagerMainScene : MonoBehaviour
     public Button dinoButtonBlock;
     public Button blockGame;
     public Button blockGameBlock;
+
     public bool puedeJugarDino = false;
     public bool puedeJugarBlock = false;
+
     public TMP_Text dinoBlockText;
     public TMP_Text gameBlockTextBlock;
+
     private bool puedoInteractuarDinoBlock = true;
     private bool puedoInteractuarGameBlock = true;
 
     void Start()
     {
+        selected = FindObjectOfType<Selected>();
         arcadeUI.SetActive(false);
         arcadeMachine = FindObjectOfType<ArcadeMachine>();
         starterAssetsInputs = FindObjectOfType<StarterAssetsInputs>();
@@ -101,7 +106,7 @@ public class GameManagerMainScene : MonoBehaviour
 
     public void BlockGame()
     {
-        //SceneManager.LoadScene("BlockMinigame");
+        SceneManager.LoadScene("ArcadeMinigame2");
     }
 
     public IEnumerator BlockGameBlockCorrutine()

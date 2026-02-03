@@ -95,6 +95,14 @@ public class PaleMaderaLobby : ObjetoInteractivo
         ReactivarJugador();
 
         yield return new WaitForSeconds(2f);
-        gameObject.SetActive(false);
+        GameManager.Instance.yaCayoPaleMadera = true;
+    }
+
+    void Update()
+    {
+        if(GameManager.Instance.yaCayoPaleMadera == true)
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

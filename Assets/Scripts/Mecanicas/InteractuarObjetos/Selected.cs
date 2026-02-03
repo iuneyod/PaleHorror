@@ -5,12 +5,16 @@ public class Selected : MonoBehaviour
     LayerMask mask;
     public float distance = 1.5f;
 
-    public Texture2D cursor;
+    public Texture2D cursorNormal;
+    public Texture2D cursorInteract;
 
     public float normalSize = 32f;
     public float interactSize = 48f;
 
     public bool canInteract = false;
+    public bool sistemaActivo = true;
+    public float yMultiplier = 0.6f; // más pequeño = más estrecho en Y
+
 
     void Start()
     {
@@ -19,6 +23,12 @@ public class Selected : MonoBehaviour
 
     void Update()
     {
+        if (!sistemaActivo)
+        {
+            canInteract = false;
+            return;
+        }
+
         RaycastHit hit;
         canInteract = false;
 
@@ -40,15 +50,20 @@ public class Selected : MonoBehaviour
 
     void OnGUI()
     {
-        float size = canInteract ? interactSize : normalSize;
+        if (!sistemaActivo) return;
+
+        Texture2D tex = canInteract ? cursorInteract : cursorNormal;
+        float width = canInteract ? interactSize : normalSize;
+        float height = width * yMultiplier;
 
         Rect rect = new Rect(
-            (Screen.width - size) / 2,
-            (Screen.height - size) / 2,
-            size,
-            size
+            (Screen.width - width) / 2,
+            (Screen.height - height) / 2,
+            width,
+            height
         );
 
-        GUI.DrawTexture(rect, cursor);
+        GUI.DrawTexture(rect, tex);
     }
+
 }

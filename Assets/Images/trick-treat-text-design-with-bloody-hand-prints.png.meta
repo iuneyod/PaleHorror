@@ -1,0 +1,468 @@
+fileFormatVersion: 2
+guid: efed431a868a1a14180966a72e456b72
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: trick-treat-text-design-with-bloody-hand-prints_1
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 844
+        width: 190
+        height: 246
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b97876718a440c44a96df237abd74dfb
+      internalID: 2099353959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trick-treat-text-design-with-bloody-hand-prints_4
+      rect:
+        serializedVersion: 2
+        x: 337
+        y: 683
+        width: 224
+        height: 486
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7fae9b3c36bac349bd68be9391d1d41
+      internalID: 68584853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trick-treat-text-design-with-bloody-hand-prints_5
+      rect:
+        serializedVersion: 2
+        x: 660
+        y: 741
+        width: 193
+        height: 357
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 938abe48e1700184aae2bd8d39c8e1e3
+      internalID: 504694530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trick-treat-text-design-with-bloody-hand-prints_7
+      rect:
+        serializedVersion: 2
+        x: 888
+        y: 778
+        width: 384
+        height: 350
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d00bb1bd9be61dd498c2b57969c7ab0a
+      internalID: 631579923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trick-treat-text-design-with-bloody-hand-prints_18
+      rect:
+        serializedVersion: 2
+        x: 643
+        y: 519
+        width: 215
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7790b97273137d6499ef61281ae24c27
+      internalID: -1995902160
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trick-treat-text-design-with-bloody-hand-prints_26
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 526
+        width: 526
+        height: 99
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65d31b2259bd24d4394a83d048a6aa93
+      internalID: -1885680856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trick-treat-text-design-with-bloody-hand-prints_56
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 301
+        width: 143
+        height: 205
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc5182dd1ad303644a7b78ae1f3ad4ab
+      internalID: 161956731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trick-treat-text-design-with-bloody-hand-prints_57
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 145
+        width: 52
+        height: 349
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2fb83c7a15da6f4c84761eb760afbb9
+      internalID: -1899713245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trick-treat-text-design-with-bloody-hand-prints_94
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 68
+        width: 146
+        height: 210
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7152add9611c6d34ca73ae47dae4a3c9
+      internalID: -429638884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trick-treat-text-design-with-bloody-hand-prints_112
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 82
+        width: 268
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c66dd213b299654995c5e71b7ac1861
+      internalID: -834570483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 7b2a561de8bafdc47a24e26f7cc78faf
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      trick-treat-text-design-with-bloody-hand-prints_0: 110547754
+      trick-treat-text-design-with-bloody-hand-prints_1: 2099353959
+      trick-treat-text-design-with-bloody-hand-prints_10: -1594855382
+      trick-treat-text-design-with-bloody-hand-prints_100: 354669094
+      trick-treat-text-design-with-bloody-hand-prints_101: -1575041942
+      trick-treat-text-design-with-bloody-hand-prints_102: -1233287934
+      trick-treat-text-design-with-bloody-hand-prints_103: 799343586
+      trick-treat-text-design-with-bloody-hand-prints_104: 625982368
+      trick-treat-text-design-with-bloody-hand-prints_105: -980849922
+      trick-treat-text-design-with-bloody-hand-prints_106: -2146976819
+      trick-treat-text-design-with-bloody-hand-prints_107: -1921452293
+      trick-treat-text-design-with-bloody-hand-prints_108: 1209584826
+      trick-treat-text-design-with-bloody-hand-prints_109: 1785516333
+      trick-treat-text-design-with-bloody-hand-prints_11: -1670718903
+      trick-treat-text-design-with-bloody-hand-prints_110: -126750417
+      trick-treat-text-design-with-bloody-hand-prints_111: -183020155
+      trick-treat-text-design-with-bloody-hand-prints_112: -834570483
+      trick-treat-text-design-with-bloody-hand-prints_113: -760833604
+      trick-treat-text-design-with-bloody-hand-prints_114: 1727008922
+      trick-treat-text-design-with-bloody-hand-prints_115: 2121917417
+      trick-treat-text-design-with-bloody-hand-prints_116: -777096849
+      trick-treat-text-design-with-bloody-hand-prints_117: 1683367286
+      trick-treat-text-design-with-bloody-hand-prints_12: 1057100405
+      trick-treat-text-design-with-bloody-hand-prints_13: -45162461
+      trick-treat-text-design-with-bloody-hand-prints_14: 1877291884
+      trick-treat-text-design-with-bloody-hand-prints_15: -787865132
+      trick-treat-text-design-with-bloody-hand-prints_16: -64560993
+      trick-treat-text-design-with-bloody-hand-prints_17: 1841500854
+      trick-treat-text-design-with-bloody-hand-prints_18: -1995902160
+      trick-treat-text-design-with-bloody-hand-prints_19: -261206025
+      trick-treat-text-design-with-bloody-hand-prints_2: -902190821
+      trick-treat-text-design-with-bloody-hand-prints_20: -1849108631
+      trick-treat-text-design-with-bloody-hand-prints_21: 1230995453
+      trick-treat-text-design-with-bloody-hand-prints_22: 340223378
+      trick-treat-text-design-with-bloody-hand-prints_23: 1991246370
+      trick-treat-text-design-with-bloody-hand-prints_24: 44619810
+      trick-treat-text-design-with-bloody-hand-prints_25: 399006689
+      trick-treat-text-design-with-bloody-hand-prints_26: -1885680856
+      trick-treat-text-design-with-bloody-hand-prints_27: -1785550923
+      trick-treat-text-design-with-bloody-hand-prints_28: -669699445
+      trick-treat-text-design-with-bloody-hand-prints_29: 1180639208
+      trick-treat-text-design-with-bloody-hand-prints_3: 973365731
+      trick-treat-text-design-with-bloody-hand-prints_30: -193686376
+      trick-treat-text-design-with-bloody-hand-prints_31: -1565851328
+      trick-treat-text-design-with-bloody-hand-prints_32: -1484761976
+      trick-treat-text-design-with-bloody-hand-prints_33: -1439318860
+      trick-treat-text-design-with-bloody-hand-prints_34: 974144557
+      trick-treat-text-design-with-bloody-hand-prints_35: 2013593048
+      trick-treat-text-design-with-bloody-hand-prints_36: -607510624
+      trick-treat-text-design-with-bloody-hand-prints_37: 107937879
+      trick-treat-text-design-with-bloody-hand-prints_38: -2137559209
+      trick-treat-text-design-with-bloody-hand-prints_39: -665636691
+      trick-treat-text-design-with-bloody-hand-prints_4: 68584853
+      trick-treat-text-design-with-bloody-hand-prints_40: -1513968330
+      trick-treat-text-design-with-bloody-hand-prints_41: 2003644786
+      trick-treat-text-design-with-bloody-hand-prints_42: -604089458
+      trick-treat-text-design-with-bloody-hand-prints_43: 1039665296
+      trick-treat-text-design-with-bloody-hand-prints_44: -930837319
+      trick-treat-text-design-with-bloody-hand-prints_45: -715780771
+      trick-treat-text-design-with-bloody-hand-prints_46: 182452701
+      trick-treat-text-design-with-bloody-hand-prints_47: 1657550966
+      trick-treat-text-design-with-bloody-hand-prints_48: 1525273576
+      trick-treat-text-design-with-bloody-hand-prints_49: -1238748720
+      trick-treat-text-design-with-bloody-hand-prints_5: 504694530
+      trick-treat-text-design-with-bloody-hand-prints_50: -810711814
+      trick-treat-text-design-with-bloody-hand-prints_51: 1613623745
+      trick-treat-text-design-with-bloody-hand-prints_52: -959530612
+      trick-treat-text-design-with-bloody-hand-prints_53: -457035178
+      trick-treat-text-design-with-bloody-hand-prints_54: -1802257466
+      trick-treat-text-design-with-bloody-hand-prints_55: -470614435
+      trick-treat-text-design-with-bloody-hand-prints_56: 161956731
+      trick-treat-text-design-with-bloody-hand-prints_57: -1899713245
+      trick-treat-text-design-with-bloody-hand-prints_58: 2027545359
+      trick-treat-text-design-with-bloody-hand-prints_59: -1650070508
+      trick-treat-text-design-with-bloody-hand-prints_6: -972362401
+      trick-treat-text-design-with-bloody-hand-prints_60: -1104032357
+      trick-treat-text-design-with-bloody-hand-prints_61: -189884414
+      trick-treat-text-design-with-bloody-hand-prints_62: 771330572
+      trick-treat-text-design-with-bloody-hand-prints_63: 417637382
+      trick-treat-text-design-with-bloody-hand-prints_64: -1552477629
+      trick-treat-text-design-with-bloody-hand-prints_65: -1074594886
+      trick-treat-text-design-with-bloody-hand-prints_66: 1329713196
+      trick-treat-text-design-with-bloody-hand-prints_67: -702527029
+      trick-treat-text-design-with-bloody-hand-prints_68: -898172869
+      trick-treat-text-design-with-bloody-hand-prints_69: -506818537
+      trick-treat-text-design-with-bloody-hand-prints_7: 631579923
+      trick-treat-text-design-with-bloody-hand-prints_70: 919600559
+      trick-treat-text-design-with-bloody-hand-prints_71: 2035440378
+      trick-treat-text-design-with-bloody-hand-prints_72: 1057421547
+      trick-treat-text-design-with-bloody-hand-prints_73: 900121989
+      trick-treat-text-design-with-bloody-hand-prints_74: -549594607
+      trick-treat-text-design-with-bloody-hand-prints_75: 372110725
+      trick-treat-text-design-with-bloody-hand-prints_76: 359256007
+      trick-treat-text-design-with-bloody-hand-prints_77: -1686980667
+      trick-treat-text-design-with-bloody-hand-prints_78: -1783076836
+      trick-treat-text-design-with-bloody-hand-prints_79: -1302331708
+      trick-treat-text-design-with-bloody-hand-prints_8: 2108740011
+      trick-treat-text-design-with-bloody-hand-prints_80: -1407424493
+      trick-treat-text-design-with-bloody-hand-prints_81: 1230543338
+      trick-treat-text-design-with-bloody-hand-prints_82: -142357168
+      trick-treat-text-design-with-bloody-hand-prints_83: 1436468953
+      trick-treat-text-design-with-bloody-hand-prints_84: 947528009
+      trick-treat-text-design-with-bloody-hand-prints_85: -1837298545
+      trick-treat-text-design-with-bloody-hand-prints_86: 1225092583
+      trick-treat-text-design-with-bloody-hand-prints_87: 210280158
+      trick-treat-text-design-with-bloody-hand-prints_88: -541193862
+      trick-treat-text-design-with-bloody-hand-prints_89: 2124837357
+      trick-treat-text-design-with-bloody-hand-prints_9: -975803085
+      trick-treat-text-design-with-bloody-hand-prints_90: -814524134
+      trick-treat-text-design-with-bloody-hand-prints_91: 524263958
+      trick-treat-text-design-with-bloody-hand-prints_92: -1921727110
+      trick-treat-text-design-with-bloody-hand-prints_93: -1673166494
+      trick-treat-text-design-with-bloody-hand-prints_94: -429638884
+      trick-treat-text-design-with-bloody-hand-prints_95: 5644121
+      trick-treat-text-design-with-bloody-hand-prints_96: 289916878
+      trick-treat-text-design-with-bloody-hand-prints_97: -1459102288
+      trick-treat-text-design-with-bloody-hand-prints_98: -1266012828
+      trick-treat-text-design-with-bloody-hand-prints_99: 394084478
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

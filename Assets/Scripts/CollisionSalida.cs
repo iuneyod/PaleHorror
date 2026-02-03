@@ -7,14 +7,19 @@ public class CollisionSalida : MonoBehaviour
 {
     public string nombreScene;
     public GameObject pantallaNegra;
+    public bool minijuego3Completado = false;
 
     public void OnTriggerEnter(Collider other)
     {
+        minijuego3Completado = true;
+        GameManager.Instance.CompletarMinijuego("MINIJUEGO3");
+        GameManager.Instance.Minigame3Completado = true;
         if (other.CompareTag("Player"))
         {
             StartCoroutine(CambiarScene());
             this.transform.position = new Vector3(0, +100, 0);
         }
+        GameManager.Instance.Guardar();
     }
 
     IEnumerator CambiarScene()

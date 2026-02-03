@@ -8,12 +8,16 @@ using UnityEngine.SceneManagement;
 
 public class FnafHouseManager : MonoBehaviour
 {
+    VentMinigame2 minijuego2;
+    CollisionSalida minijuego3;
+    CollisionSalida4 minijuego4;
+
     public GameObject pantallaNegra;
     public TMP_Text progressText;
     public float Progress = 0;
     public float MaxProgress = 100;
     public float ProgressSpeed = 1f;
-    public float DegressSpeed = 0.15f;
+    public float DegressSpeed = 0.1f;
     public bool estaSubiendo = false;
 
     Coroutine progresoCoroutine;
@@ -29,7 +33,7 @@ public class FnafHouseManager : MonoBehaviour
     ThirdPersonController controller;
 
     public bool Derrota = false;
-    public bool victoria = false;
+    public bool minigame1Completado = false;
     public bool juegoBloqueado = false;
 
 
@@ -52,6 +56,11 @@ public class FnafHouseManager : MonoBehaviour
     public bool mirandoAtras = false;
     bool aperecerNumerosDetras = false;
     bool bienHecho = false;
+
+    public bool Minigame1DificilCompletado = false;
+
+    float TiempoMonsterDificil = 4.2f;
+    float EsperarPosterDificil = 7f;
 
     enum MonsterPoseIzq
     {
@@ -137,6 +146,7 @@ public class FnafHouseManager : MonoBehaviour
 
     void Start()
     {
+        StartCoroutine(FadeOutPantallaNegra(2f));
         playerAnimator = player.GetComponent<Animator>();
         inputs = player.GetComponent<StarterAssetsInputs>();
         controller = player.GetComponent<ThirdPersonController>();
@@ -150,12 +160,23 @@ public class FnafHouseManager : MonoBehaviour
         skyBoxFnaf.SetActive(true);
         MonsterIzquierda();
         MonsterDerecha();
+
+        minijuego2 = FindObjectOfType<VentMinigame2>();
+        minijuego3 = FindObjectOfType<CollisionSalida>();
+        minijuego4 = FindObjectOfType<CollisionSalida4>();
     }
 
     void Update()
     {
         if (juegoBloqueado)
             return;
+
+        if(GameManager.Instance.CompletoTodosLosMinijuegos == true)
+        {
+            DegressSpeed = 0.3f;
+            TiempoMonsterDificil = 3.2f;
+            EsperarPosterDificil = 5.5f;
+        }
 
         progressText.text = Mathf.RoundToInt(Progress) + "%";
 
@@ -303,23 +324,34 @@ public class FnafHouseManager : MonoBehaviour
             DegressSpeed = 0;
         }
 
-        if (Progress >= MaxProgress && !victoria)
+        if (Progress >= MaxProgress && !minigame1Completado)
         {
-            victoria = true;
+            GameManager.Instance.CompletarMinijuego("MINIJUEGO1");
+            GameManager.Instance.DesbloquearLogro(GameManager.LogrosID.PRIMER_MINIJUEGO);
+            minigame1Completado = true;
+            GameManager.Instance.Minigame1Completado = true;
             juegoBloqueado = true;
 
             StopAllCoroutines(); //PARA TODO FNAF
             StartCoroutine(VictoriaCorutina());
+
+            if (GameManager.Instance.CompletoTodosLosMinijuegos == true)
+            {
+                Minigame1DificilCompletado = true;
+                GameManager.Instance.DesbloquearLogro(GameManager.LogrosID.Minijuego1_Dificil);
+                GameManager.Instance.Minigame1Dificil = true;
+            }
+            GameManager.Instance.Guardar();
         }
+
+
 
         if (Derrota == true)
         {
-            victoria = false;
             juegoBloqueado = true;
             StopAllCoroutines(); //PARA TODO FNAF
             StartCoroutine(DerrotaCorutina());
         }
-
     }
 
     IEnumerator VictoriaCorutina()
@@ -346,6 +378,26 @@ public class FnafHouseManager : MonoBehaviour
         }
         canvasGroup.alpha = 1f;
         yield return new WaitForSeconds(0.5f);
+    }
+
+    private IEnumerator FadeOutPantallaNegra(float duration)
+    {
+        pantallaNegra.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        CanvasGroup canvasGroup = pantallaNegra.GetComponent<CanvasGroup>();
+        if (canvasGroup == null)
+        {
+            canvasGroup = pantallaNegra.AddComponent<CanvasGroup>();
+        }
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            canvasGroup.alpha = 1f - Mathf.Clamp01(elapsed / duration);
+            yield return null;
+        }
+        canvasGroup.alpha = 0f;
+        pantallaNegra.SetActive(false);
     }
     IEnumerator DerrotaCorutina()
     {
@@ -516,7 +568,7 @@ public class FnafHouseManager : MonoBehaviour
             if (monsterDerechaBloqueado)
                 yield break;
 
-            yield return new WaitForSeconds(4f);
+            yield return new WaitForSeconds(TiempoMonsterDificil);
 
             int chance = Random.Range(0, 3);
 
@@ -653,7 +705,7 @@ public class FnafHouseManager : MonoBehaviour
             if (monsterIzquierdaBloqueado)
                 yield break;
 
-            yield return new WaitForSeconds(4f);
+            yield return new WaitForSeconds(TiempoMonsterDificil);
 
             int chance = Random.Range(0, 3);
 
@@ -750,7 +802,7 @@ public class FnafHouseManager : MonoBehaviour
                 yield break;
 
             // esperar entre intentos
-            yield return new WaitForSeconds(4.5f);
+            yield return new WaitForSeconds(TiempoMonsterDificil);
 
             // si ya hay un poster activo, no intentes sacar otro
             if (posterActivo || numerosActivos)
@@ -809,7 +861,7 @@ public class FnafHouseManager : MonoBehaviour
 
     IEnumerator EsperarPoster()
     {
-        yield return new WaitForSeconds(7f);
+        yield return new WaitForSeconds(EsperarPosterDificil);
 
         if (!posterActivo) yield break;
         if (posterInteractuado) yield break;

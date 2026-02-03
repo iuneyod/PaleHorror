@@ -13,4 +13,12 @@ public class Basket : MonoBehaviour
             puntos ++;
         }
     }
+
+    void Update()
+    {
+        if (puntos >= 5)
+        {
+            GameManager.Instance.DesbloquearLogro(GameManager.LogrosID.Canasta_5);
+        }
+    }
 }

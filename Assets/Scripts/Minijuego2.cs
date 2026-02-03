@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,6 +9,8 @@ using UnityEngine.UI;
 
 public class Minijuego2 : MonoBehaviour
 {
+    public GameObject pantallaNegra;
+
     public GameObject player;
     public GameObject cameraPlayer;
     public Transform cameraTransform;
@@ -47,8 +50,8 @@ public class Minijuego2 : MonoBehaviour
     public TMP_Text temporizadorTexto;
 
     [Header("QTE")]
-    public float tiempoPorTecla = 2.5f;
-    public int teclasNecesarias = 4;
+    float tiempoPorTecla = 2.5f;
+    int teclasNecesarias = 4;
 
     private bool QTEActivo = false;
 
@@ -81,7 +84,7 @@ public class Minijuego2 : MonoBehaviour
     public TMP_Text TemporizadorNivel3;
 
     [Header("Temporizador Nivel")]
-    public float tiempoNivel = 180f;
+    float tiempoNivel = 180f;
     private bool acaboElTiempo = false;
 
     public GameObject LuzMonster;
@@ -91,7 +94,6 @@ public class Minijuego2 : MonoBehaviour
     Coroutine monsterCoroutine;
     Coroutine tornilloCoroutine;
     bool esperandoSiguienteTecla = false;
-
 
 
 
@@ -125,6 +127,7 @@ public class Minijuego2 : MonoBehaviour
 
     void Start()
     {
+        StartCoroutine(FadeOutPantallaNegra(2f));
         monsterCoroutine = StartCoroutine(Monster());
         lucesCoroutine = StartCoroutine(LucesParpadeo());
 
@@ -137,12 +140,43 @@ public class Minijuego2 : MonoBehaviour
         pantallaNegro.SetActive(false);
     }
 
+    private IEnumerator FadeOutPantallaNegra(float duration)
+    {
+        pantallaNegra.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        CanvasGroup canvasGroup = pantallaNegra.GetComponent<CanvasGroup>();
+        if (canvasGroup == null)
+        {
+            canvasGroup = pantallaNegra.AddComponent<CanvasGroup>();
+        }
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            canvasGroup.alpha = 1f - Mathf.Clamp01(elapsed / duration);
+            yield return null;
+        }
+        canvasGroup.alpha = 0f;
+        pantallaNegra.SetActive(false);
+    }
+
 
 
 
     private void Update()
     {
         //float tiempoNivel = Time.timeSinceLevelLoad;
+
+        if(GameManager.Instance.CompletoTodosLosMinijuegos == true)
+        {
+            tiempoNivel = 170f;
+            tiempoPorTecla = 1.5f;
+            teclasNecesarias = 6;
+            Light1.GetComponent<Light>().color = Color.red;
+            Light2.GetComponent<Light>().color = Color.red;
+            Light3.GetComponent<Light>().color = Color.red;
+            GameManager.Instance.Guardar();
+        }
 
         if(haTocadoTornillo == true && yaTocoTornillo == false)
         {
@@ -455,7 +489,7 @@ public class Minijuego2 : MonoBehaviour
 
         pantallaNegro.SetActive(true);
         yield return new WaitForSeconds(1f);
-        //SceneManager.LoadScene("MainScene");
+        SceneManager.LoadScene("MainScene");
 
     }
 
