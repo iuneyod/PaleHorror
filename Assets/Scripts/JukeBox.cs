@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static GameManager;
 
 public class JukeBox : ObjetoInteractivo
 {
@@ -26,6 +27,14 @@ public class JukeBox : ObjetoInteractivo
         audioSource.Play();
 
         ultimoIndice = nuevoIndice;
+
+        if(GameManager.Instance.LogroDesbloqueado(LogrosID.EscuchoMusica) == false)
+        {
+            GameManager.Instance.DesbloquearLogro(GameManager.LogrosID.EscuchoMusica);
+            GameManager.Instance.MostrarAvisoLogro(LogrosID.EscuchoMusica, "NUNCA VIENE MAL RELAJARSE CON MÚSICA");
+            GameManager.Instance.EscuchoMusica = true;
+            GameManager.Instance.Guardar();
+        }
     }
 
     int ObtenerIndiceAleatorio()
@@ -41,5 +50,10 @@ public class JukeBox : ObjetoInteractivo
         while (index == ultimoIndice);
 
         return index;
+    }
+
+    public void PararMusica()
+    {
+        audioSource.Stop();
     }
 }

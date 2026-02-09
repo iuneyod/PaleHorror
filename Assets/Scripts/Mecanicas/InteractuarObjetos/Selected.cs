@@ -50,7 +50,7 @@ public class Selected : MonoBehaviour
 
     void OnGUI()
     {
-        if (!sistemaActivo) return;
+        if (sistemaActivo == false) return;
 
         Texture2D tex = canInteract ? cursorInteract : cursorNormal;
         float width = canInteract ? interactSize : normalSize;

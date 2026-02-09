@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -26,6 +25,10 @@ public class OpcionesLogrosManager : MonoBehaviour
     public GameObject TickCompletado_MinijuegoDificil1;
     public GameObject TickCompletado_MinijuegoDificil2;
     public GameObject TickCompletado_TodosMinijuegosDificiles;
+    public GameObject TickCompletado_500Puntos;
+    public GameObject TickCompletado_1000Puntos;
+    public GameObject TickCompletado_20PuntosArcade;
+    public GameObject TickCompletado_EscuchaMusica;
 
     public Button botonMenu;
     public Button botonLogros;
@@ -33,6 +36,8 @@ public class OpcionesLogrosManager : MonoBehaviour
     public GameObject LightMenu;
 
     public AudioSource music;
+    public GameObject cristal;
+    public bool yaAparecio = false;
 
     private void Start()
     {
@@ -57,7 +62,13 @@ public class OpcionesLogrosManager : MonoBehaviour
 
     private void Update()
     {
-        if(GameManager.Instance.CompletoTodosLosMinijuegos == true)
+        if (GameManager.Instance.puedeAparecerCristal == true && yaAparecio == false)
+        {
+            yaAparecio = true;
+            cristal.gameObject.SetActive(true);
+        }
+
+        if (GameManager.Instance.CompletoTodosLosMinijuegos == true)
         {
             LightMenu.GetComponent<Light>().color = Color.red;
             LightMenu.GetComponent <Light>().intensity = 0.6f;
@@ -153,5 +164,22 @@ public class OpcionesLogrosManager : MonoBehaviour
         {
             TickCompletado_TodosMinijuegosDificiles.SetActive(true);
         }
+        if (GameManager.Instance.LogroDesbloqueado(GameManager.LogrosID.PuntuacionPeq) == true)
+        {
+            TickCompletado_500Puntos.SetActive(true);
+        }
+        if (GameManager.Instance.LogroDesbloqueado(GameManager.LogrosID.PuntuacionGrande) == true)
+        {
+            TickCompletado_1000Puntos.SetActive(true);
+        }
+        if (GameManager.Instance.LogroDesbloqueado(GameManager.LogrosID.Puntuacion2Arcade) == true)
+        {
+            TickCompletado_20PuntosArcade.SetActive(true);
+        }
+        if (GameManager.Instance.LogroDesbloqueado(GameManager.LogrosID.EscuchoMusica) == true)
+        {
+            TickCompletado_EscuchaMusica.SetActive(true);
+        }
+
     }
 }

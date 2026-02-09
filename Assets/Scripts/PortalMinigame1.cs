@@ -16,6 +16,11 @@ public class PortalMinigame1 : ObjetoInteractivo
     public GameObject Portal2;
     public GameObject Portal3;
     public GameObject Portal4;
+    public BoxCollider Portal2Collider;
+    public BoxCollider Portal3Collider;
+    public BoxCollider Portal4Collider;
+    public Transform Portal4Transform;
+    public GameObject Portal4Entero;
 
     private void Start()
     {
@@ -76,6 +81,9 @@ public class PortalMinigame1 : ObjetoInteractivo
             Portal2.gameObject.SetActive(false);
             Portal3.gameObject.SetActive(false);
             Portal4.gameObject.SetActive(false);
+            Portal2Collider.enabled = false;
+            Portal3Collider.enabled = false;
+            Portal4Collider.enabled = false;
             GameManager.Instance.Guardar();
         }
         if (GameManager.Instance.Minigame1Completado == true && GameManager.Instance.Minigame2Completado == false && GameManager.Instance.Minigame3Completado == false && GameManager.Instance.Minigame4Completado == false)
@@ -83,6 +91,10 @@ public class PortalMinigame1 : ObjetoInteractivo
             Portal2.gameObject.SetActive(true);
             Portal3.gameObject.SetActive(false);
             Portal4.gameObject.SetActive(false);
+            Portal2Collider.enabled = true;
+            Portal3Collider.enabled = false;
+            Portal4Collider.enabled = false;
+
             GameManager.Instance.Guardar();
 
         }
@@ -91,6 +103,9 @@ public class PortalMinigame1 : ObjetoInteractivo
             Portal2.gameObject.SetActive(true);
             Portal3.gameObject.SetActive(true);
             Portal4.gameObject.SetActive(false);
+            Portal2Collider.enabled = true;
+            Portal3Collider.enabled = true;
+            Portal4Collider.enabled = false;
             GameManager.Instance.Guardar();
 
         }
@@ -99,8 +114,47 @@ public class PortalMinigame1 : ObjetoInteractivo
             Portal2.gameObject.SetActive(true);
             Portal3.gameObject.SetActive(true);
             Portal4.gameObject.SetActive(true);
+            Portal2Collider.enabled = true;
+            Portal3Collider.enabled = true;
+            Portal4Collider.enabled = true;
             GameManager.Instance.Guardar();
 
         }
+        if (GameManager.Instance.CompletoTodosLosMinijuegos == true)
+        {
+            Portal4.gameObject.SetActive(false);
+            Portal4Collider.enabled = false;
+            Portal4Entero.transform.position = Portal4Transform.position;
+            Portal4Entero.transform.rotation = Portal4Transform.rotation;
+        }
+        if (GameManager.Instance.CompletoTodosLosMinijuegos == true && GameManager.Instance.Minigame1Dificil == false && GameManager.Instance.Minigame2Dificil == false && GameManager.Instance.Minigame3Dificil == false)
+        {
+            Portal2.gameObject.SetActive(false);
+            Portal3.gameObject.SetActive(false);
+            Portal2Collider.enabled = false;
+            Portal3Collider.enabled = false;
+        }
+        if (GameManager.Instance.CompletoTodosLosMinijuegos == true && GameManager.Instance.Minigame1Dificil == true && GameManager.Instance.Minigame2Dificil == false && GameManager.Instance.Minigame3Dificil == false)
+        {
+            Portal2.gameObject.SetActive(true);
+            Portal3.gameObject.SetActive(false);
+            Portal2Collider.enabled = true;
+            Portal3Collider.enabled = false;
+        }
+        if (GameManager.Instance.CompletoTodosLosMinijuegos == true && GameManager.Instance.Minigame1Dificil == true && GameManager.Instance.Minigame2Dificil == true && GameManager.Instance.Minigame3Dificil == false)
+        {
+            Portal2.gameObject.SetActive(true);
+            Portal3.gameObject.SetActive(true);
+            Portal2Collider.enabled = true;
+            Portal3Collider.enabled = true;
+        }
+        if (GameManager.Instance.CompletoTodosLosMinijuegos == true && GameManager.Instance.Minigame1Dificil == true && GameManager.Instance.Minigame2Dificil == true && GameManager.Instance.Minigame3Dificil == true)
+        {
+            Portal2.gameObject.SetActive(true);
+            Portal3.gameObject.SetActive(true);
+            Portal2Collider.enabled = true;
+            Portal3Collider.enabled = true;
+        }
+
     }
 }

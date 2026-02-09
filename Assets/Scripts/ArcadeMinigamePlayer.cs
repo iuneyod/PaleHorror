@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using static GameManager;
 
 public class ArcadeMinigamePlayer : MonoBehaviour
 {
@@ -37,7 +38,29 @@ public class ArcadeMinigamePlayer : MonoBehaviour
         puntuacionText.text = "Puntuación: " + puntuacion;
 
         if (derrota)
-            return; // No seguir ejecutando lógica cuando estás muerto
+            return;
+
+        if(puntuacion >= 500)
+        {
+            if(GameManager.Instance.LogroDesbloqueado(LogrosID.PuntuacionPeq) == false)
+            {
+                GameManager.Instance.DesbloquearLogro(GameManager.LogrosID.PuntuacionPeq);
+                GameManager.Instance.MostrarAvisoLogro(LogrosID.PuntuacionPeq, "UN PEQUEÑO RETO");
+                GameManager.Instance.PuntuacionPeq = true;
+                GameManager.Instance.Guardar();
+            }
+        }
+        if (puntuacion >= 1000)
+        {
+            if (GameManager.Instance.LogroDesbloqueado(LogrosID.PuntuacionGrande) == false)
+            {
+                GameManager.Instance.DesbloquearLogro(GameManager.LogrosID.PuntuacionGrande);
+                GameManager.Instance.MostrarAvisoLogro(LogrosID.PuntuacionGrande, "DINOEXPERTO");
+                GameManager.Instance.PuntuacionGrande = true;
+                GameManager.Instance.Guardar();
+            }
+        }
+
     }
 
     void FixedUpdate()

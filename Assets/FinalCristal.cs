@@ -5,12 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class FinalCristal : ObjetoInteractivo
 {
+    JukeBox juke;
     [Header("Cinemática")]
     public PlayableDirector timeline;
     public GameObject cameraa;
     Selected SELECTED;
 
-    private bool yaActivado = false;
+    public bool yaActivado = false;
     public GameObject pantallaNegra;
     public GameObject efects;
 
@@ -20,13 +21,16 @@ public class FinalCristal : ObjetoInteractivo
     {
         cameraa.SetActive(false);
         SELECTED = FindAnyObjectByType<Selected>();
+        juke = FindAnyObjectByType<JukeBox>();
     }
+
 
     public override void ActivarObjeto()
     {
         if (yaActivado) return;
         yaActivado = true;
 
+        juke.PararMusica();
         music.Play();
         cameraa.SetActive(true);
         GameManager.Instance.cristalObtenido = true;
@@ -42,11 +46,7 @@ public class FinalCristal : ObjetoInteractivo
         {
             Debug.LogError("PlayableDirector no asignado");
         }
-    }
 
-    public void MostrarCristal()
-    {
-        this.gameObject.SetActive(true);
     }
 
     IEnumerator FinalGame()

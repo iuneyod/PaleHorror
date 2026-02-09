@@ -53,6 +53,12 @@ public class GameManager : MonoBehaviour
 
     public bool puedeAparecerCristal = false;
     public bool cristalObtenido = false;
+    public bool PuntuacionPeq = false;
+    public bool PuntuacionGrande = false;
+    public bool Puntuacion2Arcade = false;
+    public bool EscuchoMusica = false;
+
+
 
 
     public void ComerLata()
@@ -185,14 +191,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void MostrarCristalFinal()
-    {
-        FinalCristal cristal = FindObjectOfType<FinalCristal>(true);
-        if (cristal != null)
-            cristal.MostrarCristal();
-    }
-
-
 
     public void ObtenerObjetoArcade1()
     {
@@ -218,7 +216,6 @@ public class GameManager : MonoBehaviour
                 MostrarAvisoLogro(LogrosID.JuegoCompletado, "AL FIN EL FIN");
                 puedeAparecerCristal = true;
 
-                MostrarCristalFinal();
                 Guardar();
             }
         }
@@ -271,6 +268,12 @@ public class GameManager : MonoBehaviour
         public const string Minijuego1_Dificil = "Minijuego1_Dificil";
         public const string Minijuego2_Dificil = "Minijuego2_Dificil";
         public const string JuegoCompletado = "Juego_Completado";
+        public const string PuntuacionPeq = "Puntuacion500";
+        public const string PuntuacionGrande = "Puntuacion1000";
+        public const string Puntuacion2Arcade = "Arcade2Puntos";
+        public const string EscuchoMusica = "EscuchoMusica";
+
+
     }
 
 
@@ -376,6 +379,15 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("Minigame3Dificil", Minigame3Dificil ? 1 : 0);
         PlayerPrefs.SetInt("CristalFinJuego", puedeAparecerCristal ? 1 : 0);
         PlayerPrefs.SetInt("TerminoJuego", cristalObtenido ? 1 : 0);
+        PlayerPrefs.SetInt("Puntuacion500", PuntuacionPeq ? 1 : 0);
+        PlayerPrefs.SetInt("Puntuacion1000", PuntuacionGrande ? 1 : 0);
+        PlayerPrefs.SetInt("Arcade2Puntos", Puntuacion2Arcade ? 1 : 0);
+        PlayerPrefs.SetInt("EscuchoMusica", EscuchoMusica ? 1 : 0);
+
+
+
+
+
 
 
         PlayerPrefs.Save();
@@ -428,6 +440,12 @@ public class GameManager : MonoBehaviour
         Minigame3Dificil = PlayerPrefs.GetInt("Minigame3Dificil", 0) == 1;
         puedeAparecerCristal = PlayerPrefs.GetInt("CristalFinJuego", 0) == 1;
         cristalObtenido = PlayerPrefs.GetInt("TerminoJuego", 0) == 1;
+        PuntuacionPeq = PlayerPrefs.GetInt("Puntuacion500", 0) == 1;
+        PuntuacionGrande = PlayerPrefs.GetInt("Puntuacion1000", 0) == 1;
+        Puntuacion2Arcade = PlayerPrefs.GetInt("Arcade2Puntos", 0) == 1;
+        EscuchoMusica = PlayerPrefs.GetInt("EscuchoMusica", 0) == 1;
+
+
         ObjetosArcade();
     }
 
@@ -455,6 +473,10 @@ public class GameManager : MonoBehaviour
         Minigame3Dificil = false;
         puedeAparecerCristal = false;
         cristalObtenido = false;
+        PuntuacionPeq = false;
+        PuntuacionGrande = false;
+        Puntuacion2Arcade = false;
+        EscuchoMusica = false;
 
 
 

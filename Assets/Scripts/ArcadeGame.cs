@@ -1,8 +1,8 @@
 using System.Collections;
 using TMPro;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static GameManager;
 
 public class ArcadeGame : MonoBehaviour
 {
@@ -31,6 +31,17 @@ public class ArcadeGame : MonoBehaviour
     {
         fallosText.text = "Fallos: " + fallos + " / " + fallosMax;
         score.text = "SCORE: " + puntos;
+
+        if (puntos >= 50)
+        {
+            if (GameManager.Instance.LogroDesbloqueado(LogrosID.Puntuacion2Arcade) == false)
+            {
+                GameManager.Instance.DesbloquearLogro(GameManager.LogrosID.Puntuacion2Arcade);
+                GameManager.Instance.MostrarAvisoLogro(LogrosID.Puntuacion2Arcade, "AMANTE DE LOS RECREATIVOS");
+                GameManager.Instance.Puntuacion2Arcade = true;
+                GameManager.Instance.Guardar();
+            }
+        }
     }
 
     IEnumerator Juego()

@@ -27,19 +27,20 @@ public class CollisionSalida : MonoBehaviour
 
         GameManager.Instance.CompletarMinijuego("MINIJUEGO3");
         GameManager.Instance.Minigame3Completado = true;
-        GameManager.Instance.Guardar();
         GameManager.Instance.ComprobarTodosLosMinijuegos();
 
+        if (GameManager.Instance.CompletoTodosLosMinijuegos)
+        {
+            minigame3DificilCompletado = true;
+            GameManager.Instance.Minigame3Dificil = true;
+        }
+
+        GameManager.Instance.JuegoTerminado();
+        GameManager.Instance.Guardar();
 
         StartCoroutine(CambiarScene());
         transform.position = new Vector3(0, 100, 0);
 
-        if (GameManager.Instance.CompletoTodosLosMinijuegos == true)
-        {
-            minigame3DificilCompletado = true;
-            GameManager.Instance.Minigame3Dificil = true;
-            GameManager.Instance.JuegoTerminado();
-        }
     }
 
     IEnumerator CambiarScene()
