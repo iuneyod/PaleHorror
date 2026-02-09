@@ -40,6 +40,8 @@ namespace StarterAssets
         //public float energyRegenRate = 10f; // energía que se regenera por segundo sin correr
         //private bool isDraining = false;
 
+        [Header("Camera Sensitivity")]
+        public float MouseSensitivity = 1.5f;
 
         [Space(10)]
 		[Tooltip("The height the player can jump")]
@@ -140,6 +142,7 @@ namespace StarterAssets
 			//HandleEnergy();
         }
 
+
         //private void HandleEnergy()
         //{
         //    bool isMoving = _speed > 0.1f;
@@ -196,22 +199,20 @@ namespace StarterAssets
 			}
 		}
 
-		private void CameraRotation()
-		{
-			// if there is an input and camera position is not fixed
-			if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition)
-			{
-				_cinemachineTargetYaw += _input.look.x * Time.deltaTime;
-				_cinemachineTargetPitch += _input.look.y * Time.deltaTime;
-			}
+        private void CameraRotation()
+        {
+            if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition)
+            {
+                _cinemachineTargetYaw += _input.look.x * MouseSensitivity;
+                _cinemachineTargetPitch += _input.look.y * MouseSensitivity;
+            }
 
-			// clamp our rotations so our values are limited 360 degrees
-			_cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
-			_cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
+            _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
 
-			// Cinemachine will follow this target
-			CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride, _cinemachineTargetYaw, 0.0f);
-		}
+            CinemachineCameraTarget.transform.rotation =
+                Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride, _cinemachineTargetYaw, 0f);
+        }
+
 
         private void Move()
         {

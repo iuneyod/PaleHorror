@@ -4,9 +4,12 @@ using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using static GameManager;
 
 public class OpcionesLogrosManager : MonoBehaviour
 {
+    PortalMinigame1 portal;
+    ArcadeMachine arcade;
     Selected selectedScript;
     public bool puedeAbrirUI = true;
     public GameObject UI;
@@ -20,16 +23,36 @@ public class OpcionesLogrosManager : MonoBehaviour
     public GameObject TickCompletado_TodosLosMinijuegos;
     public GameObject TickCompletado_5canastas;
     public GameObject TickCompletado_JuegosArcade;
+    public GameObject TickCompletado_MinijuegoDificil1;
+    public GameObject TickCompletado_MinijuegoDificil2;
+    public GameObject TickCompletado_TodosMinijuegosDificiles;
 
     public Button botonMenu;
     public Button botonLogros;
 
     public GameObject LightMenu;
 
+    public AudioSource music;
+
     private void Start()
     {
+        portal = FindAnyObjectByType<PortalMinigame1>();
+        portal.Portales();
+        music.Play();
         UI.SetActive(false);
         selectedScript = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Selected>();
+        arcade = FindAnyObjectByType<ArcadeMachine>();
+
+        if (GameManager.Instance.Minigame1Dificil &&
+        !GameManager.Instance.avisosLogrosMostrados.Contains(LogrosID.Minijuego1_Dificil))
+        {
+            GameManager.Instance.MostrarAvisoLogro(
+                LogrosID.Minijuego1_Dificil,
+                "OTRA VEZ UNA PRIMERA VEZ"
+            );
+        }
+        GameManager.Instance.MostrarAvisosPendientes();
+
     }
 
     private void Update()
@@ -37,7 +60,8 @@ public class OpcionesLogrosManager : MonoBehaviour
         if(GameManager.Instance.CompletoTodosLosMinijuegos == true)
         {
             LightMenu.GetComponent<Light>().color = Color.red;
-            LightMenu.GetComponent <Light>().intensity = 0.7f;
+            LightMenu.GetComponent <Light>().intensity = 0.6f;
+            GameManager.Instance.Guardar();
         }
         else
         {
@@ -45,14 +69,16 @@ public class OpcionesLogrosManager : MonoBehaviour
             LightMenu.GetComponent<Light>().intensity = 1f;
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape) && puedeAbrirUI == true)
+        if (Input.GetKeyDown(KeyCode.Escape)
+         && puedeAbrirUI
+         && arcade.pantallaAbierta == false
+         && arcade.acabaDeCerrarArcade == false)
         {
             UIAbiertos = !UIAbiertos;
             UI.SetActive(UIAbiertos);
             logrosUI.SetActive(false);
             menuUI.SetActive(true);
             ActualizarTicksLogros();
-
         }
 
         if (UI.activeSelf == true)
@@ -61,13 +87,6 @@ public class OpcionesLogrosManager : MonoBehaviour
             botonMenu.interactable = true;
             botonLogros.interactable = true;
             selectedScript.sistemaActivo = false;
-        }
-        else
-        {
-            botonMenu.interactable = false;
-            botonLogros.interactable = false;
-            Cursor.lockState = CursorLockMode.Locked;
-            selectedScript.sistemaActivo = true;
         }
 
         if (UIAbiertos == true)
@@ -121,6 +140,18 @@ public class OpcionesLogrosManager : MonoBehaviour
         if (GameManager.Instance.LogroDesbloqueado(GameManager.LogrosID.DosObjetosArcade) == true)
         {
             TickCompletado_JuegosArcade.SetActive(true);
+        }
+        if (GameManager.Instance.LogroDesbloqueado(GameManager.LogrosID.Minijuego1_Dificil) == true)
+        {
+            TickCompletado_MinijuegoDificil1.SetActive(true);
+        }
+        if (GameManager.Instance.LogroDesbloqueado(GameManager.LogrosID.Minijuego2_Dificil) == true)
+        {
+            TickCompletado_MinijuegoDificil2.SetActive(true);
+        }
+        if (GameManager.Instance.LogroDesbloqueado(GameManager.LogrosID.JuegoCompletado) == true)
+        {
+            TickCompletado_TodosMinijuegosDificiles.SetActive(true);
         }
     }
 }

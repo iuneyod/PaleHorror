@@ -4,12 +4,14 @@ public class PhantomMove : MonoBehaviour
 {
     public float altura = 0.5f;
     public float velocidad = 1.5f;
+    public AudioSource Music;
 
     Vector3 posicionInicial;
 
     void Start()
     {
         posicionInicial = transform.position;
+        Music.Play();
     }
 
     void Update()

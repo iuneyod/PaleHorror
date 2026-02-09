@@ -7,6 +7,7 @@ public class PuertaIzquierdaMansion : ObjetoInteractivo
     private bool abierta = false;
     public int anguloApertura;
     private Quaternion rotacionInicial;
+    public AudioSource OPENDOOR;
 
     void Start()
     {
@@ -18,6 +19,7 @@ public class PuertaIzquierdaMansion : ObjetoInteractivo
     {
         if (!abierta)
         {
+            OPENDOOR.Play();
             AbrirPuerta();
             abierta = true;
         }

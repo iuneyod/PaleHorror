@@ -9,6 +9,7 @@ public class ObjetoMinigame4NoApagarVela : ObjetoInteractivo
     public Transform puntoSoltar;
     public bool colocarObjeto = false;
     public bool ObjetoColocado = false;
+    public AudioSource colocar;
 
     public override void ActivarObjeto()
     {
@@ -27,6 +28,7 @@ public class ObjetoMinigame4NoApagarVela : ObjetoInteractivo
     {
         if (colocarObjeto == true)
         {
+            colocar.Play();
             this.gameObject.transform.SetParent(null);
             this.gameObject.transform.position = new Vector3 (392.38f, 32.422f, 695.251f);
             this.gameObject.transform.rotation = puntoSoltar.rotation;

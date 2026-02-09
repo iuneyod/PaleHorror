@@ -84,7 +84,7 @@ public class Minijuego2 : MonoBehaviour
     public TMP_Text TemporizadorNivel3;
 
     [Header("Temporizador Nivel")]
-    float tiempoNivel = 180f;
+    float tiempoNivel = 185f;
     private bool acaboElTiempo = false;
 
     public GameObject LuzMonster;
@@ -94,6 +94,11 @@ public class Minijuego2 : MonoBehaviour
     Coroutine monsterCoroutine;
     Coroutine tornilloCoroutine;
     bool esperandoSiguienteTecla = false;
+
+    public AudioSource MonsterAudio;
+    public AudioClip laugh;
+    public AudioClip monsterBite;
+    public AudioSource Scream;
 
 
 
@@ -167,18 +172,17 @@ public class Minijuego2 : MonoBehaviour
     {
         //float tiempoNivel = Time.timeSinceLevelLoad;
 
-        if(GameManager.Instance.CompletoTodosLosMinijuegos == true)
+        if (GameManager.Instance != null && GameManager.Instance.CompletoTodosLosMinijuegos)
         {
-            tiempoNivel = 170f;
+            tiempoNivel = 180f;
             tiempoPorTecla = 1.5f;
             teclasNecesarias = 6;
-            Light1.GetComponent<Light>().color = Color.red;
-            Light2.GetComponent<Light>().color = Color.red;
-            Light3.GetComponent<Light>().color = Color.red;
-            GameManager.Instance.Guardar();
+            string tiempoTexto = Mathf.Ceil(tiempoNivel).ToString();
+
         }
 
-        if(haTocadoTornillo == true && yaTocoTornillo == false)
+
+        if (haTocadoTornillo == true && yaTocoTornillo == false)
         {
             StartCoroutine(Muerte());
             yaTocoTornillo = true;
@@ -238,6 +242,7 @@ public class Minijuego2 : MonoBehaviour
 
             if (estaMuriendo) yield break;
             if (Random.Range(0, 2) != 0) continue;
+            MonsterAudio.PlayOneShot(laugh);
 
             isAttacking = true;
             LuzMonster.SetActive(true);
@@ -413,6 +418,8 @@ public class Minijuego2 : MonoBehaviour
         if (tornilloCoroutine != null)
             StopCoroutine(tornilloCoroutine);
 
+        Scream.Play();
+
         LuzMonster.SetActive(false);
         isAttacking = true;
         puedeAtacar = false;
@@ -440,21 +447,21 @@ public class Minijuego2 : MonoBehaviour
             1f
         ));
         yield return new WaitForSeconds(0.4f);
-        float tiempo = 0f;
-        float duracion = 0.8f;
-        Quaternion desde = brazoMonstruo.transform.localRotation;
-        Quaternion hasta = Quaternion.Euler(rotacionMuerte3Euler);
+        //float tiempo = 0f;
+        //float duracion = 0.8f;
+        //Quaternion desde = brazoMonstruo.transform.localRotation;
+        //Quaternion hasta = Quaternion.Euler(rotacionMuerte3Euler);
 
-        while (tiempo < duracion)
-        {
-            tiempo += Time.deltaTime;
-            float t = tiempo / duracion;
+        //while (tiempo < duracion)
+        //{
+        //    tiempo += Time.deltaTime;
+        //    float t = tiempo / duracion;
 
-            brazoMonstruo.transform.localRotation = Quaternion.Slerp(desde, hasta, t);
-            yield return null;
-        }
+        //    brazoMonstruo.transform.localRotation = Quaternion.Slerp(desde, hasta, t);
+        //    yield return null;
+        //}
 
-        brazoMonstruo.transform.localRotation = hasta;
+        //brazoMonstruo.transform.localRotation = hasta;
 
         pantallaNegro.SetActive(true);
         monstruoFinal.transform.position = monsterFinalPos.transform.position;
@@ -462,7 +469,7 @@ public class Minijuego2 : MonoBehaviour
         pantallaNegro.SetActive(false);
 
         float duracionApertura = 1f;
-        tiempo = 0f;
+        float tiempo = 0f;
         Vector3 bocaInicialScale = bocaMonster.transform.localScale;
         Vector3 bocaFinalScale = new Vector3(bocaInicialScale.x, bocaInicialScale.y * 2f, bocaInicialScale.z);
         while (tiempo < duracionApertura)
@@ -473,7 +480,8 @@ public class Minijuego2 : MonoBehaviour
             yield return null;
         }
         bocaMonster.transform.localScale = bocaFinalScale;
-        
+
+        MonsterAudio.PlayOneShot(monsterBite);
 
         float duracionFinal = 0.1f;
         tiempo = 0f;
@@ -481,6 +489,7 @@ public class Minijuego2 : MonoBehaviour
         Vector3 posicionFinal = monsterFinalPosSusto.transform.position;
         while (tiempo < duracionFinal)
         {
+            Scream.Stop();
             tiempo += Time.deltaTime;
             float t = tiempo / duracionFinal;
             monstruoFinal.transform.position = Vector3.Lerp(posicionInicial, posicionFinal, t);
@@ -488,7 +497,7 @@ public class Minijuego2 : MonoBehaviour
         }
 
         pantallaNegro.SetActive(true);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         SceneManager.LoadScene("MainScene");
 
     }

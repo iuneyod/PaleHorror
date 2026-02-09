@@ -10,6 +10,7 @@ public class EagleMinigame4 : ObjetoInteractivo
     public bool mirandoDerecha = true;
 
     private bool puedeGirar = true;
+    public AudioSource eagle;
 
 
     public override void ActivarObjeto()
@@ -53,6 +54,7 @@ public class EagleMinigame4 : ObjetoInteractivo
     {
         if(puedeGirar == true)
         {
+            eagle.Play();
             puedeGirar = false;
             float tiempoTranscurrido = 0f;
             float duracionGiro = 0.5f; // Duración del giro en segundos

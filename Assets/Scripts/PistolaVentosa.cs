@@ -12,6 +12,7 @@ public class PistolaVentosa : ObjetoInteractivo
     Selected selected;
     public Rigidbody rb;
     public Camera camaraJugador;
+    public AudioSource shoot;
 
     private void Start()
     {
@@ -25,6 +26,7 @@ public class PistolaVentosa : ObjetoInteractivo
             return;
         }
         CogerPistola();
+
     }
 
     public void Update()
@@ -65,6 +67,7 @@ public class PistolaVentosa : ObjetoInteractivo
 
     void Disparar()
     {
+        shoot.Play();
         GameObject ventosaInstance = Instantiate(ventosa, shootPoint.position, Quaternion.identity);
         Rigidbody rb = ventosaInstance.GetComponent<Rigidbody>();
 

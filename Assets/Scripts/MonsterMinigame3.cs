@@ -10,15 +10,32 @@ public class MonsterMinigame3 : MonoBehaviour
     public NavMeshAgent agent;
 
 
-    public float rangoVision = 12f;
-    public float walkSpeed = 3f;
-    public float runSpeed = 4f;
+    [Header("Valores base")]
+    public float rangoVision;
+    public float walkSpeed;
+    public float runSpeed;
+
+    public float rangoVisionNormal = 10f;
+    public float rangoVisionDificil = 12f;
+
+    public float walkSpeedNormal = 2.5f;
+    public float runSpeedNormal = 3.5f;
+
+    public float walkSpeedDificil = 3f;
+    public float runSpeedDificil = 4f;
+
+    float rangoVisionBase;
     public float patrolRadius = 100f;
     public float patrolMinRadius = 20f;
     public float patrolTime = 20f;
     public bool enRage = false;
 
     public bool vaMatar = false;
+
+    public AudioSource MonsterLinterna;
+    public AudioClip gritoLinterna;
+
+    public AudioSource Persecucion;
 
 
     Vector3 patrolCenter;
@@ -36,6 +53,28 @@ public class MonsterMinigame3 : MonoBehaviour
         agent.updateRotation = false;
         patrolCenter = transform.position;
 
+        ConfigurarDificultad();
+    }
+
+    void ConfigurarDificultad()
+    {
+        if (GameManager.Instance != null &&
+            GameManager.Instance.CompletoTodosLosMinijuegos)
+        {
+            // MODO DIFÍCIL
+            rangoVisionBase = rangoVisionDificil;
+            walkSpeed = walkSpeedDificil;
+            runSpeed = runSpeedDificil;
+        }
+        else
+        {
+            // MODO NORMAL
+            rangoVisionBase = rangoVisionNormal;
+            walkSpeed = walkSpeedNormal;
+            runSpeed = runSpeedNormal;
+        }
+
+        rangoVision = rangoVisionBase;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -66,13 +105,15 @@ public class MonsterMinigame3 : MonoBehaviour
             // PERSEGUIR
             agent.speed = runSpeed;
             agent.SetDestination(target.transform.position);
-
+            if (!Persecucion.isPlaying && vaMatar == false)
+                Persecucion.Play();
             animator.SetBool("IsRun", true);
             animator.SetBool("isWalking", false);
         }
         else
         {
-            agent.speed = walkSpeed;
+            if (Persecucion.isPlaying)
+                Persecucion.Stop(); agent.speed = walkSpeed;
             animator.SetBool("IsRun", false);
             animator.SetBool("isWalking", true);
 
@@ -99,20 +140,38 @@ public class MonsterMinigame3 : MonoBehaviour
             }
         }
 
-        if (rangoVision <= 12)
+        // PARTIMOS DEL VALOR BASE
+        rangoVision = rangoVisionBase;
+
+        //ruido (escala suave)
+        float ruidoFactor = minigame3.ruido / minigame3.ruidoMaximo;
+        rangoVision += ruidoFactor * 4f; // AJUSTA 4f a tu gusto
+
+        // linterna
+        if (minigame3.linternActive)
         {
-            rangoVision = 12;
+            rangoVision += 2f;
         }
-        if (rangoVision > 12 && minigame3.linternActive == false)
+
+        // mínimo
+        if (rangoVision < rangoVisionBase)
+        {
+            rangoVision = rangoVisionBase;
+        }
+
+        // linterna
+        if (rangoVision > rangoVisionBase && !minigame3.linternActive)
         {
             rangoVision -= Time.deltaTime * 0.015f;
         }
 
+        // ruido
         rangoVision += minigame3.ruido * Time.deltaTime * 0.5f;
     }
 
     public IEnumerator LinternaEnEnemigo()
     {
+        MonsterLinterna.PlayOneShot(gritoLinterna);
         enRage = true;
         minigame3.duracionLinterna -= 5f;
 

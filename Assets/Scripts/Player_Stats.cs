@@ -238,12 +238,18 @@ public class Player_Stats : MonoBehaviour
 
     IEnumerator FreezeEffect()
     {
-        controller.MoveSpeed /= 2;
-        controller.SprintSpeed /= 2;
+        float baseMove = controller.MoveSpeed;
+        float baseSprint = controller.SprintSpeed;
+
+        controller.MoveSpeed = baseMove * 0.5f;
+        controller.SprintSpeed = baseSprint * 0.5f;
+
         yield return new WaitForSeconds(3f);
-        controller.MoveSpeed *= 2;
-        controller.SprintSpeed *= 2;
+
+        controller.MoveSpeed = baseMove;
+        controller.SprintSpeed = baseSprint;
     }
+
 
 
 

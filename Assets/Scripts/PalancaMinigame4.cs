@@ -24,6 +24,8 @@ public class PalancaMinigame4 : ObjetoInteractivo
 
     Vector3 cadenaVelaAbajoConObjeto;
 
+    public AudioSource cadena;
+
 
     void Start()
     {
@@ -61,6 +63,7 @@ public class PalancaMinigame4 : ObjetoInteractivo
     {
         if (objetoNoApagar.ObjetoColocado == false)
         {
+            cadena.Play();
             puedeInteractuar = false;
 
             Quaternion inicio = palanca.transform.localRotation;
@@ -109,6 +112,7 @@ public class PalancaMinigame4 : ObjetoInteractivo
         }
         else if (objetoNoApagar.ObjetoColocado == true)
         {
+            cadena.Play();
             puedeInteractuar = false;
 
             Quaternion inicio = palanca.transform.localRotation;
@@ -159,6 +163,7 @@ public class PalancaMinigame4 : ObjetoInteractivo
     {
         if (objetoNoApagar.ObjetoColocado == false)
         {
+            cadena.Play();
             puedeInteractuar = false;
 
             vela2Script.vela2Encendida = false;
@@ -206,6 +211,7 @@ public class PalancaMinigame4 : ObjetoInteractivo
         }
         else if(objetoNoApagar.ObjetoColocado == true)
         {
+            cadena.Play();
             puedeInteractuar = false;
 
             vela2Script.vela2Encendida = false;

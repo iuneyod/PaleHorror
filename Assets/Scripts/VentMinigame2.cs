@@ -11,6 +11,8 @@ public class VentMinigame2 : ObjetoInteractivo
     public bool minijuego2Completado = false;
     public bool minigame2DificilCompletado = false;
 
+    public AudioSource entrar;
+
 
 
     private void Start()
@@ -19,20 +21,26 @@ public class VentMinigame2 : ObjetoInteractivo
     }
     public override void ActivarObjeto()
     {
+        entrar.Play();
+        GameManager.Instance.ComprobarTodosLosMinijuegos();
+
         GameManager.Instance.CompletarMinijuego("MINIJUEGO2");
         GameManager.Instance.Minigame2Completado = true;
-        minijuego2Completado = true;
-        minijuego2.puedeAtacar = false;
-        StartCoroutine(FadeYcargar());
 
-        if(GameManager.Instance.CompletoTodosLosMinijuegos ==  true)
+        if (GameManager.Instance.CompletoTodosLosMinijuegos)
         {
-            minigame2DificilCompletado = true;
             GameManager.Instance.Minigame2Dificil = true;
             GameManager.Instance.DesbloquearLogro(GameManager.LogrosID.Minijuego2_Dificil);
         }
+
+        GameManager.Instance.JuegoTerminado();
         GameManager.Instance.Guardar();
+
+        minijuego2.puedeAtacar = false;
+
+        StartCoroutine(FadeYcargar());
     }
+
 
     IEnumerator FadeYcargar()
     {

@@ -10,6 +10,7 @@ public class RabbitMinigame4 : ObjetoInteractivo
     public bool mirandoDerecha = true;
 
     private bool puedeGirar = true;
+    public AudioSource rabbit;
 
 
     public override void ActivarObjeto()
@@ -53,6 +54,7 @@ public class RabbitMinigame4 : ObjetoInteractivo
     {
         if (puedeGirar == true)
         {
+            rabbit.Play();
             puedeGirar = false;
             float tiempoTranscurrido = 0f;
             float duracionGiro = 0.5f;

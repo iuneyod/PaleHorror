@@ -9,6 +9,8 @@ public class Vela3Minigame4 : MonoBehaviour
     public bool vela3Encendida = false;
     public GameObject fire3;
 
+    public AudioSource vela;
+
     private void Start()
     {
         eagleMinigame4 = FindObjectOfType<EagleMinigame4>();
@@ -19,6 +21,7 @@ public class Vela3Minigame4 : MonoBehaviour
     {
         if (eagleMinigame4.mirandoAtras == true && rabbitMinigame4.mirandoDerecha == true)
         {
+            vela.Play();
             vela3Encendida = true;
             fire3.SetActive(true);
         }

@@ -17,6 +17,10 @@ public class VelaMinigame4 : ObjetoInteractivo
     public bool accesoPermitido = false;
     public GameObject puertaAcceso;
 
+    public AudioSource abrirPuerta;
+
+    public AudioSource vela;
+
     private void Start()
     {
         fire.SetActive(false);
@@ -30,6 +34,7 @@ public class VelaMinigame4 : ObjetoInteractivo
     {
         if (puedeEncenderla && !velaEncendida)
         {
+            vela.Play();
             fire.SetActive(true);
             velaEncendida = true;
         }
@@ -44,6 +49,7 @@ public class VelaMinigame4 : ObjetoInteractivo
     {
         if (velaEncendida == true && Vela2MInigame4.vela2Encendida && Vela3Minigame4.vela3Encendida && Vela4Minigame4.vela4Encendida)
         {
+            abrirPuerta.Play();
             accesoPermitido = true;
         }
         else

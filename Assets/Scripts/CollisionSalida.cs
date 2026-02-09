@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static GameManager;
 
 public class CollisionSalida : MonoBehaviour
 {
@@ -9,17 +10,36 @@ public class CollisionSalida : MonoBehaviour
     public GameObject pantallaNegra;
     public bool minijuego3Completado = false;
 
+    public bool minigame3DificilCompletado = false;
+
     public void OnTriggerEnter(Collider other)
     {
+        if (!other.CompareTag("Player")) return;
+
+        if (GameManager.Instance == null)
+        {
+            Debug.LogError("GameManager.Instance es NULL");
+            return;
+        }
+
         minijuego3Completado = true;
+
+
         GameManager.Instance.CompletarMinijuego("MINIJUEGO3");
         GameManager.Instance.Minigame3Completado = true;
-        if (other.CompareTag("Player"))
-        {
-            StartCoroutine(CambiarScene());
-            this.transform.position = new Vector3(0, +100, 0);
-        }
         GameManager.Instance.Guardar();
+        GameManager.Instance.ComprobarTodosLosMinijuegos();
+
+
+        StartCoroutine(CambiarScene());
+        transform.position = new Vector3(0, 100, 0);
+
+        if (GameManager.Instance.CompletoTodosLosMinijuegos == true)
+        {
+            minigame3DificilCompletado = true;
+            GameManager.Instance.Minigame3Dificil = true;
+            GameManager.Instance.JuegoTerminado();
+        }
     }
 
     IEnumerator CambiarScene()

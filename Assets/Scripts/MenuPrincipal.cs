@@ -24,6 +24,8 @@ public class MenuPrincipal : MonoBehaviour
         pantallaNegra.SetActive(true);
 
         StartCoroutine(FadeOutPantallaNegra(2f));
+
+        Cursor.lockState = CursorLockMode.None;
     }
 
     public void GoMenu()
@@ -41,6 +43,13 @@ public class MenuPrincipal : MonoBehaviour
         GameManager.Instance.ResetearYReiniciar();
         menuDatos.SetActive(false);
     }
+
+
+    public void Creditos()
+    {
+        SceneManager.LoadScene("Credits");
+    }
+
 
     public void AbrirMenuDatos()
     {

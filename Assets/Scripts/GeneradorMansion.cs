@@ -26,6 +26,9 @@ public class GeneradorMansion : ObjetoInteractivo
     public TMP_Text porcentajeReparado;
     public Image barraProgreso;
 
+    public AudioSource generator;
+    public Image clickIzquierdo;
+
     void Start()
     {
         controller = FindObjectOfType<ThirdPersonController>();
@@ -34,6 +37,7 @@ public class GeneradorMansion : ObjetoInteractivo
         barraProgreso.gameObject.SetActive(false);
 
         HacerTodoStatic(transform);
+        clickIzquierdo.gameObject.SetActive(false);
     }
 
     void HacerTodoStatic(Transform root)
@@ -59,6 +63,7 @@ public class GeneradorMansion : ObjetoInteractivo
         if (reparando && Input.GetKeyDown(KeyCode.Escape))
         {
             CancelarReparacion();
+            generator.Stop();
         }
 
         if (porcentajeReparado != null && reparando)
@@ -82,7 +87,8 @@ public class GeneradorMansion : ObjetoInteractivo
     IEnumerator RepararGenerador()
     {
         reparando = true;
-
+        clickIzquierdo.gameObject.SetActive(true);
+        generator.Play();
         controller.MoveSpeed = 0f;
         controller.SprintSpeed = 0f;
         controller.LockCameraPosition = true;
@@ -126,8 +132,10 @@ public class GeneradorMansion : ObjetoInteractivo
     void CancelarReparacion()
     {
         reparando = false;
+        clickIzquierdo.gameObject.SetActive(false);
         porcentajeReparado.gameObject.SetActive(false);
         barraProgreso.gameObject.SetActive(false);
+        generator.Stop();
 
         if (repararRoutine != null)
             StopCoroutine(repararRoutine);
@@ -138,6 +146,8 @@ public class GeneradorMansion : ObjetoInteractivo
 
     void FinalizarReparacion()
     {
+        generator.Stop();
+        clickIzquierdo.gameObject.SetActive(false);
         minigame3.ruido += 100f;
         minigame3.generadoresReparados++;
         reparando = false;

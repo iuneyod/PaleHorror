@@ -8,12 +8,12 @@ public class Selected : MonoBehaviour
     public Texture2D cursorNormal;
     public Texture2D cursorInteract;
 
-    public float normalSize = 32f;
-    public float interactSize = 48f;
+    float normalSize = 120f;
+    float interactSize = 170f;
 
     public bool canInteract = false;
     public bool sistemaActivo = true;
-    public float yMultiplier = 0.6f; // más pequeño = más estrecho en Y
+    float yMultiplier = 0.65f; // más pequeño = más estrecho en Y
 
 
     void Start()

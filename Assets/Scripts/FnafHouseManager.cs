@@ -5,6 +5,7 @@ using TMPro;
 using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static GameManager;
 
 public class FnafHouseManager : MonoBehaviour
 {
@@ -62,6 +63,17 @@ public class FnafHouseManager : MonoBehaviour
     float TiempoMonsterDificil = 4.2f;
     float EsperarPosterDificil = 7f;
 
+    public AudioSource AUDIO;
+    public AudioClip linternaON;
+    public AudioClip MonsterSusto;
+    public AudioSource Monster;
+    public AudioClip alert;
+    public AudioSource Alert;
+    public AudioClip BreakPaper;
+    public AudioSource Music;
+    public AudioClip MonsterLintern;
+
+    private int quitarEnergia = 5;
     enum MonsterPoseIzq
     {
         PrimeraIZQ,
@@ -164,6 +176,7 @@ public class FnafHouseManager : MonoBehaviour
         minijuego2 = FindObjectOfType<VentMinigame2>();
         minijuego3 = FindObjectOfType<CollisionSalida>();
         minijuego4 = FindObjectOfType<CollisionSalida4>();
+        Music.Play();
     }
 
     void Update()
@@ -173,9 +186,10 @@ public class FnafHouseManager : MonoBehaviour
 
         if(GameManager.Instance.CompletoTodosLosMinijuegos == true)
         {
-            DegressSpeed = 0.3f;
-            TiempoMonsterDificil = 3.2f;
-            EsperarPosterDificil = 5.5f;
+            DegressSpeed = 0.5f;
+            TiempoMonsterDificil = 2.6f;
+            EsperarPosterDificil = 5f;
+            quitarEnergia = 15;
         }
 
         progressText.text = Mathf.RoundToInt(Progress) + "%";
@@ -225,6 +239,7 @@ public class FnafHouseManager : MonoBehaviour
 
         if (linternaEncendida == true && poseActualIZQ == MonsterPoseIzq.TerceraIZQ && mirandoALaIzquierda == true)
         {
+            AUDIO.PlayOneShot(MonsterLintern);
             ActivarPose(MonsterPoseIzq.PrimeraIZQ);
         }
 
@@ -236,6 +251,7 @@ public class FnafHouseManager : MonoBehaviour
 
         if (mirandoAtras == true && posterDetras.activeSelf == true && Input.GetKeyDown(KeyCode.E))
         {
+            AUDIO.PlayOneShot(BreakPaper);
             posterInteractuado = true;
             aperecerNumerosDetras = true;
             AparecerNumeros();
@@ -326,8 +342,11 @@ public class FnafHouseManager : MonoBehaviour
 
         if (Progress >= MaxProgress && !minigame1Completado)
         {
+
+            GameManager.Instance.ComprobarTodosLosMinijuegos();
             GameManager.Instance.CompletarMinijuego("MINIJUEGO1");
             GameManager.Instance.DesbloquearLogro(GameManager.LogrosID.PRIMER_MINIJUEGO);
+            GameManager.Instance.MostrarAvisoLogro(LogrosID.PRIMER_MINIJUEGO, "EL PRINCIPIO DEL FIN...");
             minigame1Completado = true;
             GameManager.Instance.Minigame1Completado = true;
             juegoBloqueado = true;
@@ -340,6 +359,7 @@ public class FnafHouseManager : MonoBehaviour
                 Minigame1DificilCompletado = true;
                 GameManager.Instance.DesbloquearLogro(GameManager.LogrosID.Minijuego1_Dificil);
                 GameManager.Instance.Minigame1Dificil = true;
+                GameManager.Instance.JuegoTerminado();
             }
             GameManager.Instance.Guardar();
         }
@@ -497,6 +517,7 @@ public class FnafHouseManager : MonoBehaviour
     {
         if (Derrota || sustoAtrasEnCurso) yield break;
 
+
         sustoAtrasEnCurso = true;
 
         monsterDetrasSusto.SetActive(true);
@@ -514,8 +535,9 @@ public class FnafHouseManager : MonoBehaviour
 
     IEnumerator ALERTA_SIMULACRO()
     {
+        Alert.PlayOneShot(alert);
         LuzAlerta.SetActive(true);
-        Progress -= 5f;
+        Progress -= quitarEnergia;
         ActivarPoseDER(MonsterPoseDer.PrimeraDER);
         ALERTA = true;
         yield return new WaitForSeconds(1f);
@@ -525,6 +547,7 @@ public class FnafHouseManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         LuzAlerta.SetActive(false);
         ALERTA = false;
+        Alert.Stop();
     }
 
     IEnumerator EsperarSustoDerecha()
@@ -637,6 +660,7 @@ public class FnafHouseManager : MonoBehaviour
 
     IEnumerator Lintern()
     {
+        AUDIO.PlayOneShot(linternaON);
         linterna.SetActive(true);
         linternaEncendida = true;
         yield return new WaitForSeconds(0.3f);
@@ -909,6 +933,8 @@ public class FnafHouseManager : MonoBehaviour
     }
     private IEnumerator MonsterIZQShake(float duration, float magnitude)
     {
+        Monster.PlayOneShot(MonsterSusto);
+
         Vector3 originalPos = monsterIzquierdaSusto.transform.localPosition;
 
         float elapsed = 0f;
@@ -929,7 +955,10 @@ public class FnafHouseManager : MonoBehaviour
 
     private IEnumerator MonsterDERShake(float duration, float magnitude)
     {
+        Monster.PlayOneShot(MonsterSusto);
+
         Vector3 originalPos = monsterDerechaSusto.transform.localPosition;
+
 
         float elapsed = 0f;
 
@@ -969,7 +998,10 @@ public class FnafHouseManager : MonoBehaviour
 
     private IEnumerator MonsterAtrasShake(float duration, float magnitude)
     {
+        Monster.PlayOneShot(MonsterSusto);
+
         Vector3 originalPos = monsterDetrasSusto.transform.localPosition;
+
 
         float elapsed = 0f;
 

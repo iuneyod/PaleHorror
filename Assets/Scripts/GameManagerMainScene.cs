@@ -66,6 +66,7 @@ public class GameManagerMainScene : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             controller.MoveSpeed = 0f;
             controller.SprintSpeed = 0f;
+            selected.enabled = false;
         }
         else
         {
@@ -73,6 +74,7 @@ public class GameManagerMainScene : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             controller.MoveSpeed = 5f;
             controller.SprintSpeed = 8f;
+            selected.enabled = true;
         }
     }
 

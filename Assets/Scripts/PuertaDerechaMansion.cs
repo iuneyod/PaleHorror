@@ -8,6 +8,8 @@ public class PuertaDerechaMansion : ObjetoInteractivo
     public int anguloApertura;
     public Quaternion rotacionInicial;
 
+    public AudioSource doorOpen;
+
     void Start()
     {
         rotacionInicial = transform.rotation;
@@ -18,6 +20,7 @@ public class PuertaDerechaMansion : ObjetoInteractivo
     {
         if (!abierta)
         {
+            doorOpen.Play();
             AbrirPuerta();
             abierta = true;
             this.gameObject.isStatic = true;

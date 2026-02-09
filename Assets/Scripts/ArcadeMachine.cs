@@ -8,6 +8,7 @@ public class ArcadeMachine : ObjetoInteractivo
     Selected selected;
     public GameObject ArcadeUI;
     public bool pantallaAbierta = false;
+    public bool acabaDeCerrarArcade = false;
 
     private void Start()
     {
@@ -23,19 +24,20 @@ public class ArcadeMachine : ObjetoInteractivo
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && pantallaAbierta)
         {
             ArcadeUI.SetActive(false);
             pantallaAbierta = false;
+            acabaDeCerrarArcade = true;
+            StartCoroutine(ResetCerrarFlag());
         }
 
-        if(ArcadeUI.activeSelf == true)
-        {
-            selected.sistemaActivo = false;
-        }
-        else
-        {
-            selected.sistemaActivo = true;
-        }
+        selected.sistemaActivo = !ArcadeUI.activeSelf;
+    }
+
+    IEnumerator ResetCerrarFlag()
+    {
+        yield return null; // espera 1 frame
+        acabaDeCerrarArcade = false;
     }
 }

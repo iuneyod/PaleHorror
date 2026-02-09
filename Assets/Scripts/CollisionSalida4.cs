@@ -11,15 +11,25 @@ public class CollisionSalida4 : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
+        if (!other.CompareTag("Player")) return;
+
+        if (GameManager.Instance == null)
+        {
+            Debug.LogError("GameManager.Instance es NULL");
+            return;
+        }
+
         minijuego4Completado = true;
+
+
         GameManager.Instance.CompletarMinijuego("MINIJUEGO4");
         GameManager.Instance.Minigame4Completado = true;
-        if (other.CompareTag("Player"))
-        {
-            StartCoroutine(CambiarScene());
-            this.transform.position = new Vector3(0, +100, 0);
-        }
+        GameManager.Instance.ComprobarTodosLosMinijuegos();
+
         GameManager.Instance.Guardar();
+
+        StartCoroutine(CambiarScene());
+        transform.position = new Vector3(0, 100, 0);
     }
 
     IEnumerator CambiarScene()

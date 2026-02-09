@@ -10,6 +10,7 @@ public class CrowToy : ObjetoInteractivo
     public GameObject ColliderBoxes2;
     public GameObject ColliderBoxes3;
     public bool activadoCrow = false;
+    public AudioSource crow;
 
 
     public override void ActivarObjeto()
@@ -37,6 +38,7 @@ public class CrowToy : ObjetoInteractivo
         rigidbodyCrow.useGravity = true;
         rigidbodyCrow.WakeUp();
         rigidbodyCrow.AddForce(Vector3.back * 150f, ForceMode.Impulse);
+        crow.Play();
 
 
 

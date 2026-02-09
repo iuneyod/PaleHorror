@@ -15,7 +15,7 @@ public class MINIGAME3 : MonoBehaviour
     public bool puedeUsarLinterna = true;
     public float duracionLinterna = 300f;
     public Image barraDuracionLinterna;
-    public float bateriaMax = 300f;
+    float bateriaMax = 300f;
     public TMP_Text PorcentajeBateria;
     private bool subiendoRuido = false;
 
@@ -24,13 +24,26 @@ public class MINIGAME3 : MonoBehaviour
 
     public GameObject pantallaNegra;
 
+    [Header("Dificultad base")]
+    public int palancasNormal = 6;
+    public int palancasDificil = 8;
+
+    public int generadoresNormal = 2;
+    public int generadoresDificil = 3;
+
+    public float bateriaNormal = 300f;
+    public float bateriaDificil = 260f;
+
+    public float ruidoMaxNormal = 100f;
+    public float ruidoMaxDificil = 110f;
+
     public float ruido;
     public float ruidoMaximo = 100f;
 
     public int palancasActivadas = 0;
-    public int totalPalancas = 8;
+    int totalPalancas;
     public int generadoresReparados = 0;
-    public int totalGeneradores = 3;
+    int totalGeneradores;
     public bool palancasCompletadas = false;
     public bool generadoresCompletados = false;
 
@@ -66,7 +79,9 @@ public class MINIGAME3 : MonoBehaviour
 
     public GameObject finalLight;
 
+    public AudioSource Muertee;
 
+    public AudioClip LINTERNA;
 
 
     void Start()
@@ -83,6 +98,31 @@ public class MINIGAME3 : MonoBehaviour
         pantallaNegra.SetActive(false);
         textoFinal.gameObject.SetActive(false);
         finalLight.SetActive(false);
+        ConfigurarDificultad();
+    }
+
+    void ConfigurarDificultad()
+    {
+        bool dificil =
+            GameManager.Instance != null &&
+            GameManager.Instance.CompletoTodosLosMinijuegos;
+
+        if (dificil)
+        {
+            totalPalancas = palancasDificil;
+            totalGeneradores = generadoresDificil;
+            bateriaMax = bateriaDificil;
+            duracionLinterna = bateriaDificil;
+            ruidoMaximo = ruidoMaxDificil;
+        }
+        else
+        {
+            totalPalancas = palancasNormal;
+            totalGeneradores = generadoresNormal;
+            bateriaMax = bateriaNormal;
+            duracionLinterna = bateriaNormal;
+            ruidoMaximo = ruidoMaxNormal;
+        }
     }
 
     private IEnumerator FadeOutPantallaNegra(float duration)
@@ -107,7 +147,8 @@ public class MINIGAME3 : MonoBehaviour
 
     void Update()
     {
-        totalPalancasHechas.text = "Palancas: " + palancasActivadas.ToString() + " / " + totalPalancas.ToString();
+
+            totalPalancasHechas.text = "Palancas: " + palancasActivadas.ToString() + " / " + totalPalancas.ToString();
         totalGeneradoresHechos.text = "Generadores: " + generadoresReparados.ToString() + " / " + totalGeneradores.ToString();
 
 
@@ -118,12 +159,10 @@ public class MINIGAME3 : MonoBehaviour
 
         barraRuido.fillAmount = ruido / ruidoMaximo;
 
-        monster.rangoVision = 12f + (ruido / ruidoMaximo) * 10f;
 
         PorcentajeBateria.text = Mathf.CeilToInt((duracionLinterna / bateriaMax) * 100f).ToString() + "%";
 
-        barraDuracionLinterna.fillAmount = duracionLinterna / 300f;
-
+        barraDuracionLinterna.fillAmount = duracionLinterna / bateriaMax;
         float porcentaje = duracionLinterna / bateriaMax;
         porcentaje = Mathf.Clamp01(porcentaje);
 
@@ -133,15 +172,12 @@ public class MINIGAME3 : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && puedeUsarLinterna == true)
         {
+            Muertee.PlayOneShot(LINTERNA);
             ruido += 5f;
             linternActive = !linternActive;
             lintern.SetActive(linternActive);
         }
 
-        if (linternActive == true)
-        {
-            monster.rangoVision += 2f;
-        }
 
         if (ruido >= ruidoMaximo)
         {
@@ -272,6 +308,7 @@ public class MINIGAME3 : MonoBehaviour
 
     public IEnumerator Muerte()
     {
+        Muertee.Play();
         muriendo = true;
         mainCamera.SetActive(false);
         cameraAnimacion.SetActive(true);
@@ -289,7 +326,7 @@ public class MINIGAME3 : MonoBehaviour
         yield return new WaitForSeconds(2f);
         StartCoroutine(FadeInPantallaNegra(1.5f));
         yield return new WaitForSeconds(1f);
-        //UnityEngine.SceneManagement.SceneManager.LoadScene("MainScene");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainScene");
     }
     private IEnumerator FadeInPantallaNegra(float duration)
     {

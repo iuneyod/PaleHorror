@@ -17,6 +17,8 @@ public class PaleMaderaLobby : ObjetoInteractivo
     bool interactuado = false;
     FieldInfo yawField;
 
+    public AudioSource pale;
+
     public void Start()
     {
         PaleRigidBody.isKinematic = true;
@@ -88,7 +90,10 @@ public class PaleMaderaLobby : ObjetoInteractivo
         PaleRigidBody.useGravity = true;
         PaleRigidBody.AddForce(Vector3.back * 3f, ForceMode.Impulse);
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.2f);
+        pale.Play();
+
+        yield return new WaitForSeconds(0.8f);
 
         // FASE 3 – Devolver control al jugador
         QuitarCollider = false;
@@ -96,6 +101,7 @@ public class PaleMaderaLobby : ObjetoInteractivo
 
         yield return new WaitForSeconds(2f);
         GameManager.Instance.yaCayoPaleMadera = true;
+        GameManager.Instance.Guardar();
     }
 
     void Update()

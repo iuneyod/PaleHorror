@@ -16,6 +16,8 @@ public class AcertijoCoche4 : ObjetoInteractivo
     public bool mirandoDerecha;
     public bool mirandoAtras;
     public bool mirandoIzquierda;
+    public AudioSource rotar;
+
 
     void ActualizarDireccion()
     {
@@ -42,6 +44,8 @@ public class AcertijoCoche4 : ObjetoInteractivo
     {
         if (!girando)
         {
+            rotar.Play();
+
             StartCoroutine(Girar4());
         }
     }

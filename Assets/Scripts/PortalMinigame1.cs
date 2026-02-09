@@ -11,6 +11,16 @@ public class PortalMinigame1 : ObjetoInteractivo
     public GameObject pantallaNegra;
     public string nombreScene;
     public bool puedeActivar = true;
+    public AudioSource sonidoPortal;
+
+    public GameObject Portal2;
+    public GameObject Portal3;
+    public GameObject Portal4;
+
+    private void Start()
+    {
+        sonidoPortal = GetComponent<AudioSource>();
+    }
 
 
     public override void ActivarObjeto()
@@ -18,6 +28,7 @@ public class PortalMinigame1 : ObjetoInteractivo
         if (!puedeActivar) return;
         StartCoroutine(AcercarCamaraPortal());
         StartCoroutine(FadeInPantallaNegra(2f));
+        sonidoPortal.Play();
     }
 
     private IEnumerator FadeInPantallaNegra(float duration)
@@ -56,5 +67,40 @@ public class PortalMinigame1 : ObjetoInteractivo
             yield return null;
         }
         cameraPlayer.transform.position = posicionFinalCamera.position;
+    }
+
+    public void Portales()
+    {
+        if (GameManager.Instance.Minigame1Completado == false && GameManager.Instance.Minigame2Completado == false && GameManager.Instance.Minigame3Completado == false && GameManager.Instance.Minigame4Completado == false)
+        {
+            Portal2.gameObject.SetActive(false);
+            Portal3.gameObject.SetActive(false);
+            Portal4.gameObject.SetActive(false);
+            GameManager.Instance.Guardar();
+        }
+        if (GameManager.Instance.Minigame1Completado == true && GameManager.Instance.Minigame2Completado == false && GameManager.Instance.Minigame3Completado == false && GameManager.Instance.Minigame4Completado == false)
+        {
+            Portal2.gameObject.SetActive(true);
+            Portal3.gameObject.SetActive(false);
+            Portal4.gameObject.SetActive(false);
+            GameManager.Instance.Guardar();
+
+        }
+        if (GameManager.Instance.Minigame1Completado == true && GameManager.Instance.Minigame2Completado == true && GameManager.Instance.Minigame3Completado == false && GameManager.Instance.Minigame4Completado == false)
+        {
+            Portal2.gameObject.SetActive(true);
+            Portal3.gameObject.SetActive(true);
+            Portal4.gameObject.SetActive(false);
+            GameManager.Instance.Guardar();
+
+        }
+        if (GameManager.Instance.Minigame1Completado == true && GameManager.Instance.Minigame2Completado == true && GameManager.Instance.Minigame3Completado == true && GameManager.Instance.Minigame4Completado == false)
+        {
+            Portal2.gameObject.SetActive(true);
+            Portal3.gameObject.SetActive(true);
+            Portal4.gameObject.SetActive(true);
+            GameManager.Instance.Guardar();
+
+        }
     }
 }

@@ -6,6 +6,7 @@ using UnityEngine;
 public class DilophosaurioLobby : ObjetoInteractivo
 {
     GameManagerMainScene gameManager;
+    public AudioSource dino;
 
     private void Start()
     {
@@ -21,7 +22,8 @@ public class DilophosaurioLobby : ObjetoInteractivo
 
     IEnumerator Dino()
     {
-        yield return new WaitForSeconds(0.1f);
+        dino.Play();
+        yield return new WaitForSeconds(1f);
         Destroy(this.gameObject);
     }
 

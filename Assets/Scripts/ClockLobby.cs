@@ -11,6 +11,8 @@ public class ClockLobby : ObjetoInteractivo
     public GameObject Clock;
     public bool caido = false;
 
+    public AudioSource touch;
+
     private void Start()
     {
         // Al inicio el reloj NO usa físicas
@@ -21,6 +23,7 @@ public class ClockLobby : ObjetoInteractivo
     public override void ActivarObjeto()
     {
         if (caido) return;
+        touch.Play();
 
         vecesInteractuado++;
         StartCoroutine(ClockShake(0.3f, 0.004f));

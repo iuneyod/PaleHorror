@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static GameManager;
 
 public class Basket : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class Basket : MonoBehaviour
         if (puntos >= 5)
         {
             GameManager.Instance.DesbloquearLogro(GameManager.LogrosID.Canasta_5);
+            GameManager.Instance.MostrarAvisoLogro(LogrosID.Canasta_5, "¿BASKETBOLISTA?");
         }
     }
 }

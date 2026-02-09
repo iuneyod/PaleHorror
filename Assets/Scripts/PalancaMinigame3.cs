@@ -13,6 +13,8 @@ public class PalancaMinigame3 : ObjetoInteractivo
     public float duracionBajada = 0.5f; // tiempo que tarda en bajar
     private bool bajando = false;
 
+    public AudioSource PALANCA;
+
     private void Start()
     {
         minigame3 = FindObjectOfType<MINIGAME3>();
@@ -22,7 +24,7 @@ public class PalancaMinigame3 : ObjetoInteractivo
     public override void ActivarObjeto()
     {
         if (bajando) return;
-
+        PALANCA.Play();
         minigame3.palancasActivadas++;
         colliderPalanca.enabled = false;
 

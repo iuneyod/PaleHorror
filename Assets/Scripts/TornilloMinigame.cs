@@ -8,13 +8,18 @@ public class TornilloMinigame : ObjetoInteractivo
     Rigidbody rb;
     public int fuerzaLanzamiento;
     Minijuego2 minijuego2;
+    public AudioSource audioSource;
+    public AudioClip apartar;
+    public AudioClip tocar;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         minijuego2 = FindObjectOfType<Minijuego2>();
+        audioSource = GetComponent<AudioSource>();
     }
     public override void ActivarObjeto()
     {
+        audioSource.PlayOneShot(apartar);
         minijuego2.hayTornillo = false;
         minijuego2.puedeAparecerTornillo = true;
 
@@ -44,6 +49,7 @@ public class TornilloMinigame : ObjetoInteractivo
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            audioSource.PlayOneShot(tocar);
             StartCoroutine(EsperarYAtacar());
         }
     }

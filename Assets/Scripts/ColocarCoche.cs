@@ -1,6 +1,10 @@
+using UnityEngine;
+
 public class ColocarCoche : ObjetoInteractivo
 {
     public CogerCoche cogerCoche; // arrastrar el coche en el Inspector
+
+    public AudioSource cogerCocheAudioSource;
 
     public override void ActivarObjeto()
     {
@@ -9,6 +13,7 @@ public class ColocarCoche : ObjetoInteractivo
         if (!cogerCoche.agarrandoObjeto) return;
         if (cogerCoche.ObjetoColocado) return;
 
+        cogerCocheAudioSource.Play();
         cogerCoche.colocarObjeto = true;
     }
 

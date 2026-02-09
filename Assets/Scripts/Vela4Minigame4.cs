@@ -11,6 +11,8 @@ public class Vela4Minigame4 : MonoBehaviour
     public GameObject fight4;
     public bool vela4Encendida = false;
 
+    public AudioSource vela;
+
     void Start()
     {
         acertijoCoche1 = FindObjectOfType<AcertijoCoche1>();
@@ -24,6 +26,7 @@ public class Vela4Minigame4 : MonoBehaviour
     {
         if (acertijoCoche1.mirandoDerecha == true && acertijoCoche2.mirandoDerecha == true && acertijoCoche3.mirandoIzquierda == true && acertijoCoche4.mirandoIzquierda == true)
         {
+            vela.Play();
             vela4Encendida = true;
             fight4.SetActive(true);
         }
