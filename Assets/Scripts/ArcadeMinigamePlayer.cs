@@ -20,8 +20,13 @@ public class ArcadeMinigamePlayer : MonoBehaviour
     private Rigidbody2D rb;
     public  bool derrota = false;
 
+    public AudioSource Derrota;
+    public AudioSource Musica;
+    public AudioSource carne;
+
     void Start()
     {
+        Musica.Play();
         Time.timeScale = 1f; // MUY IMPORTANTE
         rb = GetComponent<Rigidbody2D>();
         rb.freezeRotation = true;
@@ -77,18 +82,21 @@ public class ArcadeMinigamePlayer : MonoBehaviour
     {
         if (collision.CompareTag("Enemy") && !derrota)
         {
+            Derrota.Play();
             ActivarDerrota();
         }
     }
 
     void ActivarDerrota()
     {
+        Musica.Stop();
         derrota = true;
         enJuego = false;   // detiene spawns
         rb.velocity = Vector2.zero;
 
         Time.timeScale = 0f;
 
+        puntuacionText.gameObject.SetActive(false);
         puntuacionTotal.gameObject.SetActive(true);
         puntuacionTotal.text = "Puntuación Total: " + puntuacion;
 
@@ -99,6 +107,7 @@ public class ArcadeMinigamePlayer : MonoBehaviour
 
     public void VolverAJugar()
     {
+        Musica.Play();
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
@@ -114,6 +123,11 @@ public class ArcadeMinigamePlayer : MonoBehaviour
         gameName.gameObject.SetActive(false);
         StartPlay.gameObject.SetActive(false);
         enJuego = true;
+    }
+
+    public void CogeCarne()
+    {
+        carne.Play();
     }
 
 }

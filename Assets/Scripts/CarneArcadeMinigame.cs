@@ -16,6 +16,7 @@ public class CarneArcadeMinigame : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            player.CogeCarne();
             player.puntuacion += 5;
             Destroy(gameObject);
         }

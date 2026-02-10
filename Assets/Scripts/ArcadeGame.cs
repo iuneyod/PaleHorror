@@ -22,9 +22,13 @@ public class ArcadeGame : MonoBehaviour
 
     public GameObject pantallaNegra;
 
+    public AudioSource Error;
+    public AudioSource Music;
+
     void Start()
     {
         StartCoroutine(Juego());
+        Music.Play();
     }
 
     void Update()
@@ -64,7 +68,6 @@ public class ArcadeGame : MonoBehaviour
     public void Acierto()
     {
         puntos++;
-        Debug.Log("ACIERTO");
 
         tiempoEncendida = Mathf.Max(
             tiempoMinimo,
@@ -74,8 +77,8 @@ public class ArcadeGame : MonoBehaviour
 
     public void Fallo()
     {
+        Error.Play();
         fallos++;
-        Debug.Log("FALLO");
 
         if (fallos >= fallosMax)
         {
