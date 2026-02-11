@@ -41,7 +41,7 @@ namespace StarterAssets
         //private bool isDraining = false;
 
         [Header("Camera Sensitivity")]
-        public float MouseSensitivity = 1.5f;
+        public float MouseSensitivity = 2f;
 
         [Space(10)]
 		[Tooltip("The height the player can jump")]
@@ -173,11 +173,14 @@ namespace StarterAssets
 
 
         private void LateUpdate()
-		{
-			CameraRotation();
-		}
+        {
+            if (inputBloqueado) return;
+            if (!inputBloqueado)
+                CameraRotation();
+        }
 
-		private void AssignAnimationIDs()
+
+        private void AssignAnimationIDs()
 		{
 			_animIDSpeed = Animator.StringToHash("Speed");
 			_animIDGrounded = Animator.StringToHash("Grounded");
@@ -203,8 +206,10 @@ namespace StarterAssets
         {
             if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition)
             {
-                _cinemachineTargetYaw += _input.look.x * MouseSensitivity;
-                _cinemachineTargetPitch += _input.look.y * MouseSensitivity;
+                float deltaMultiplier = 1f; // Starter Assets ya maneja deltaTime
+
+                _cinemachineTargetYaw += _input.look.x * MouseSensitivity * deltaMultiplier;
+                _cinemachineTargetPitch -= _input.look.y * MouseSensitivity * deltaMultiplier;
             }
 
             _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
@@ -212,6 +217,7 @@ namespace StarterAssets
             CinemachineCameraTarget.transform.rotation =
                 Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride, _cinemachineTargetYaw, 0f);
         }
+
 
 
         private void Move()

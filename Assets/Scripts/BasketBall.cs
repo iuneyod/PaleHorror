@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class BasketBall : ObjetoInteractivo
 {
+    PistolaVentosa pistola;
     Selected selected;
-    private bool enMano = false;
+    public bool enMano = false;
     public GameObject basketball;
     public Rigidbody rigidbodyBasketball;
     public Transform manoJugador;
@@ -14,15 +15,17 @@ public class BasketBall : ObjetoInteractivo
 
     private void Start()
     {
+        pistola = FindAnyObjectByType<PistolaVentosa>();
         selected = FindObjectOfType<Selected>();
     }
     
     public override void ActivarObjeto()
     {
-        if (enMano)
+        if (enMano || pistola.pistolaEnMano == true)
         {
             return;
         }
+
         AgarrarBalon();
     }
 

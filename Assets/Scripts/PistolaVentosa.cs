@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class PistolaVentosa : ObjetoInteractivo
 {
-
+    BasketBall basket;
     public GameObject carryPoint;
     public GameObject ventosa;
     public Transform shootPoint;
-    private bool pistolaEnMano = false;
+    public bool pistolaEnMano = false;
     Selected selected;
     public Rigidbody rb;
     public Camera camaraJugador;
@@ -16,6 +16,7 @@ public class PistolaVentosa : ObjetoInteractivo
 
     private void Start()
     {
+        basket = GetComponent<BasketBall>();
         selected = FindObjectOfType<Selected>();
     }
 
@@ -25,6 +26,7 @@ public class PistolaVentosa : ObjetoInteractivo
         {
             return;
         }
+
         CogerPistola();
 
     }
@@ -41,7 +43,7 @@ public class PistolaVentosa : ObjetoInteractivo
             selected.canInteract = false;
         }
 
-        if(pistolaEnMano == true && Input.GetKeyDown(KeyCode.Q))
+        if (pistolaEnMano == true && Input.GetKeyDown(KeyCode.Q))
         {
             pistolaEnMano = false;
             transform.SetParent(null);

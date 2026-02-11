@@ -4,9 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using static GameManager;
+using UnityEngine.Playables;
+using StarterAssets;
 
 public class OpcionesLogrosManager : MonoBehaviour
 {
+    ThirdPersonController controller;
     PortalMinigame1 portal;
     ArcadeMachine arcade;
     Selected selectedScript;
@@ -39,8 +42,19 @@ public class OpcionesLogrosManager : MonoBehaviour
     public GameObject cristal;
     public bool yaAparecio = false;
 
+    //CINEMATICAS
+    public PlayableDirector AnimacionGameDificil;
+    public GameObject CameraGameDificil;
+
     private void Start()
     {
+        controller = FindObjectOfType<ThirdPersonController>();
+        if (GameManager.Instance.CinematicaGameDificilVista == false && GameManager.Instance.puedeVerGameDificil == true)
+        {
+            StartCoroutine(CinematicaGameDificl());
+        }
+            
+            
         portal = FindAnyObjectByType<PortalMinigame1>();
         portal.Portales();
         music.Play();
@@ -57,6 +71,9 @@ public class OpcionesLogrosManager : MonoBehaviour
             );
         }
         GameManager.Instance.MostrarAvisosPendientes();
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
 
     }
 
@@ -83,7 +100,7 @@ public class OpcionesLogrosManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape)
          && puedeAbrirUI
          && arcade.pantallaAbierta == false
-         && arcade.acabaDeCerrarArcade == false)
+         && arcade.acabaDeCerrarArcade == false && GameManager.Instance.enCinematica == false)
         {
             UIAbiertos = !UIAbiertos;
             UI.SetActive(UIAbiertos);
@@ -92,21 +109,29 @@ public class OpcionesLogrosManager : MonoBehaviour
             ActualizarTicksLogros();
         }
 
-        if (UI.activeSelf == true)
+        if (UI.activeSelf)
         {
             Cursor.lockState = CursorLockMode.None;
-            botonMenu.interactable = true;
-            botonLogros.interactable = true;
-            selectedScript.sistemaActivo = false;
-        }
+            Cursor.visible = true;
 
-        if (UIAbiertos == true)
-        {
-            Time.timeScale = 0f;
+            selectedScript.sistemaActivo = false;
+            controller.inputBloqueado = true;
         }
         else
         {
-            Time.timeScale = 1f;
+            controller.inputBloqueado = false;
+            selectedScript.sistemaActivo = true;
+        }
+
+
+
+        if (UIAbiertos == true)
+        {
+            controller.enabled = false;
+        }
+        else
+        {
+            controller.enabled = true;
         }
 
         if (GameManager.Instance.MinijuegoCompletado("MINIJUEGO1") == true && GameManager.Instance.MinijuegoCompletado("MINIJUEGO2") == true &&
@@ -115,6 +140,19 @@ public class OpcionesLogrosManager : MonoBehaviour
             GameManager.Instance.DesbloquearLogro(GameManager.LogrosID.Todos_Los_Minijuegos);
             GameManager.Instance.CompletoTodosLosMinijuegos = true;
         }
+
+    }
+
+    public IEnumerator CinematicaGameDificl()
+    {
+        GameManager.Instance.enCinematica = true;
+        AnimacionGameDificil.Play();
+        CameraGameDificil.SetActive(true);
+        yield return new WaitForSeconds(8f);
+        AnimacionGameDificil.Stop();
+        CameraGameDificil.SetActive(false);
+        GameManager.Instance.CinematicaGameDificilVista = true;
+        GameManager.Instance.enCinematica = false;
 
     }
 

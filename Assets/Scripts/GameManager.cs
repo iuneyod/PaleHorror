@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using Unity.VisualScripting;
 using TMPro;
 using System.Collections;
+using UnityEngine.Playables;
 
 public class GameManager : MonoBehaviour
 {
@@ -56,6 +57,12 @@ public class GameManager : MonoBehaviour
     public bool PuntuacionGrande = false;
     public bool Puntuacion2Arcade = false;
     public bool EscuchoMusica = false;
+
+    public bool CinematicaGameDificilVista = false;
+    public bool puedeVerGameDificil = false;
+
+    public bool enCinematica = false;
+
 
 
 
@@ -229,6 +236,7 @@ public class GameManager : MonoBehaviour
         {
             if (!CompletoTodosLosMinijuegos)
             {
+                puedeVerGameDificil = true;
                 CompletoTodosLosMinijuegos = true;
                 DesbloquearLogro(LogrosID.Todos_Los_Minijuegos);
                 Guardar();
@@ -381,6 +389,10 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("Puntuacion1000", PuntuacionGrande ? 1 : 0);
         PlayerPrefs.SetInt("Arcade2Puntos", Puntuacion2Arcade ? 1 : 0);
         PlayerPrefs.SetInt("EscuchoMusica", EscuchoMusica ? 1 : 0);
+        PlayerPrefs.SetInt("CinematicaGameDificilVista", CinematicaGameDificilVista ? 1 : 0);
+        PlayerPrefs.SetInt("puedeVerGameDificil", puedeVerGameDificil ? 1 : 0);
+
+
 
 
 
@@ -442,6 +454,10 @@ public class GameManager : MonoBehaviour
         PuntuacionGrande = PlayerPrefs.GetInt("Puntuacion1000", 0) == 1;
         Puntuacion2Arcade = PlayerPrefs.GetInt("Arcade2Puntos", 0) == 1;
         EscuchoMusica = PlayerPrefs.GetInt("EscuchoMusica", 0) == 1;
+        CinematicaGameDificilVista = PlayerPrefs.GetInt("CinematicaGameDificilVista", 0) == 1;
+        puedeVerGameDificil = PlayerPrefs.GetInt("puedeVerGameDificil", 0) == 1;
+
+
 
 
         ObjetosArcade();
@@ -475,6 +491,8 @@ public class GameManager : MonoBehaviour
         PuntuacionGrande = false;
         Puntuacion2Arcade = false;
         EscuchoMusica = false;
+        puedeVerGameDificil = false;
+        CinematicaGameDificilVista = false;
 
 
 

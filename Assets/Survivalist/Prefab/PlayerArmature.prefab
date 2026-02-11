@@ -75,8 +75,8 @@ GameObject:
   - component: {fileID: 583091413269648081}
   - component: {fileID: 7930490122344824380}
   - component: {fileID: 5058610423253894750}
-  - component: {fileID: 3212464621241758825}
   - component: {fileID: 5762160803773358998}
+  - component: {fileID: 3212464621241758825}
   - component: {fileID: 2265569307814666108}
   - component: {fileID: 6589440287070451230}
   - component: {fileID: 4872489169424077207}
@@ -154,6 +154,40 @@ CharacterController:
   m_SkinWidth: 0.02
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0.93, z: 0}
+--- !u!114 &5762160803773358998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 463236617251174108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26e54e5a728a9234ab24fcf1460ed8a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MoveSpeed: 2
+  inputBloqueado: 0
+  SprintSpeed: 5.335
+  isSprinting: 0
+  RotationSmoothTime: 0.12
+  SpeedChangeRate: 10
+  MouseSensitivity: 2
+  JumpHeight: 1.2
+  Gravity: -15
+  JumpTimeout: 0.3
+  FallTimeout: 0.15
+  Grounded: 1
+  GroundedOffset: -0.14
+  GroundedRadius: 0.28
+  GroundLayers:
+    serializedVersion: 2
+    m_Bits: 1
+  CinemachineCameraTarget: {fileID: 5418029520995742120}
+  TopClamp: 70
+  BottomClamp: -50
+  CameraAngleOverride: 0
+  LockCameraPosition: 0
 --- !u!114 &3212464621241758825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,39 +222,6 @@ MonoBehaviour:
   delayBalaAttack2: 1.5
   balaPrefab: {fileID: 0}
   balaSpawnPoint: {fileID: 0}
---- !u!114 &5762160803773358998
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 463236617251174108}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26e54e5a728a9234ab24fcf1460ed8a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MoveSpeed: 2
-  inputBloqueado: 0
-  SprintSpeed: 5.335
-  isSprinting: 0
-  RotationSmoothTime: 0.12
-  SpeedChangeRate: 10
-  JumpHeight: 1.2
-  Gravity: -15
-  JumpTimeout: 0.3
-  FallTimeout: 0.15
-  Grounded: 1
-  GroundedOffset: -0.14
-  GroundedRadius: 0.28
-  GroundLayers:
-    serializedVersion: 2
-    m_Bits: 1
-  CinemachineCameraTarget: {fileID: 5418029520995742120}
-  TopClamp: 70
-  BottomClamp: -50
-  CameraAngleOverride: 0
-  LockCameraPosition: 0
 --- !u!114 &2265569307814666108
 MonoBehaviour:
   m_ObjectHideFlags: 0

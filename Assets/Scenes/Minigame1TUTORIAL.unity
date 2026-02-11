@@ -1733,7 +1733,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5762160803773358998, guid: 76b9d8179905d454e9bf6dcc847231ce, type: 3}
       propertyPath: MouseSensitivity
-      value: 0.003
+      value: 0.007
       objectReference: {fileID: 0}
     - target: {fileID: 8412598462105839130, guid: 76b9d8179905d454e9bf6dcc847231ce, type: 3}
       propertyPath: m_IsActive
@@ -2229,6 +2229,14 @@ MonoBehaviour:
   nombreScene: Minigame1
   puedeActivar: 1
   sonidoPortal: {fileID: 1158782187}
+  Portal2: {fileID: 0}
+  Portal3: {fileID: 0}
+  Portal4: {fileID: 0}
+  Portal2Collider: {fileID: 0}
+  Portal3Collider: {fileID: 0}
+  Portal4Collider: {fileID: 0}
+  Portal4Transform: {fileID: 0}
+  Portal4Entero: {fileID: 0}
 --- !u!82 &1158782187
 AudioSource:
   m_ObjectHideFlags: 0

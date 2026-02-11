@@ -29,6 +29,7 @@ public class FinalCristal : ObjetoInteractivo
     {
         if (yaActivado) return;
         yaActivado = true;
+        GameManager.Instance.enCinematica = true;
 
         juke.PararMusica();
         music.Play();

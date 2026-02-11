@@ -100,7 +100,6 @@ public class Minijuego2 : MonoBehaviour
     public AudioSource Scream;
 
 
-
     KeyCode GetRandomKey()
     {
         KeyCode[] teclas = { KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D, KeyCode.F, KeyCode.R };
@@ -138,10 +137,11 @@ public class Minijuego2 : MonoBehaviour
         leftHandInitialPos = leftHandStart.position;
         rightHandInitialPos = rightHandStart.position;
 
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
 
-        pantallaNegro.SetActive(false);
+            pantallaNegro.SetActive(false);
     }
 
     private IEnumerator FadeOutPantallaNegra(float duration)
