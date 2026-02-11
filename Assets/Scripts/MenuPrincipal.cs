@@ -7,13 +7,13 @@ using UnityEngine.UI;
 public class MenuPrincipal : MonoBehaviour
 {
     public GameObject pantallaNegra;
-    public Button startButton;
-    public Button ExitButton;
 
     public GameObject menuDatos;
+    public AudioSource MusicMenu;
 
     private void Start()
     {
+        MusicMenu.Play();
         Time.timeScale = 1f;
 
         CanvasGroup cg = pantallaNegra.GetComponent<CanvasGroup>();

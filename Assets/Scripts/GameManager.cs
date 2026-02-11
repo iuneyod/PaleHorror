@@ -48,8 +48,7 @@ public class GameManager : MonoBehaviour
 
     Coroutine avisoCoroutine;
 
-    public AudioClip LogroSound;
-    AudioSource audioLogro;
+    public AudioSource audioLogro;
 
     public bool puedeAparecerCristal = false;
     public bool cristalObtenido = false;
@@ -307,8 +306,7 @@ public class GameManager : MonoBehaviour
 
     void ReproducirSonidoLogro()
     {
-        if (audioLogro != null && LogroSound != null)
-            audioLogro.PlayOneShot(LogroSound);
+        audioLogro.Play();
     }
 
 
