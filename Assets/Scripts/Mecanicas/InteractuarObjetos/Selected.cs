@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Selected : MonoBehaviour
@@ -28,8 +29,16 @@ public class Selected : MonoBehaviour
             canInteract = false;
             return;
         }
+        if(sistemaActivo == true)
+        {
 
-        RaycastHit hit;
+        }
+        else
+        {
+            cursorNormal = null; cursorInteract = null;
+        }
+
+            RaycastHit hit;
         canInteract = false;
 
         if (Physics.Raycast(transform.position, transform.forward, out hit, distance, mask))

@@ -46,9 +46,22 @@ public class OpcionesLogrosManager : MonoBehaviour
     public PlayableDirector AnimacionGameDificil;
     public GameObject CameraGameDificil;
 
+    public PlayableDirector AnimacionInicio;
+    public GameObject CameraInicio;
+    public GameObject pantallaNegra;
+
     private void Start()
     {
         controller = FindObjectOfType<ThirdPersonController>();
+
+
+        if (!GameManager.Instance.CinematicaGameInicioVista &&
+    GameManager.Instance.puedeVerCinematicaGameInicio)
+        {
+            StartCoroutine(CinematicaIntro());
+        }
+
+
         if (GameManager.Instance.CinematicaGameDificilVista == false && GameManager.Instance.puedeVerGameDificil == true)
         {
             StartCoroutine(CinematicaGameDificl());
@@ -59,7 +72,7 @@ public class OpcionesLogrosManager : MonoBehaviour
         portal.Portales();
         music.Play();
         UI.SetActive(false);
-        selectedScript = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Selected>();
+        selectedScript = FindAnyObjectByType<Selected>();
         arcade = FindAnyObjectByType<ArcadeMachine>();
 
         if (GameManager.Instance.Minigame1Dificil &&
@@ -79,6 +92,15 @@ public class OpcionesLogrosManager : MonoBehaviour
 
     private void Update()
     {
+
+        if (!GameManager.Instance.CinematicaGameDificilVista &&
+    GameManager.Instance.puedeVerGameDificil &&
+    !GameManager.Instance.enCinematica)
+        {
+            StartCoroutine(CinematicaGameDificl());
+        }
+
+
         if (GameManager.Instance.puedeAparecerCristal == true && yaAparecio == false)
         {
             yaAparecio = true;
@@ -114,25 +136,25 @@ public class OpcionesLogrosManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
 
-            selectedScript.sistemaActivo = false;
             controller.inputBloqueado = true;
+            selectedScript.enabled = false;
         }
         else
         {
             controller.inputBloqueado = false;
-            selectedScript.sistemaActivo = true;
+            selectedScript.enabled = true;
         }
 
 
 
-        if (UIAbiertos == true)
+        if (!GameManager.Instance.enCinematica)
         {
-            controller.enabled = false;
+            if (UIAbiertos)
+                controller.enabled = false;
+            else
+                controller.enabled = true;
         }
-        else
-        {
-            controller.enabled = true;
-        }
+
 
         if (GameManager.Instance.MinijuegoCompletado("MINIJUEGO1") == true && GameManager.Instance.MinijuegoCompletado("MINIJUEGO2") == true &&
             GameManager.Instance.MinijuegoCompletado("MINIJUEGO3") == true && GameManager.Instance.MinijuegoCompletado("MINIJUEGO4") == true)
@@ -145,15 +167,77 @@ public class OpcionesLogrosManager : MonoBehaviour
 
     public IEnumerator CinematicaGameDificl()
     {
+        selectedScript.enabled = false;
+        controller.enabled = false;
         GameManager.Instance.enCinematica = true;
         AnimacionGameDificil.Play();
         CameraGameDificil.SetActive(true);
-        yield return new WaitForSeconds(8f);
+        yield return new WaitForSeconds(10f);
         AnimacionGameDificil.Stop();
         CameraGameDificil.SetActive(false);
         GameManager.Instance.CinematicaGameDificilVista = true;
+        GameManager.Instance.puedeVerGameDificil = false;
+        GameManager.Instance.enCinematica = false;
+        controller.enabled = true;
+        selectedScript.enabled = true;
+        GameManager.Instance.Guardar();
+    }
+
+    public IEnumerator CinematicaIntro()
+    {
+        GameManager.Instance.enCinematica = true;
+
+        controller.enabled = false;
+        controller.inputBloqueado = true;
+
+        Camera mainCam = Camera.main;
+        if (mainCam != null)
+            mainCam.gameObject.SetActive(false);
+
+        CameraInicio.SetActive(true);
+
+        yield return StartCoroutine(FadeOutPantallaNegra(3f));
+
+        AnimacionInicio.Play();
+
+        yield return new WaitForSeconds((float)AnimacionInicio.duration);
+
+        AnimacionInicio.Stop();
+
+        CameraInicio.SetActive(false);
+
+        if (mainCam != null)
+            mainCam.gameObject.SetActive(true);
+
+        controller.inputBloqueado = false;
+        controller.enabled = true;
+
+        GameManager.Instance.CinematicaGameInicioVista = true;
+        GameManager.Instance.puedeVerCinematicaGameInicio = false;
         GameManager.Instance.enCinematica = false;
 
+        GameManager.Instance.Guardar();
+    }
+
+
+    private IEnumerator FadeOutPantallaNegra(float duration)
+    {
+        pantallaNegra.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        CanvasGroup canvasGroup = pantallaNegra.GetComponent<CanvasGroup>();
+        if (canvasGroup == null)
+        {
+            canvasGroup = pantallaNegra.AddComponent<CanvasGroup>();
+        }
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            canvasGroup.alpha = 1f - Mathf.Clamp01(elapsed / duration);
+            yield return null;
+        }
+        canvasGroup.alpha = 0f;
+        pantallaNegra.SetActive(false);
     }
 
     public void BotonLogros()

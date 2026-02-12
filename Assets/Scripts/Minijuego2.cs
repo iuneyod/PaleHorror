@@ -83,7 +83,7 @@ public class Minijuego2 : MonoBehaviour
     public TMP_Text TemporizadorNivel3;
 
     [Header("Temporizador Nivel")]
-    float tiempoNivel = 185f;
+    float tiempoNivel = 190f;
     private bool acaboElTiempo = false;
 
     public GameObject LuzMonster;
@@ -173,7 +173,7 @@ public class Minijuego2 : MonoBehaviour
 
         if (GameManager.Instance != null && GameManager.Instance.CompletoTodosLosMinijuegos)
         {
-            tiempoNivel = 180f;
+            tiempoNivel = 190f;
             tiempoPorTecla = 1.5f;
             teclasNecesarias = 6;
             string tiempoTexto = Mathf.Ceil(tiempoNivel).ToString();

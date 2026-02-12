@@ -20,13 +20,13 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientSkyColor: {r: 0, g: 0, b: 0, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 2
   m_AmbientMode: 0
-  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SubtractiveShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 1537243633}
+  m_Sun: {fileID: 0}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -488,16 +488,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 48239572}
-  m_LocalRotation: {x: 0.027172737, y: 0.7065845, z: -0.027172737, w: -0.7065845}
-  m_LocalPosition: {x: 0, y: 0, z: 688.77}
+  m_LocalRotation: {x: -0.027175127, y: -0.70658445, z: -0.027175127, w: -0.70658445}
+  m_LocalPosition: {x: 0, y: 0, z: 686.077}
   m_LocalScale: {x: 0.006350597, y: 0.006350597, z: 0.006350597}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 651695582}
-  m_LocalEulerAnglesHint: {x: 0, y: 270, z: 4.405}
+  m_LocalEulerAnglesHint: {x: 0, y: -270, z: 4.405}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -570.2994, y: -504.61}
+  m_AnchoredPosition: {x: -570.2994, y: -504.46692}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &48239574
@@ -522,8 +522,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Depredador y presa se miran frente a frente
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f8383119c9b826048bbf187c09dec29a, type: 2}
-  m_sharedMaterial: {fileID: 1260561800140797252, guid: f8383119c9b826048bbf187c09dec29a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1a5c13b62f722704b8e25c68b4fd48b2, type: 2}
+  m_sharedMaterial: {fileID: -1148447004150931843, guid: 1a5c13b62f722704b8e25c68b4fd48b2, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -23416,7 +23416,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5762160803773358998, guid: 76b9d8179905d454e9bf6dcc847231ce, type: 3}
       propertyPath: MouseSensitivity
-      value: 0.007
+      value: 0.07
       objectReference: {fileID: 0}
     - target: {fileID: 6460254750611363375, guid: 76b9d8179905d454e9bf6dcc847231ce, type: 3}
       propertyPath: m_LocalPosition.x
@@ -25532,11 +25532,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46009f57772e5e743bec9df57a49ed66, type: 3}
---- !u!108 &1537243633 stripped
-Light:
-  m_CorrespondingSourceObject: {fileID: 5895539383380427461, guid: 46009f57772e5e743bec9df57a49ed66, type: 3}
-  m_PrefabInstance: {fileID: 1537243632}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1541683637
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -13,11 +13,13 @@ public class PistolaVentosa : ObjetoInteractivo
     public Rigidbody rb;
     public Camera camaraJugador;
     public AudioSource shoot;
+    public GameObject TeclaQ;
 
     private void Start()
     {
         basket = GetComponent<BasketBall>();
         selected = FindObjectOfType<Selected>();
+        TeclaQ.SetActive(false);
     }
 
     public override void ActivarObjeto()
@@ -40,7 +42,12 @@ public class PistolaVentosa : ObjetoInteractivo
 
         if (pistolaEnMano == true)
         {
+            TeclaQ.SetActive(true);
             selected.canInteract = false;
+        }
+        else
+        {
+            TeclaQ.SetActive(false);
         }
 
         if (pistolaEnMano == true && Input.GetKeyDown(KeyCode.Q))

@@ -63,6 +63,9 @@ public class GameManager : MonoBehaviour
 
     public bool enCinematica = false;
 
+    public bool CinematicaGameInicioVista = false;
+    public bool puedeVerCinematicaGameInicio = true;
+
 
 
 
@@ -391,6 +394,8 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("EscuchoMusica", EscuchoMusica ? 1 : 0);
         PlayerPrefs.SetInt("CinematicaGameDificilVista", CinematicaGameDificilVista ? 1 : 0);
         PlayerPrefs.SetInt("puedeVerGameDificil", puedeVerGameDificil ? 1 : 0);
+        PlayerPrefs.SetInt("CinematicaGameInicioVista", CinematicaGameInicioVista ? 1 : 0); 
+        PlayerPrefs.SetInt("puedeVerCinematicaGameInicio", puedeVerCinematicaGameInicio ? 1 : 0);
 
 
 
@@ -456,6 +461,8 @@ public class GameManager : MonoBehaviour
         EscuchoMusica = PlayerPrefs.GetInt("EscuchoMusica", 0) == 1;
         CinematicaGameDificilVista = PlayerPrefs.GetInt("CinematicaGameDificilVista", 0) == 1;
         puedeVerGameDificil = PlayerPrefs.GetInt("puedeVerGameDificil", 0) == 1;
+        CinematicaGameInicioVista = PlayerPrefs.GetInt("CinematicaGameInicioVista", 0) == 1; 
+        puedeVerCinematicaGameInicio = PlayerPrefs.GetInt("puedeVerCinematicaGameInicio", 0) == 1;
 
 
 
@@ -493,6 +500,8 @@ public class GameManager : MonoBehaviour
         EscuchoMusica = false;
         puedeVerGameDificil = false;
         CinematicaGameDificilVista = false;
+        CinematicaGameInicioVista = false; 
+        puedeVerCinematicaGameInicio = true;    
 
 
 
