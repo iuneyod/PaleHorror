@@ -7,11 +7,21 @@ public class Basket : MonoBehaviour
 {
     public int puntos = 0;
 
+    public AudioSource canasta;
+    BasketBall basketBall;
+
+    private void Start()
+    {
+        basketBall = FindObjectOfType<BasketBall>();
+    }
+
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("ObjetoInteractivo"))
+        if (other.gameObject.CompareTag("ObjetoInteractivo") && basketBall.enMano == false)
         {
             puntos ++;
+            canasta.Play();
         }
     }
 

@@ -28,6 +28,8 @@ public class VelaMinigame4 : ObjetoInteractivo
         Vela2MInigame4 = FindObjectOfType<Vela2MInigame4>();
         Vela3Minigame4 = FindObjectOfType<Vela3Minigame4>();
         Vela4Minigame4 = FindObjectOfType<Vela4Minigame4>();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public override void ActivarObjeto()

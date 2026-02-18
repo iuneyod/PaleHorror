@@ -99,6 +99,8 @@ public class MINIGAME3 : MonoBehaviour
         textoFinal.gameObject.SetActive(false);
         finalLight.SetActive(false);
         ConfigurarDificultad();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     void ConfigurarDificultad()
@@ -255,7 +257,7 @@ public class MINIGAME3 : MonoBehaviour
 
     void CrearPalancas()
     {
-        int palancasAInstanciar = 8;
+        int palancasAInstanciar = 10;
         List<Transform> spawnsLibres = new List<Transform>(spawnPalancas);
 
         for (int i = 0; i < palancasAInstanciar && spawnsLibres.Count > 0; i++)
@@ -268,7 +270,7 @@ public class MINIGAME3 : MonoBehaviour
 
     void CrearGeneradores()
     {
-        int generadoresAInstanciar = 2;
+        int generadoresAInstanciar = 3;
         List<Transform> spawnsLibres = new List<Transform>(spawnGeneradores);
 
         for (int i = 0; i < generadoresAInstanciar && spawnsLibres.Count > 0; i++)

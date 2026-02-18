@@ -83,7 +83,7 @@ public class Minijuego2 : MonoBehaviour
     public TMP_Text TemporizadorNivel3;
 
     [Header("Temporizador Nivel")]
-    float tiempoNivel = 190f;
+    float tiempoNivel = 170f;
     private bool acaboElTiempo = false;
 
     public GameObject LuzMonster;
@@ -98,6 +98,8 @@ public class Minijuego2 : MonoBehaviour
     public AudioClip laugh;
     public AudioClip monsterBite;
     public AudioSource Scream;
+    private bool modoDificilActivado = false;
+
 
 
     KeyCode GetRandomKey()
@@ -171,14 +173,17 @@ public class Minijuego2 : MonoBehaviour
     {
         //float tiempoNivel = Time.timeSinceLevelLoad;
 
-        if (GameManager.Instance != null && GameManager.Instance.CompletoTodosLosMinijuegos)
+        if (!modoDificilActivado &&
+    GameManager.Instance != null &&
+    GameManager.Instance.MiniguegosCompletadosCount() >= 4)
         {
-            tiempoNivel = 190f;
+            modoDificilActivado = true;
+
+            tiempoNivel = 180f;
             tiempoPorTecla = 1.5f;
             teclasNecesarias = 6;
-            string tiempoTexto = Mathf.Ceil(tiempoNivel).ToString();
-
         }
+
 
 
         if (haTocadoTornillo == true && yaTocoTornillo == false)
@@ -446,22 +451,7 @@ public class Minijuego2 : MonoBehaviour
             1f
         ));
         yield return new WaitForSeconds(0.4f);
-        //float tiempo = 0f;
-        //float duracion = 0.8f;
-        //Quaternion desde = brazoMonstruo.transform.localRotation;
-        //Quaternion hasta = Quaternion.Euler(rotacionMuerte3Euler);
-
-        //while (tiempo < duracion)
-        //{
-        //    tiempo += Time.deltaTime;
-        //    float t = tiempo / duracion;
-
-        //    brazoMonstruo.transform.localRotation = Quaternion.Slerp(desde, hasta, t);
-        //    yield return null;
-        //}
-
-        //brazoMonstruo.transform.localRotation = hasta;
-
+        
         pantallaNegro.SetActive(true);
         monstruoFinal.transform.position = monsterFinalPos.transform.position;
         yield return new WaitForSeconds(0.2f);

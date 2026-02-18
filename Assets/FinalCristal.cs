@@ -9,6 +9,7 @@ public class FinalCristal : ObjetoInteractivo
     [Header("Cinemática")]
     public PlayableDirector timeline;
     public GameObject cameraa;
+    public GameObject CameraPlayer;
     Selected SELECTED;
 
     public bool yaActivado = false;
@@ -30,10 +31,13 @@ public class FinalCristal : ObjetoInteractivo
         if (yaActivado) return;
         yaActivado = true;
         GameManager.Instance.enCinematica = true;
+        GameManager.Instance.EstrellaCompletarJuegoGanada = true;
+        GameManager.Instance.Guardar();
 
         juke.PararMusica();
         music.Play();
         cameraa.SetActive(true);
+        CameraPlayer.SetActive(false);
         GameManager.Instance.cristalObtenido = true;
         SELECTED.sistemaActivo = false;
 
@@ -56,7 +60,9 @@ public class FinalCristal : ObjetoInteractivo
         efects.SetActive(true);
         yield return new WaitForSeconds(5.5f);
         pantallaNegra.SetActive(true);
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(0.2f);
+        GameManager.Instance.enCinematica = false;
+        yield return new WaitForSeconds(5.8f);
         SceneManager.LoadScene("Credits");
     }
 }

@@ -12,6 +12,8 @@ public class PhantomMove : MonoBehaviour
     {
         posicionInicial = transform.position;
         Music.Play();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     void Update()

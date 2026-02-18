@@ -65,6 +65,8 @@ public class GameManager : MonoBehaviour
 
     public bool CinematicaGameInicioVista = false;
     public bool puedeVerCinematicaGameInicio = true;
+    public bool EstrellaCompletarJuegoGanada = false;
+    public bool EstrellaTodosLosLogrosGanada = false;
 
 
 
@@ -232,20 +234,25 @@ public class GameManager : MonoBehaviour
 
     public void ComprobarTodosLosMinijuegos()
     {
-        if (Minigame1Completado &&
-            Minigame2Completado &&
-            Minigame3Completado &&
-            Minigame4Completado)
+        if (minijuegosCompletados.Count >= 4)
         {
             if (!CompletoTodosLosMinijuegos)
             {
                 puedeVerGameDificil = true;
                 CompletoTodosLosMinijuegos = true;
+
                 DesbloquearLogro(LogrosID.Todos_Los_Minijuegos);
+
                 Guardar();
             }
         }
     }
+
+    public int MiniguegosCompletadosCount()
+    {
+        return minijuegosCompletados.Count;
+    }
+
 
 
 
@@ -292,9 +299,13 @@ public class GameManager : MonoBehaviour
         if (!minijuegosCompletados.Contains(id))
         {
             minijuegosCompletados.Add(id);
+
             Guardar();
+
+            ComprobarTodosLosMinijuegos();
         }
     }
+
 
     public bool MinijuegoCompletado(string id)
     {
@@ -317,7 +328,10 @@ public class GameManager : MonoBehaviour
 
     void ReproducirSonidoLogro()
     {
-        audioLogro.Play();
+        if (audioLogro != null)
+        {
+            audioLogro.Play();
+        }
     }
 
 
@@ -397,6 +411,10 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("CinematicaGameInicioVista", CinematicaGameInicioVista ? 1 : 0); 
         PlayerPrefs.SetInt("puedeVerCinematicaGameInicio", puedeVerCinematicaGameInicio ? 1 : 0);
 
+        PlayerPrefs.SetInt("EstrellaCompletarJuego", EstrellaCompletarJuegoGanada ? 1 : 0);
+        PlayerPrefs.SetInt("EstrellaTodosLogros", EstrellaTodosLosLogrosGanada ? 1 : 0);
+
+
 
 
 
@@ -461,8 +479,12 @@ public class GameManager : MonoBehaviour
         EscuchoMusica = PlayerPrefs.GetInt("EscuchoMusica", 0) == 1;
         CinematicaGameDificilVista = PlayerPrefs.GetInt("CinematicaGameDificilVista", 0) == 1;
         puedeVerGameDificil = PlayerPrefs.GetInt("puedeVerGameDificil", 0) == 1;
-        CinematicaGameInicioVista = PlayerPrefs.GetInt("CinematicaGameInicioVista", 0) == 1; 
-        puedeVerCinematicaGameInicio = PlayerPrefs.GetInt("puedeVerCinematicaGameInicio", 0) == 1;
+        CinematicaGameInicioVista = PlayerPrefs.GetInt("CinematicaGameInicioVista", 0) == 1;
+        puedeVerCinematicaGameInicio = PlayerPrefs.GetInt("puedeVerCinematicaGameInicio", 1) == 1;
+
+        EstrellaCompletarJuegoGanada = PlayerPrefs.GetInt("EstrellaCompletarJuego", 0) == 1;
+        EstrellaTodosLosLogrosGanada = PlayerPrefs.GetInt("EstrellaTodosLogros", 0) == 1;
+
 
 
 
@@ -501,14 +523,50 @@ public class GameManager : MonoBehaviour
         puedeVerGameDificil = false;
         CinematicaGameDificilVista = false;
         CinematicaGameInicioVista = false; 
-        puedeVerCinematicaGameInicio = true;    
+        puedeVerCinematicaGameInicio = true;
+
+        // BORRAR PROGRESO
+        PlayerPrefs.DeleteKey("Minijuegos");
+        PlayerPrefs.DeleteKey("Logros");
+        PlayerPrefs.DeleteKey("Flags");
+        PlayerPrefs.DeleteKey("AvisosLogrosMostrados");
+
+        PlayerPrefs.DeleteKey("Rango");
+        PlayerPrefs.DeleteKey("Puntuacion");
+        PlayerPrefs.DeleteKey("Latas");
+        PlayerPrefs.DeleteKey("ObjArcade1");
+        PlayerPrefs.DeleteKey("ObjArcade2");
+        PlayerPrefs.DeleteKey("YaCayoPaleMadera");
+
+        PlayerPrefs.DeleteKey("CompletoTodosLosMinijuegos");
+        PlayerPrefs.DeleteKey("Minigame1Completado");
+        PlayerPrefs.DeleteKey("Minigame2Completado");
+        PlayerPrefs.DeleteKey("Minigame3Completado");
+        PlayerPrefs.DeleteKey("Minigame4Completado");
+
+        PlayerPrefs.DeleteKey("Minigame1Dificil");
+        PlayerPrefs.DeleteKey("Minigame2Dificil");
+        PlayerPrefs.DeleteKey("Minigame3Dificil");
+
+        PlayerPrefs.DeleteKey("CristalFinJuego");
+        PlayerPrefs.DeleteKey("TerminoJuego");
+
+        PlayerPrefs.DeleteKey("Puntuacion500");
+        PlayerPrefs.DeleteKey("Puntuacion1000");
+        PlayerPrefs.DeleteKey("Arcade2Puntos");
+        PlayerPrefs.DeleteKey("EscuchoMusica");
+
+        PlayerPrefs.DeleteKey("CinematicaGameDificilVista");
+        PlayerPrefs.DeleteKey("puedeVerGameDificil");
+        PlayerPrefs.DeleteKey("CinematicaGameInicioVista");
+        PlayerPrefs.DeleteKey("puedeVerCinematicaGameInicio");
+
 
 
 
         rango = 0;
         puntuacionTotal = 0;
 
-        PlayerPrefs.DeleteAll();
         PlayerPrefs.Save();
     }
 

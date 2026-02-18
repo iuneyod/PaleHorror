@@ -6,10 +6,13 @@ using UnityEngine.SceneManagement;
 using static GameManager;
 using UnityEngine.Playables;
 using StarterAssets;
+using TMPro;
 
 public class OpcionesLogrosManager : MonoBehaviour
 {
+    PortalMinigame1 portalMinigame1;
     ThirdPersonController controller;
+    PaleMaderaLobby paleMaderaLobby;
     PortalMinigame1 portal;
     ArcadeMachine arcade;
     Selected selectedScript;
@@ -49,10 +52,40 @@ public class OpcionesLogrosManager : MonoBehaviour
     public PlayableDirector AnimacionInicio;
     public GameObject CameraInicio;
     public GameObject pantallaNegra;
+    public GameObject CameraPlayer;
+
+    public AudioSource CinematicaPrincipal;
+
+    public GameObject Monster1;
+    public GameObject Monster2;
+    public GameObject Monster3;
+    public GameObject Monster4;
+    public GameObject Light;
+    public AudioSource angelical;
+    public AudioSource MusicDificilCinematic;
+
+    public TMP_Text textoIuneyDificil;
+    public GameObject cuadro1;
+    public GameObject cuadro2;
+    public GameObject cuadro3;
 
     private void Start()
     {
+        paleMaderaLobby = FindObjectOfType<PaleMaderaLobby>();
+        portalMinigame1 = FindObjectOfType<PortalMinigame1>();
         controller = FindObjectOfType<ThirdPersonController>();
+        portal = FindAnyObjectByType<PortalMinigame1>();
+        portal.Portales();
+        music.Play();
+        UI.SetActive(false);
+        selectedScript = FindAnyObjectByType<Selected>();
+        arcade = FindAnyObjectByType<ArcadeMachine>();
+
+        Monster1.SetActive(false);
+        Monster2.SetActive(false);
+        Monster3.SetActive(false);
+        Monster4.SetActive(false);
+        Light.SetActive(false);
 
 
         if (!GameManager.Instance.CinematicaGameInicioVista &&
@@ -68,12 +101,6 @@ public class OpcionesLogrosManager : MonoBehaviour
         }
             
             
-        portal = FindAnyObjectByType<PortalMinigame1>();
-        portal.Portales();
-        music.Play();
-        UI.SetActive(false);
-        selectedScript = FindAnyObjectByType<Selected>();
-        arcade = FindAnyObjectByType<ArcadeMachine>();
 
         if (GameManager.Instance.Minigame1Dificil &&
         !GameManager.Instance.avisosLogrosMostrados.Contains(LogrosID.Minijuego1_Dificil))
@@ -100,6 +127,16 @@ public class OpcionesLogrosManager : MonoBehaviour
             StartCoroutine(CinematicaGameDificl());
         }
 
+        if(GameManager.Instance.enCinematica == true)
+        {
+            music.Stop();
+        }
+        else
+        {
+            if (!music.isPlaying)
+                music.Play();
+        }
+
 
         if (GameManager.Instance.puedeAparecerCristal == true && yaAparecio == false)
         {
@@ -112,11 +149,14 @@ public class OpcionesLogrosManager : MonoBehaviour
             LightMenu.GetComponent<Light>().color = Color.red;
             LightMenu.GetComponent <Light>().intensity = 0.6f;
             GameManager.Instance.Guardar();
+            textoIuneyDificil.text = "ATRAPADO AQUÍ";
+            //rotamos los cuadros 180 grados
         }
         else
         {
             LightMenu.GetComponent<Light>().color = Color.white;
             LightMenu.GetComponent<Light>().intensity = 1f;
+            textoIuneyDificil.text = "IUNEY";
         }
 
         if (Input.GetKeyDown(KeyCode.Escape)
@@ -137,12 +177,10 @@ public class OpcionesLogrosManager : MonoBehaviour
             Cursor.visible = true;
 
             controller.inputBloqueado = true;
-            selectedScript.enabled = false;
         }
         else
         {
             controller.inputBloqueado = false;
-            selectedScript.enabled = true;
         }
 
 
@@ -167,25 +205,33 @@ public class OpcionesLogrosManager : MonoBehaviour
 
     public IEnumerator CinematicaGameDificl()
     {
-        selectedScript.enabled = false;
+        MusicDificilCinematic.volume = 0.2f;
+        MusicDificilCinematic.time = 6.5f;
+        MusicDificilCinematic.Play();
+        StartCoroutine(FadeInVolumen(MusicDificilCinematic, 0.2f, 0.75f, 5f));
+        CameraPlayer.SetActive(false);
         controller.enabled = false;
         GameManager.Instance.enCinematica = true;
         AnimacionGameDificil.Play();
         CameraGameDificil.SetActive(true);
         yield return new WaitForSeconds(10f);
+        StartCoroutine(FadeInVolumen(MusicDificilCinematic, 0.75f, 0f, 8f));
         AnimacionGameDificil.Stop();
+        CameraPlayer.SetActive(true);
         CameraGameDificil.SetActive(false);
         GameManager.Instance.CinematicaGameDificilVista = true;
         GameManager.Instance.puedeVerGameDificil = false;
         GameManager.Instance.enCinematica = false;
         controller.enabled = true;
-        selectedScript.enabled = true;
         GameManager.Instance.Guardar();
     }
 
     public IEnumerator CinematicaIntro()
     {
         GameManager.Instance.enCinematica = true;
+        CinematicaPrincipal.volume = 0.05f;
+        CinematicaPrincipal.Play();
+        StartCoroutine(FadeInVolumen(CinematicaPrincipal, 0.05f, 0.90f, 8f));
 
         controller.enabled = false;
         controller.inputBloqueado = true;
@@ -200,7 +246,194 @@ public class OpcionesLogrosManager : MonoBehaviour
 
         AnimacionInicio.Play();
 
-        yield return new WaitForSeconds((float)AnimacionInicio.duration);
+        yield return new WaitForSeconds(8f);
+        LightMenu.SetActive(false);
+        Monster1.SetActive(true);
+        Monster2.SetActive(true);
+        Monster3.SetActive(true);
+        Monster4.SetActive(true);
+        Light.SetActive(true);
+        yield return new WaitForSeconds(0.6f);
+        Monster1.SetActive(false);
+        Monster2.SetActive(false);
+        Monster3.SetActive(false);
+        Monster4.SetActive(false);
+        Light.SetActive(false);
+        yield return new WaitForSeconds(1f);
+        Monster1.SetActive(true);
+        Monster2.SetActive(true);
+        Monster3.SetActive(true);
+        Monster4.SetActive(true);
+        Light.SetActive(true);
+
+        yield return new WaitForSeconds(0.4f);
+        angelical.Play();
+        Monster1.SetActive(false);
+        Monster2.SetActive(false);
+        Monster3.SetActive(false);
+        Monster4.SetActive(false);
+        Light.SetActive(false);
+
+        yield return new WaitForSeconds(0.3f);
+        Monster1.SetActive(true);
+        Monster2.SetActive(true);
+        Monster3.SetActive(true);
+        Monster4.SetActive(true);
+        Light.SetActive(true);
+
+        yield return new WaitForSeconds(0.2f);
+        Monster1.SetActive(false);
+        Monster2.SetActive(false);
+        Monster3.SetActive(false);
+        Monster4.SetActive(false);
+        Light.SetActive(false);
+
+        yield return new WaitForSeconds(0.12f);
+        Monster1.SetActive(true);
+        Monster2.SetActive(true);
+        Monster3.SetActive(true);
+        Monster4.SetActive(true);
+        Light.SetActive(true);
+
+        yield return new WaitForSeconds(0.12f);
+        Monster1.SetActive(false);
+        Monster2.SetActive(false);
+        Monster3.SetActive(false);
+        Monster4.SetActive(false);
+        Light.SetActive(false);
+
+        yield return new WaitForSeconds(0.12f);
+        Monster1.SetActive(true);
+        Monster2.SetActive(true);
+        Monster3.SetActive(true);
+        Monster4.SetActive(true);
+        Light.SetActive(true);
+
+        yield return new WaitForSeconds(0.12f);
+        Monster1.SetActive(false);
+        Monster2.SetActive(false);
+        Monster3.SetActive(false);
+        Monster4.SetActive(false);
+        Light.SetActive(false);
+
+        yield return new WaitForSeconds(0.12f);
+        Monster1.SetActive(true);
+        Monster2.SetActive(true);
+        Monster3.SetActive(true);
+        Monster4.SetActive(true);
+        Light.SetActive(true);
+
+        yield return new WaitForSeconds(0.12f);
+        Monster1.SetActive(false);
+        Monster2.SetActive(false);
+        Monster3.SetActive(false);
+        Monster4.SetActive(false);
+        Light.SetActive(false);
+
+        yield return new WaitForSeconds(0.12f);
+        Monster1.SetActive(true);
+        Monster2.SetActive(true);
+        Monster3.SetActive(true);
+        Monster4.SetActive(true);
+        Light.SetActive(true);
+
+        yield return new WaitForSeconds(0.12f);
+        Monster1.SetActive(false);
+        Monster2.SetActive(false);
+        Monster3.SetActive(false);
+        Monster4.SetActive(false);
+        Light.SetActive(false);
+
+        yield return new WaitForSeconds(0.12f);
+        Monster1.SetActive(true);
+        Monster2.SetActive(true);
+        Monster3.SetActive(true);
+        Monster4.SetActive(true);
+        Light.SetActive(true);
+
+        yield return new WaitForSeconds(0.12f);
+        Monster1.SetActive(false);
+        Monster2.SetActive(false);
+        Monster3.SetActive(false);
+        Monster4.SetActive(false);
+        Light.SetActive(false);
+
+        yield return new WaitForSeconds(0.12f);
+        Monster1.SetActive(true);
+        Monster2.SetActive(true);
+        Monster3.SetActive(true);
+        Monster4.SetActive(true);
+        Light.SetActive(true);
+
+        yield return new WaitForSeconds(0.12f);
+        Monster1.SetActive(false);
+        Monster2.SetActive(false);
+        Monster3.SetActive(false);
+        Monster4.SetActive(false);
+        Light.SetActive(false);
+
+        yield return new WaitForSeconds(0.12f);
+        Monster1.SetActive(true);
+        Monster2.SetActive(true);
+        Monster3.SetActive(true);
+        Monster4.SetActive(true);
+        Light.SetActive(true);
+
+        yield return new WaitForSeconds(0.12f);
+        Monster1.SetActive(false);
+        Monster2.SetActive(false);
+        Monster3.SetActive(false);
+        Monster4.SetActive(false);
+        Light.SetActive(false);
+
+        yield return new WaitForSeconds(0.05f);
+        Monster1.SetActive(true);
+        Monster2.SetActive(true);
+        Monster3.SetActive(true);
+        Monster4.SetActive(true);
+        Light.SetActive(true);
+
+        yield return new WaitForSeconds(0.05f);
+        Monster1.SetActive(false);
+        Monster2.SetActive(false);
+        Monster3.SetActive(false);
+        Monster4.SetActive(false);
+        Light.SetActive(false);
+
+        yield return new WaitForSeconds(0.05f);
+        Monster1.SetActive(true);
+        Monster2.SetActive(true);
+        Monster3.SetActive(true);
+        Monster4.SetActive(true);
+        Light.SetActive(true);
+
+        yield return new WaitForSeconds(0.05f);
+        Monster1.SetActive(false);
+        Monster2.SetActive(false);
+        Monster3.SetActive(false);
+        Monster4.SetActive(false);
+        Light.SetActive(false);
+
+        yield return new WaitForSeconds(0.05f);
+        Monster1.SetActive(true);
+        Monster2.SetActive(true);
+        Monster3.SetActive(true);
+        Monster4.SetActive(true);
+        Light.SetActive(true);
+
+        yield return new WaitForSeconds(0.05f);
+        Monster1.SetActive(false);
+        Monster2.SetActive(false);
+        Monster3.SetActive(false);
+        Monster4.SetActive(false);
+        Light.SetActive(false);
+        LightMenu.SetActive(true);
+        angelical.Stop();
+        CinematicaPrincipal.Stop();
+
+
+
+        yield return new WaitForSeconds(2f);
 
         AnimacionInicio.Stop();
 
@@ -218,6 +451,38 @@ public class OpcionesLogrosManager : MonoBehaviour
 
         GameManager.Instance.Guardar();
     }
+
+    private IEnumerator FadeInPitch(AudioSource audio, float desde, float hasta, float duracion)
+    {
+        float tiempo = 0f;
+        audio.pitch = desde;
+
+        while (tiempo < duracion)
+        {
+            tiempo += Time.deltaTime;
+            audio.pitch = Mathf.Lerp(desde, hasta, tiempo / duracion);
+            yield return null;
+        }
+
+        audio.pitch = hasta;
+    }
+
+
+    private IEnumerator FadeInVolumen(AudioSource audio, float desde, float hasta, float duracion)
+    {
+        float tiempo = 0f;
+        audio.volume = desde;
+
+        while (tiempo < duracion)
+        {
+            tiempo += Time.deltaTime;
+            audio.volume = Mathf.Lerp(desde, hasta, tiempo / duracion);
+            yield return null;
+        }
+
+        audio.volume = hasta;
+    }
+
 
 
     private IEnumerator FadeOutPantallaNegra(float duration)

@@ -22,6 +22,7 @@ public class PortalMinigame1 : ObjetoInteractivo
     public Transform Portal4Transform;
     public GameObject Portal4Entero;
 
+
     private void Start()
     {
         sonidoPortal = GetComponent<AudioSource>();

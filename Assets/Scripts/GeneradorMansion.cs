@@ -118,7 +118,8 @@ public class GeneradorMansion : ObjetoInteractivo
         {
             if (Input.GetMouseButton(0))
             {
-                progresoReparacion += 10f * Time.deltaTime;
+                progresoReparacion += 8f * Time.deltaTime;
+                minigame3.ruido += 30f * Time.deltaTime;
             }
 
             yield return null;

@@ -21,12 +21,13 @@ public class VentMinigame2 : ObjetoInteractivo
     public override void ActivarObjeto()
     {
         entrar.Play();
-        GameManager.Instance.ComprobarTodosLosMinijuegos();
-
         GameManager.Instance.CompletarMinijuego("MINIJUEGO2");
         GameManager.Instance.Minigame2Completado = true;
 
-        if (GameManager.Instance.CompletoTodosLosMinijuegos)
+        GameManager.Instance.ComprobarTodosLosMinijuegos();
+
+
+        if (GameManager.Instance.MiniguegosCompletadosCount() >= 4)
         {
             GameManager.Instance.Minigame2Dificil = true;
             GameManager.Instance.DesbloquearLogro(GameManager.LogrosID.Minijuego2_Dificil);

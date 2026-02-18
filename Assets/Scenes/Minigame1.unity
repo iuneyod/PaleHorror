@@ -7938,7 +7938,6 @@ MonoBehaviour:
   Progress: 0
   MaxProgress: 100
   ProgressSpeed: 1
-  DegressSpeed: 0.1
   estaSubiendo: 0
   Player: {fileID: 1249484842}
   cameraRoot: {fileID: 1411915344}

@@ -41,7 +41,7 @@ public class PaleMaderaLobby : ObjetoInteractivo
     public void Interactuar()
     {
         ColliderPlayer.enabled = false;
-        controller.enabled = false;   // bloquea input, NO la cámara
+        controller.enabled = false;
     }
 
     public void ReactivarJugador()

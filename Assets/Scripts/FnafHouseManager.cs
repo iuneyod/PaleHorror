@@ -17,7 +17,7 @@ public class FnafHouseManager : MonoBehaviour
     public float Progress = 0;
     public float MaxProgress = 100;
     public float ProgressSpeed = 1f;
-    public float DegressSpeed = 0.1f;
+    float DegressSpeed = 0.1f;
     public bool estaSubiendo = false;
 
     Coroutine progresoCoroutine;
@@ -59,8 +59,8 @@ public class FnafHouseManager : MonoBehaviour
 
     public bool Minigame1DificilCompletado = false;
 
-    float TiempoMonsterDificil = 4.2f;
-    float EsperarPosterDificil = 7f;
+    float TiempoMonsterDificil = 3.6f;
+    float EsperarPosterDificil = 6.5f;
 
     public AudioSource AUDIO;
     public AudioClip linternaON;
@@ -157,6 +157,8 @@ public class FnafHouseManager : MonoBehaviour
 
     void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         StartCoroutine(FadeOutPantallaNegra(2f));
         playerAnimator = player.GetComponent<Animator>();
         inputs = player.GetComponent<StarterAssetsInputs>();
@@ -185,8 +187,8 @@ public class FnafHouseManager : MonoBehaviour
 
         if(GameManager.Instance.CompletoTodosLosMinijuegos == true)
         {
-            DegressSpeed = 0.5f;
-            TiempoMonsterDificil = 2.6f;
+            DegressSpeed = 0.3f;
+            TiempoMonsterDificil = 2.4f;
             EsperarPosterDificil = 5f;
             quitarEnergia = 15;
         }
@@ -342,18 +344,20 @@ public class FnafHouseManager : MonoBehaviour
         if (Progress >= MaxProgress && !minigame1Completado)
         {
 
-            GameManager.Instance.ComprobarTodosLosMinijuegos();
             GameManager.Instance.CompletarMinijuego("MINIJUEGO1");
+            GameManager.Instance.Minigame1Completado = true;
+
+            GameManager.Instance.ComprobarTodosLosMinijuegos();
+
             GameManager.Instance.DesbloquearLogro(GameManager.LogrosID.PRIMER_MINIJUEGO);
             GameManager.Instance.MostrarAvisoLogro(LogrosID.PRIMER_MINIJUEGO, "EL PRINCIPIO DEL FIN...");
             minigame1Completado = true;
-            GameManager.Instance.Minigame1Completado = true;
             juegoBloqueado = true;
 
             StopAllCoroutines(); //PARA TODO FNAF
             StartCoroutine(VictoriaCorutina());
 
-            if (GameManager.Instance.CompletoTodosLosMinijuegos == true)
+            if (GameManager.Instance.MiniguegosCompletadosCount() >= 4)
             {
                 Minigame1DificilCompletado = true;
                 GameManager.Instance.DesbloquearLogro(GameManager.LogrosID.Minijuego1_Dificil);

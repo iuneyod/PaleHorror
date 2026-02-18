@@ -29,7 +29,7 @@ public class CollisionSalida : MonoBehaviour
         GameManager.Instance.Minigame3Completado = true;
         GameManager.Instance.ComprobarTodosLosMinijuegos();
 
-        if (GameManager.Instance.CompletoTodosLosMinijuegos)
+        if (GameManager.Instance.MiniguegosCompletadosCount() >= 4)
         {
             minigame3DificilCompletado = true;
             GameManager.Instance.Minigame3Dificil = true;

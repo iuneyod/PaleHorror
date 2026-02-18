@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.07547188, g: 0.07547188, b: 0.07547188, a: 1}
+  m_AmbientSkyColor: {r: 0.03773594, g: 0.03773594, b: 0.03773594, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 0
@@ -2701,18 +2701,18 @@ MonoBehaviour:
   lintern: {fileID: 219001802}
   linternActive: 0
   puedeUsarLinterna: 1
-  duracionLinterna: 310
+  duracionLinterna: 280
   barraDuracionLinterna: {fileID: 161197450}
   PorcentajeBateria: {fileID: 2145026126}
   mainCamera: {fileID: 1125287141}
   cameraAnimacion: {fileID: 1526557108}
   pantallaNegra: {fileID: 1165570637}
-  palancasNormal: 6
-  palancasDificil: 8
-  generadoresNormal: 2
-  generadoresDificil: 3
-  bateriaNormal: 300
-  bateriaDificil: 260
+  palancasNormal: 8
+  palancasDificil: 10
+  generadoresNormal: 3
+  generadoresDificil: 4
+  bateriaNormal: 280
+  bateriaDificil: 240
   ruidoMaxNormal: 100
   ruidoMaxDificil: 110
   ruido: 0
@@ -45860,13 +45860,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1577639637}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
   m_LocalPosition: {x: -5.001, y: -3.695, z: 32.322}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
 --- !u!1001 &1577670172
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -11,8 +11,12 @@ public class MenuPrincipal : MonoBehaviour
     public GameObject menuDatos;
     public AudioSource MusicMenu;
 
+    public GameObject EstrellaCompletarJuego;
+    public GameObject EstrellaTodosLosLogros;
+
     private void Start()
     {
+        GameManager.Instance.Cargar();
         MusicMenu.Play();
         Time.timeScale = 1f;
 
@@ -26,6 +30,26 @@ public class MenuPrincipal : MonoBehaviour
         StartCoroutine(FadeOutPantallaNegra(2f));
 
         Cursor.lockState = CursorLockMode.None;
+
+        if (GameManager.Instance.LogroDesbloqueado(GameManager.LogrosID.PRIMER_MINIJUEGO) == true &&
+           GameManager.Instance.LogroDesbloqueado(GameManager.LogrosID.LATAS_10) == true &&
+           GameManager.Instance.LogroDesbloqueado(GameManager.LogrosID.Canasta_5) == true &&
+           GameManager.Instance.LogroDesbloqueado(GameManager.LogrosID.Todos_Los_Minijuegos) == true &&
+           GameManager.Instance.LogroDesbloqueado(GameManager.LogrosID.DosObjetosArcade) == true &&
+           GameManager.Instance.LogroDesbloqueado(GameManager.LogrosID.Minijuego1_Dificil) == true &&
+           GameManager.Instance.LogroDesbloqueado(GameManager.LogrosID.Minijuego2_Dificil) == true &&
+           GameManager.Instance.LogroDesbloqueado(GameManager.LogrosID.JuegoCompletado) == true &&
+           GameManager.Instance.LogroDesbloqueado(GameManager.LogrosID.PuntuacionPeq) == true &&
+           GameManager.Instance.LogroDesbloqueado(GameManager.LogrosID.PuntuacionGrande) == true &&
+           GameManager.Instance.LogroDesbloqueado(GameManager.LogrosID.Puntuacion2Arcade) == true &&
+           GameManager.Instance.LogroDesbloqueado(GameManager.LogrosID.EscuchoMusica) == true)
+        {
+            GameManager.Instance.EstrellaTodosLosLogrosGanada = true;
+        }
+
+        EstrellaJuegoCompletado();
+        EstrellaTodosLogros();
+
     }
 
     public void GoMenu()
@@ -102,5 +126,29 @@ public class MenuPrincipal : MonoBehaviour
         }
         canvasGroup.alpha = 0f;
         pantallaNegra.SetActive(false);
+    }
+
+    public void EstrellaJuegoCompletado()
+    {
+        if(GameManager.Instance.EstrellaCompletarJuegoGanada == true)
+        {
+            EstrellaCompletarJuego.SetActive(true);
+        }
+        else
+        {
+            EstrellaCompletarJuego.SetActive(false);
+        }
+    }
+
+    public void EstrellaTodosLogros()
+    {
+        if(GameManager.Instance.EstrellaTodosLosLogrosGanada == true)
+        {
+            EstrellaTodosLosLogros.SetActive(true);
+        }
+        else
+        {
+            EstrellaTodosLosLogros.SetActive(false);
+        }
     }
 }
