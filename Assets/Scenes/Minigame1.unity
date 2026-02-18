@@ -2288,11 +2288,6 @@ PrefabInstance:
       addedObject: {fileID: 415498985}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 76b9d8179905d454e9bf6dcc847231ce, type: 3}
---- !u!4 &656354490 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6460254750611363375, guid: 76b9d8179905d454e9bf6dcc847231ce, type: 3}
-  m_PrefabInstance: {fileID: 656354489}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &656354491 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 583091413269648081, guid: 76b9d8179905d454e9bf6dcc847231ce, type: 3}
@@ -7849,13 +7844,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1392412341}
   - component: {fileID: 1392412345}
-  - component: {fileID: 1392412340}
-  - component: {fileID: 1392412344}
-  - component: {fileID: 1392412346}
   - component: {fileID: 1392412347}
   - component: {fileID: 1392412348}
   - component: {fileID: 1392412349}
   - component: {fileID: 1392412350}
+  - component: {fileID: 1392412351}
   m_Layer: 0
   m_Name: GAME MANAGER
   m_TagString: Untagged
@@ -7863,33 +7856,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1392412340
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1392412339}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae3c44b77ec5653459911a6ab44eeca2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GoToQuest: {fileID: 0}
-  questPanel: {fileID: 0}
-  GoToLogros: {fileID: 0}
-  LogrosPanel: {fileID: 0}
-  Quest1: {fileID: 0}
-  Quest2: {fileID: 0}
-  Quest3: {fileID: 0}
-  Quest4: {fileID: 0}
-  Quest5: {fileID: 0}
-  Quest6: {fileID: 0}
-  Quest7: {fileID: 0}
-  Quest8: {fileID: 0}
-  Quest9: {fileID: 0}
-  Quest10: {fileID: 0}
-  bonfire: {fileID: 0}
 --- !u!4 &1392412341
 Transform:
   m_ObjectHideFlags: 0
@@ -7905,22 +7871,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1392412344
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1392412339}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5ece26ffa6b6ab4f92837a18fcd2a89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tieneWalkie: 0
-  walkieEnMano: 0
-  carryPoint: {fileID: 656354490}
-  WalkiePrefab: {fileID: 8650279199495138094, guid: bc98724eb20faac4d975548910c3c12f, type: 3}
 --- !u!114 &1392412345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7960,8 +7910,7 @@ MonoBehaviour:
   Minigame1DificilCompletado: 0
   AUDIO: {fileID: 1392412347}
   linternaON: {fileID: 8300000, guid: a83b9ca1f3431f94eb82d1440aa5a824, type: 3}
-  MonsterSusto: {fileID: 8300000, guid: d05583598a1570343917e8c3b1d16660, type: 3}
-  Monster: {fileID: 1392412348}
+  Monster: {fileID: 1392412351}
   alert: {fileID: 8300000, guid: e802caf1c7eb1ff4891fd8da75e2e366, type: 3}
   Alert: {fileID: 1392412349}
   BreakPaper: {fileID: 8300000, guid: 4a0f321e4b0550742871db70892c85c0, type: 3}
@@ -7989,24 +7938,6 @@ MonoBehaviour:
   monsterDerecha_Pose3: {fileID: 603359579}
   monsterDerecha_PoseUltima: {fileID: 1907346095}
   LuzAlerta: {fileID: 920129735}
---- !u!114 &1392412346
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1392412339}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bd311d029777f84c87ebadfcd1a0820, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CompletaElPrimerMinijuego: 0
-  EncuentraLosDosJuegosOcultosDeLaArcade: 0
-  Comete10Latas: 0
-  CompletaTodosLosMinijuegos: 0
-  CompletaTodosLosMinijuegosEnDificil: 0
-  Encesta5VecesEnLaCanasta: 0
 --- !u!82 &1392412347
 AudioSource:
   m_ObjectHideFlags: 0
@@ -8309,6 +8240,102 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 0.81
   m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!82 &1392412351
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1392412339}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: d05583598a1570343917e8c3b1d16660, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.8
+  m_Pitch: 0.5
   Loop: 0
   Mute: 0
   Spatialize: 0

@@ -64,7 +64,6 @@ public class FnafHouseManager : MonoBehaviour
 
     public AudioSource AUDIO;
     public AudioClip linternaON;
-    public AudioClip MonsterSusto;
     public AudioSource Monster;
     public AudioClip alert;
     public AudioSource Alert;
@@ -936,7 +935,8 @@ public class FnafHouseManager : MonoBehaviour
     }
     private IEnumerator MonsterIZQShake(float duration, float magnitude)
     {
-        Monster.PlayOneShot(MonsterSusto);
+        Monster.time = 1f;
+        Monster.Play();
 
         Vector3 originalPos = monsterIzquierdaSusto.transform.localPosition;
 
@@ -958,7 +958,8 @@ public class FnafHouseManager : MonoBehaviour
 
     private IEnumerator MonsterDERShake(float duration, float magnitude)
     {
-        Monster.PlayOneShot(MonsterSusto);
+        Monster.time = 1f;
+        Monster.Play();
 
         Vector3 originalPos = monsterDerechaSusto.transform.localPosition;
 
@@ -1001,7 +1002,8 @@ public class FnafHouseManager : MonoBehaviour
 
     private IEnumerator MonsterAtrasShake(float duration, float magnitude)
     {
-        Monster.PlayOneShot(MonsterSusto);
+        Monster.time = 1f;
+        Monster.Play();
 
         Vector3 originalPos = monsterDetrasSusto.transform.localPosition;
 
