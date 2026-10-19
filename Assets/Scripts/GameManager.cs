@@ -411,8 +411,8 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("CinematicaGameInicioVista", CinematicaGameInicioVista ? 1 : 0); 
         PlayerPrefs.SetInt("puedeVerCinematicaGameInicio", puedeVerCinematicaGameInicio ? 1 : 0);
 
-        PlayerPrefs.SetInt("EstrellaCompletarJuego", EstrellaCompletarJuegoGanada ? 1 : 0);
-        PlayerPrefs.SetInt("EstrellaTodosLogros", EstrellaTodosLosLogrosGanada ? 1 : 0);
+        PlayerPrefs.SetInt("ESTRELLA_COMPLETAR_JUEGO", EstrellaCompletarJuegoGanada ? 1 : 0);
+        PlayerPrefs.SetInt("ESTRELLA_TODOS_LOGROS", EstrellaTodosLosLogrosGanada ? 1 : 0);
 
 
 
@@ -482,8 +482,11 @@ public class GameManager : MonoBehaviour
         CinematicaGameInicioVista = PlayerPrefs.GetInt("CinematicaGameInicioVista", 0) == 1;
         puedeVerCinematicaGameInicio = PlayerPrefs.GetInt("puedeVerCinematicaGameInicio", 1) == 1;
 
-        EstrellaCompletarJuegoGanada = PlayerPrefs.GetInt("EstrellaCompletarJuego", 0) == 1;
-        EstrellaTodosLosLogrosGanada = PlayerPrefs.GetInt("EstrellaTodosLogros", 0) == 1;
+        EstrellaCompletarJuegoGanada =
+    PlayerPrefs.GetInt("ESTRELLA_COMPLETAR_JUEGO", 0) == 1;
+
+        EstrellaTodosLosLogrosGanada =
+            PlayerPrefs.GetInt("ESTRELLA_TODOS_LOGROS", 0) == 1;
 
 
 
@@ -502,6 +505,7 @@ public class GameManager : MonoBehaviour
         logrosDesbloqueados.Clear();
         flagsHistoria.Clear();
         avisosLogrosMostrados.Clear();
+
         latasComidas = 0;
         tieneObjetoArcade1 = false;
         tieneObjetoArcade2 = false;

@@ -315,7 +315,6 @@ public class Bear : MonoBehaviour
 
     IEnumerator DeathSequence()
     {
-        // Partículas
         if (ParticleSystem)
             ParticleSystem.Play();
 
